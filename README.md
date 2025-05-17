@@ -95,9 +95,9 @@ This is a lightweight static site generator designed for educators to create int
   "site_title": "My Course",
   "content_dir": "content/classes",
   "output_dir": "public",
-  "theme": "rustbook",
+  "theme": "darkbook",
   "template_file": "template.html",
-  "lang": "pt-br"
+  "lang": "en-en"
 }
 ```
 
