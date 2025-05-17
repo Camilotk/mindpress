@@ -8,7 +8,7 @@ This is a lightweight static site generator designed for educators to create int
 
 - Write lessons in Markdown with YAML metadata
 - Interactive **multiple choice quizzes**
-- **Matching pairs** exercises with drag or click
+- **Matching pairs** exercises click
 - Clean, semantic HTML output
 - Customizable themes (`simplepage`, `darkbook`, or your own)
 - Supports table rendering, code blocks, and headers
