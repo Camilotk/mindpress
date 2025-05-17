@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en-en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>First Lesson - Title</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.min.css">
+  <link rel="stylesheet" href="../themes/simplepage/css/theme.css">
+  <script src="../themes/simplepage/js/theme.js" defer></script>
+  <link rel="stylesheet" href="css/quiz.css">
+  <link rel="stylesheet" href="themes/simplepage/css/light-theme.css">
+  <link rel="stylesheet" href="themes/simplepage/css/light-background.css">
+  <script src="js/quiz.js" defer></script>
+  <script src="js/match.js" defer></script>
+</head>
+<body>
+  <header role="banner">
+    <nav aria-label="Main navigation">
+      
+        <a href="index.html">&larr; Back to index</a>
+      
+    </nav>
+    <h1>Title</h1>
+    <h2>First Lesson</h2>
+  </header>
+
+  <main role="main">
+    <nav class="minimap"><ul><li class="lvl2"><a href="#multiple-choice-quiz">🎯 Multiple Choice Quiz</a></li><li class="lvl2"><a href="#match-the-pairs">🔗 Match the Pairs</a></li></ul></nav><h1>First Lesson</h1>
+<p>This is a demonstration of interactive quizzes supported by the framework.</p>
+<h2 id="multiple-choice-quiz">🎯 Multiple Choice Quiz</h2>
+<div class='quiz' data-type='single'>
+  <p class='question'>What is the capital of France?</p>
+  <ul class='options'><li data-index="0" data-correct=false>Berlin</li><li data-index="1" data-correct=true>Paris</li><li data-index="2" data-correct=false>Rome</li><li data-index="3" data-correct=false>Madrid</li></ul>
+  <p class='explanation' style='display:none;'>Paris is the capital of France.</p>
+</div>
+
+<h2 id="match-the-pairs">🔗 Match the Pairs</h2>
+<div class='quiz pair-quiz'>
+  <p>Match the following pairs:</p>
+  <div class='pair-columns'>
+    <ul class='pair-left'><li draggable="true" data-id="l0">[loop]</li><li draggable="true" data-id="l1">[conditional]</li><li draggable="true" data-id="l2">[function]</li><li draggable="true" data-id="l3">[output]</li><li draggable="true" data-id="l4">[input]</li></ul>
+    <ul class='pair-right'><li draggable="true" data-id="r0">[for]</li><li draggable="true" data-id="r1">[if]</li><li draggable="true" data-id="r2">[func name ()]</li><li draggable="true" data-id="r4">[input()]</li><li draggable="true" data-id="r3">[print()]</li></ul>
+  </div>
+</div>
+
+<p>Try matching the terms from the left column with the correct definitions on the right!</p>
+<hr />
+<p>You can continue writing other sections of your lesson here.</p>
+  </main>
+</body>
+</html>

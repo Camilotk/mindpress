@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="{{ config.language | default('en-en') }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="themes/darkbook/css/water-dark.css">
+  <link rel="stylesheet" href="themes/darkbook/css/theme.css">
+  <link rel="stylesheet" href="css/quiz.css">
+  <script src="js/quiz.js" defer></script>
+  <script src="js/match.js" defer></script>
+</head>
+<body>
+
+{{ sidebar | safe }}
+
+<main>
+  <article>
+    <h2>{{ title }}</h2>
+    {{ content | safe }}
+  </article>
+</main>
+
+</body>
+</html>

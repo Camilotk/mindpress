@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="{{ config.language | default('en-en') }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }} - {{ config.site_title }}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.min.css">
+  <link rel="stylesheet" href="../themes/{{ config.theme }}/css/theme.css">
+  <script src="../themes/{{ config.theme }}/js/theme.js" defer></script>
+  <link rel="stylesheet" href="css/quiz.css">
+  <link rel="stylesheet" href="themes/simplepage/css/light-theme.css">
+  <link rel="stylesheet" href="themes/simplepage/css/light-background.css">
+  <script src="js/quiz.js" defer></script>
+  <script src="js/match.js" defer></script>
+</head>
+<body>
+  <header role="banner">
+    <nav aria-label="{{ 'Main navigation' if config.language == 'en-en' else 'Navegação principal' }}">
+      {% if title != 'General Index' and title != 'Índice Geral' %}
+        <a href="index.html">&larr; {{ 'Back to index' if config.language == 'en-en' else 'Voltar para o índice' }}</a>
+      {% endif %}
+    </nav>
+    <h1>{{ config.site_title }}</h1>
+    <h2>{{ title }}</h2>
+  </header>
+
+  <main role="main">
+    {{ content | safe }}
+  </main>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Second Lesson - Title</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.min.css">
+  <link rel="stylesheet" href="../themes/simplepage/css/theme.css">
+  <script src="../themes/simplepage/js/theme.js" defer></script>
+  <link rel="stylesheet" href="css/quiz.css">
+  <link rel="stylesheet" href="themes/simplepage/css/light-theme.css">
+  <link rel="stylesheet" href="themes/simplepage/css/light-background.css">
+  <script src="js/quiz.js" defer></script>
+  <script src="js/match.js" defer></script>
+</head>
+<body>
+  <header role="banner">
+    <nav aria-label="Main navigation">
+      
+        <a href="index.html">&larr; Back to index</a>
+      
+    </nav>
+    <h1>Title</h1>
+    <h2>Second Lesson</h2>
+  </header>
+
+  <main role="main">
+    <nav class="minimap"><ul><li class="lvl2"><a href="#multiple-choice-quiz-1">🎯 Multiple Choice Quiz 1</a></li><li class="lvl2"><a href="#multiple-choice-quiz-2">🎯 Multiple Choice Quiz 2</a></li><li class="lvl2"><a href="#multiple-choice-quiz-3">🎯 Multiple Choice Quiz 3</a></li><li class="lvl2"><a href="#match-the-pairs-1">🔗 Match the Pairs 1</a></li><li class="lvl2"><a href="#match-the-pairs-2">🔗 Match the Pairs 2</a></li><li class="lvl2"><a href="#match-the-pairs-3">🔗 Match the Pairs 3</a></li></ul></nav><h1>Second Lesson</h1>
+<p>This page demonstrates multiple quizzes and pair matches.</p>
+<h2 id="multiple-choice-quiz-1">🎯 Multiple Choice Quiz 1</h2>
+<div class='quiz' data-type='single'>
+  <p class='question'>What is the largest planet in the Solar System?</p>
+  <ul class='options'><li data-index="0" data-correct=false>Earth</li><li data-index="1" data-correct=false>Mars</li><li data-index="2" data-correct=true>Jupiter</li><li data-index="3" data-correct=false>Saturn</li></ul>
+  <p class='explanation' style='display:none;'>Jupiter is the largest planet in our Solar System.</p>
+</div>
+
+<h2 id="multiple-choice-quiz-2">🎯 Multiple Choice Quiz 2</h2>
+<div class='quiz' data-type='single'>
+  <p class='question'>What is the chemical symbol for water?</p>
+  <ul class='options'><li data-index="0" data-correct=true>H2O</li><li data-index="1" data-correct=false>CO2</li><li data-index="2" data-correct=false>O2</li><li data-index="3" data-correct=false>NaCl</li></ul>
+  <p class='explanation' style='display:none;'>H2O represents water, composed of two hydrogen atoms and one oxygen.</p>
+</div>
+
+<h2 id="multiple-choice-quiz-3">🎯 Multiple Choice Quiz 3</h2>
+<div class='quiz' data-type='single'>
+  <p class='question'>Who wrote the play 'Hamlet'?</p>
+  <ul class='options'><li data-index="0" data-correct=false>Charles Dickens</li><li data-index="1" data-correct=true>William Shakespeare</li><li data-index="2" data-correct=false>Jane Austen</li></ul>
+  <p class='explanation' style='display:none;'>'Hamlet' was written by William Shakespeare.</p>
+</div>
+
+<h2 id="match-the-pairs-1">🔗 Match the Pairs 1</h2>
+<div class='quiz pair-quiz'>
+  <p>Match the following pairs:</p>
+  <div class='pair-columns'>
+    <ul class='pair-left'><li draggable="true" data-id="l0">[Sun]</li><li draggable="true" data-id="l1">[Earth]</li><li draggable="true" data-id="l2">[Milky Way]</li></ul>
+    <ul class='pair-right'><li draggable="true" data-id="r2">[Galaxy]</li><li draggable="true" data-id="r0">[Star]</li><li draggable="true" data-id="r1">[Planet]</li></ul>
+  </div>
+</div>
+
+<h2 id="match-the-pairs-2">🔗 Match the Pairs 2</h2>
+<div class='quiz pair-quiz'>
+  <p>Match the following pairs:</p>
+  <div class='pair-columns'>
+    <ul class='pair-left'><li draggable="true" data-id="l0">[Cat]</li><li draggable="true" data-id="l1">[Dog]</li><li draggable="true" data-id="l2">[Cow]</li></ul>
+    <ul class='pair-right'><li draggable="true" data-id="r2">[Bovine]</li><li draggable="true" data-id="r1">[Canine]</li><li draggable="true" data-id="r0">[Feline]</li></ul>
+  </div>
+</div>
+
+<h2 id="match-the-pairs-3">🔗 Match the Pairs 3</h2>
+<div class='quiz pair-quiz'>
+  <p>Match the following pairs:</p>
+  <div class='pair-columns'>
+    <ul class='pair-left'><li draggable="true" data-id="l0">[Red]</li><li draggable="true" data-id="l1">[Green]</li><li draggable="true" data-id="l2">[Blue]</li></ul>
+    <ul class='pair-right'><li draggable="true" data-id="r1">[#00FF00]</li><li draggable="true" data-id="r2">[#0000FF]</li><li draggable="true" data-id="r0">[#FF0000]</li></ul>
+  </div>
+</div>
+  </main>
+</body>
+</html>

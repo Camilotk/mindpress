@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 10: Break e Continue</title>
+  <link rel="stylesheet" href="themes/rustbook/css/water-dark.css">
+  <link rel="stylesheet" href="themes/rustbook/css/theme.css">
+  <script src="themes/rustbook/js/theme.js" defer></script>
+</head>
+<body>
+
+<aside>
+  <header><h1>Curso de Algoritmos com Go</h1></header>
+  <nav aria-label="Conteúdo do curso">
+    <ul>
+      <li><a href="index.html">📚 Índice Geral</a></li>
+      <li><a href="algoritmos-base.html">Aula 1: Algoritmos – A Base de Tudo!</a></li>
+      <li><a href="break-e-continue.html">Aula 10: Break e Continue</a></li>
+      <li><a href="condicional-if-else.html">Aula 6: Condicional If/Else</a></li>
+      <li><a href="condicional-switch.html">Aula 7: Condicional Switch</a></li>
+      <li><a href="entrada-e-saida.html">Aula 4: Entrada e Saída com Go</a></li>
+      <li><a href="estrutura-sequencial.html">Aula 5: Estrutura Sequencial</a></li>
+      <li><a href="identificadores-operadores.html">Aula 3: Identificadores e Operadores</a></li>
+      <li><a href="nova_aula.html">Nova aula</a></li>
+      <li><a href="repeticao-for.html">Aula 8: Repetição com For</a></li>
+      <li><a href="variaveis-e-tipos.html">Aula 2: Variáveis e Tipos de Dados em Go</a></li>
+      <li><a href="while-com-for.html">Aula 9: While com For</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<main>
+  <article>
+    <h2>Aula 10: Break e Continue</h2>
+    <nav class="minimap"><ul><li class="lvl2"><a href="#objetivos-da-aula">Objetivos da Aula</a></li><li class="lvl2"><a href="#1-introdução-ao-controle-de-fluxo-em-laços">1. Introdução ao Controle de Fluxo em Laços</a></li><li class="lvl3"><a href="#1-1-o-que-é-controle-de-fluxo">1.1. O que é Controle de Fluxo?</a></li><li class="lvl3"><a href="#1-2-por-que-precisamos-de-controle-de-fluxo-adicional">1.2. Por que Precisamos de Controle de Fluxo Adicional?</a></li><li class="lvl2"><a href="#2-a-instrução-code-break-code">2. A Instrução <code>break</code></a></li><li class="lvl3"><a href="#2-1-o-que-é-code-break-code">2.1. O que é <code>break</code>?</a></li><li class="lvl3"><a href="#2-2-sintaxe-e-funcionamento">2.2. Sintaxe e Funcionamento</a></li><li class="lvl3"><a href="#2-3-exemplos-básicos">2.3. Exemplos Básicos</a></li><li class="lvl3"><a href="#2-4-casos-de-uso-comuns-para-code-break-code">2.4. Casos de Uso Comuns para <code>break</code></a></li><li class="lvl2"><a href="#3-a-instrução-code-continue-code">3. A Instrução <code>continue</code></a></li><li class="lvl3"><a href="#3-1-o-que-é-code-continue-code">3.1. O que é <code>continue</code>?</a></li><li class="lvl3"><a href="#3-2-sintaxe-e-funcionamento">3.2. Sintaxe e Funcionamento</a></li><li class="lvl3"><a href="#3-3-exemplos-básicos">3.3. Exemplos Básicos</a></li><li class="lvl3"><a href="#3-4-casos-de-uso-comuns-para-code-continue-code">3.4. Casos de Uso Comuns para <code>continue</code></a></li><li class="lvl2"><a href="#4-diferenças-entre-code-break-code-e-code-continue-code">4. Diferenças entre <code>break</code> e <code>continue</code></a></li><li class="lvl3"><a href="#4-1-escolhendo-entre-code-break-code-e-code-continue-code">4.1. Escolhendo entre <code>break</code> e <code>continue</code></a></li><li class="lvl2"><a href="#5-controle-de-fluxo-em-laços-aninhados">5. Controle de Fluxo em Laços Aninhados</a></li><li class="lvl3"><a href="#5-1-code-break-code-e-code-continue-code-em-laços-aninhados">5.1. <code>break</code> e <code>continue</code> em Laços Aninhados</a></li><li class="lvl3"><a href="#5-2-usando-rótulos-labels-para-controle-avançado">5.2. Usando Rótulos (Labels) para Controle Avançado</a></li><li class="lvl3"><a href="#5-3-exemplo-prático-busca-em-matriz">5.3. Exemplo Prático: Busca em Matriz</a></li><li class="lvl2"><a href="#6-aplicações-práticas">6. Aplicações Práticas</a></li><li class="lvl3"><a href="#6-1-validação-de-entrada-com-code-break-code">6.1. Validação de Entrada com <code>break</code></a></li><li class="lvl3"><a href="#6-2-processamento-de-lista-com-code-continue-code">6.2. Processamento de Lista com <code>continue</code></a></li><li class="lvl3"><a href="#6-3-busca-eficiente-com-code-break-code">6.3. Busca Eficiente com <code>break</code></a></li><li class="lvl3"><a href="#6-4-processamento-de-texto-com-code-continue-code">6.4. Processamento de Texto com <code>continue</code></a></li><li class="lvl2"><a href="#7-boas-práticas">7. Boas Práticas</a></li><li class="lvl3"><a href="#7-1-use-code-break-code-e-code-continue-code-com-moderação">7.1. Use <code>break</code> e <code>continue</code> com Moderação</a></li><li class="lvl3"><a href="#7-2-prefira-condições-claras">7.2. Prefira Condições Claras</a></li><li class="lvl3"><a href="#7-3-evite-laços-aninhados-profundos-com-rótulos">7.3. Evite Laços Aninhados Profundos com Rótulos</a></li><li class="lvl3"><a href="#7-4-documente-o-propósito">7.4. Documente o Propósito</a></li><li class="lvl3"><a href="#7-5-considere-alternativas">7.5. Considere Alternativas</a></li><li class="lvl2"><a href="#8-exercícios-offline">8. Exercícios Offline</a></li><li class="lvl2"><a href="#9-quiz-rápido">9. Quiz Rápido</a></li><li class="lvl2"><a href="#10-desafio-prático-processador-de-texto">10. Desafio Prático: Processador de Texto</a></li><li class="lvl2"><a href="#11-resumo-da-aula">11. Resumo da Aula</a></li><li class="lvl2"><a href="#12-ficha-de-referência-rápida">12. Ficha de Referência Rápida</a></li><li class="lvl3"><a href="#instruções-de-controle-de-fluxo">Instruções de Controle de Fluxo</a></li><li class="lvl3"><a href="#casos-de-uso-comuns">Casos de Uso Comuns</a></li><li class="lvl3"><a href="#padrões-comuns">Padrões Comuns</a></li><li class="lvl2"><a href="#13-modelos-de-código">13. Modelos de Código</a></li><li class="lvl3"><a href="#modelo-1-busca-com-code-break-code">Modelo 1: Busca com <code>break</code></a></li><li class="lvl3"><a href="#modelo-2-filtragem-com-code-continue-code">Modelo 2: Filtragem com <code>continue</code></a></li><li class="lvl3"><a href="#modelo-3-validação-de-entrada-com-code-break-code">Modelo 3: Validação de Entrada com <code>break</code></a></li><li class="lvl3"><a href="#modelo-4-laços-aninhados-com-rótulos">Modelo 4: Laços Aninhados com Rótulos</a></li></ul></nav><h1>Aula 10: Controle de Fluxo Dentro de Laços: <code>break</code> e <code>continue</code> em Go</h1>
+<h2 id="objetivos-da-aula">Objetivos da Aula</h2>
+<p>Ao final desta aula, você será capaz de:</p>
+<ul>
+<li>Compreender o propósito e funcionamento das instruções <code>break</code> e <code>continue</code></li>
+<li>Utilizar <code>break</code> para sair prematuramente de um laço</li>
+<li>Utilizar <code>continue</code> para pular para a próxima iteração de um laço</li>
+<li>Implementar controle de fluxo eficiente em laços para resolver problemas</li>
+<li>Criar programas em Go que utilizam <code>break</code> e <code>continue</code> para otimizar a execução</li>
+</ul>
+<hr />
+<h2 id="1-introdução-ao-controle-de-fluxo-em-laços">1. Introdução ao Controle de Fluxo em Laços</h2>
+<h3 id="1-1-o-que-é-controle-de-fluxo">1.1. O que é Controle de Fluxo?</h3>
+<p>O <strong>controle de fluxo</strong> refere-se à capacidade de alterar a ordem de execução das instruções em um programa. Em laços, o fluxo normal é executar todas as instruções dentro do bloco e, em seguida, verificar a condição para decidir se o laço deve continuar ou terminar.</p>
+<p>No entanto, há situações em que precisamos:
+- Sair de um laço antes que sua condição normal de término seja atingida
+- Pular o restante das instruções na iteração atual e avançar para a próxima iteração</p>
+<p>Go fornece duas instruções especiais para esses casos: <code>break</code> e <code>continue</code>.</p>
+<h3 id="1-2-por-que-precisamos-de-controle-de-fluxo-adicional">1.2. Por que Precisamos de Controle de Fluxo Adicional?</h3>
+<p>O controle de fluxo adicional em laços nos permite:</p>
+<ol>
+<li><strong>Otimizar a execução</strong>: Evitar processamento desnecessário quando já encontramos o que procurávamos.</li>
+<li><strong>Lidar com casos especiais</strong>: Tratar situações excepcionais sem complicar a lógica principal.</li>
+<li><strong>Implementar algoritmos complexos</strong>: Criar estruturas de controle mais sofisticadas.</li>
+<li><strong>Melhorar a legibilidade</strong>: Expressar intenções de forma mais clara em certos algoritmos.</li>
+</ol>
+<p>Pense em situações do cotidiano:
+- Você está procurando suas chaves em várias gavetas. Assim que as encontra, <strong>para</strong> de procurar (similar ao <code>break</code>).
+- Ao verificar uma lista de compras, se um item estiver indisponível, você <strong>continua</strong> para o próximo item (similar ao <code>continue</code>).</p>
+<hr />
+<h2 id="2-a-instrução-code-break-code">2. A Instrução <code>break</code></h2>
+<h3 id="2-1-o-que-é-code-break-code">2.1. O que é <code>break</code>?</h3>
+<p>A instrução <code>break</code> é usada para sair imediatamente de um laço, independentemente da condição de término normal. Quando o Go encontra um <code>break</code>, ele interrompe a execução do laço e continua com o código após o bloco do laço.</p>
+<h3 id="2-2-sintaxe-e-funcionamento">2.2. Sintaxe e Funcionamento</h3>
+<pre><code class="language-go">for condição {
+    // Código
+
+    if outraCondição {
+        break // Sai do laço imediatamente
+    }
+
+    // Este código não será executado se o break for acionado
+}
+// A execução continua aqui após o break
+</code></pre>
+<h3 id="2-3-exemplos-básicos">2.3. Exemplos Básicos</h3>
+<p><strong>Exemplo 1: Encontrar o primeiro número divisível por 7</strong></p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    for i := 1; i &lt;= 100; i++ {
+        fmt.Printf(&quot;Verificando %d...\n&quot;, i)
+
+        if i%7 == 0 {
+            fmt.Printf(&quot;Encontrado! %d é divisível por 7\n&quot;, i)
+            break
+        }
+    }
+
+    fmt.Println(&quot;Busca concluída&quot;)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Verificando 1...
+Verificando 2...
+Verificando 3...
+Verificando 4...
+Verificando 5...
+Verificando 6...
+Verificando 7...
+Encontrado! 7 é divisível por 7
+Busca concluída
+</code></pre>
+<p>Neste exemplo, o laço iria normalmente de 1 a 100, mas usamos <code>break</code> para sair assim que encontramos o primeiro número divisível por 7.</p>
+<p><strong>Exemplo 2: Validação de entrada</strong></p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Println(&quot;Digite números positivos (digite um número negativo para sair):&quot;)
+
+    for {
+        var numero int
+        fmt.Print(&quot;Número: &quot;)
+        fmt.Scanln(&amp;numero)
+
+        if numero &lt; 0 {
+            fmt.Println(&quot;Número negativo detectado. Saindo...&quot;)
+            break
+        }
+
+        fmt.Printf(&quot;Você digitou: %d\n&quot;, numero)
+    }
+
+    fmt.Println(&quot;Programa encerrado&quot;)
+}
+</code></pre>
+<p>Neste exemplo, usamos um laço infinito (<code>for { ... }</code>) e <code>break</code> para sair quando o usuário digita um número negativo.</p>
+<h3 id="2-4-casos-de-uso-comuns-para-code-break-code">2.4. Casos de Uso Comuns para <code>break</code></h3>
+<ol>
+<li><strong>Busca em coleções</strong>: Sair do laço assim que encontrar o item procurado.</li>
+<li><strong>Validação de entrada</strong>: Continuar pedindo entrada até receber um valor válido.</li>
+<li><strong>Processamento condicional</strong>: Processar dados até que uma condição específica seja atendida.</li>
+<li><strong>Menus interativos</strong>: Sair do menu quando o usuário escolher a opção de saída.</li>
+<li><strong>Algoritmos de otimização</strong>: Interromper a busca quando a solução ótima for encontrada.</li>
+</ol>
+<hr />
+<h2 id="3-a-instrução-code-continue-code">3. A Instrução <code>continue</code></h2>
+<h3 id="3-1-o-que-é-code-continue-code">3.1. O que é <code>continue</code>?</h3>
+<p>A instrução <code>continue</code> é usada para pular o restante do código na iteração atual de um laço e avançar para a próxima iteração. Diferentemente do <code>break</code>, o <code>continue</code> não sai do laço; ele apenas pula para a próxima repetição.</p>
+<h3 id="3-2-sintaxe-e-funcionamento">3.2. Sintaxe e Funcionamento</h3>
+<pre><code class="language-go">for condição {
+    // Código antes do continue
+
+    if outraCondição {
+        continue // Pula para a próxima iteração
+    }
+
+    // Este código será ignorado quando o continue for acionado
+}
+</code></pre>
+<h3 id="3-3-exemplos-básicos">3.3. Exemplos Básicos</h3>
+<p><strong>Exemplo 1: Imprimir apenas números ímpares</strong></p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Println(&quot;Números ímpares de 1 a 10:&quot;)
+
+    for i := 1; i &lt;= 10; i++ {
+        if i%2 == 0 {
+            continue // Pula os números pares
+        }
+
+        fmt.Println(i)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Números ímpares de 1 a 10:
+1
+3
+5
+7
+9
+</code></pre>
+<p>Neste exemplo, usamos <code>continue</code> para pular a impressão quando o número é par.</p>
+<p><strong>Exemplo 2: Processamento condicional de uma lista</strong></p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    nomes := []string{&quot;Ana&quot;, &quot;&quot;, &quot;Carlos&quot;, &quot;Diana&quot;, &quot;&quot;, &quot;Eduardo&quot;}
+
+    fmt.Println(&quot;Nomes válidos:&quot;)
+
+    for i := 0; i &lt; len(nomes); i++ {
+        if nomes[i] == &quot;&quot; {
+            continue // Pula strings vazias
+        }
+
+        fmt.Printf(&quot;%d: %s\n&quot;, i, nomes[i])
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Nomes válidos:
+0: Ana
+2: Carlos
+3: Diana
+5: Eduardo
+</code></pre>
+<p>Neste exemplo, usamos <code>continue</code> para pular o processamento de strings vazias na lista.</p>
+<h3 id="3-4-casos-de-uso-comuns-para-code-continue-code">3.4. Casos de Uso Comuns para <code>continue</code></h3>
+<ol>
+<li><strong>Filtragem de dados</strong>: Pular itens que não atendem a certos critérios.</li>
+<li><strong>Tratamento de casos especiais</strong>: Ignorar casos excepcionais sem complicar a lógica principal.</li>
+<li><strong>Otimização de processamento</strong>: Evitar cálculos desnecessários para certos valores.</li>
+<li><strong>Validação em múltiplas etapas</strong>: Pular para o próximo item se a validação falhar em qualquer etapa.</li>
+<li><strong>Processamento de listas com valores nulos</strong>: Ignorar valores nulos ou vazios.</li>
+</ol>
+<hr />
+<h2 id="4-diferenças-entre-code-break-code-e-code-continue-code">4. Diferenças entre <code>break</code> e <code>continue</code></h2>
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th><code>break</code></th>
+<th><code>continue</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Efeito</td>
+<td>Sai completamente do laço</td>
+<td>Pula para a próxima iteração</td>
+</tr>
+<tr>
+<td>Código após a instrução</td>
+<td>Não é executado</td>
+<td>Não é executado</td>
+</tr>
+<tr>
+<td>Código após o laço</td>
+<td>É executado imediatamente</td>
+<td>É executado após todas as iterações</td>
+</tr>
+<tr>
+<td>Uso típico</td>
+<td>Quando encontramos o que procuramos</td>
+<td>Quando queremos ignorar certos valores</td>
+</tr>
+<tr>
+<td>Efeito na condição do laço</td>
+<td>Ignora a condição e sai</td>
+<td>A condição ainda é verificada na próxima iteração</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4-1-escolhendo-entre-code-break-code-e-code-continue-code">4.1. Escolhendo entre <code>break</code> e <code>continue</code></h3>
+<ul>
+<li>Use <code>break</code> quando quiser <strong>terminar</strong> completamente o processamento do laço.</li>
+<li>Use <code>continue</code> quando quiser <strong>pular</strong> apenas a iteração atual, mas continuar o laço.</li>
+</ul>
+<p><strong>Exemplo comparativo:</strong></p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Println(&quot;Demonstração com break:&quot;)
+    for i := 1; i &lt;= 5; i++ {
+        if i == 3 {
+            fmt.Println(&quot;  Encontrei 3, saindo do laço com break&quot;)
+            break
+        }
+        fmt.Printf(&quot;  Processando %d\n&quot;, i)
+    }
+    fmt.Println(&quot;Laço com break terminou\n&quot;)
+
+    fmt.Println(&quot;Demonstração com continue:&quot;)
+    for i := 1; i &lt;= 5; i++ {
+        if i == 3 {
+            fmt.Println(&quot;  Encontrei 3, pulando com continue&quot;)
+            continue
+        }
+        fmt.Printf(&quot;  Processando %d\n&quot;, i)
+    }
+    fmt.Println(&quot;Laço com continue terminou&quot;)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Demonstração com break:
+  Processando 1
+  Processando 2
+  Encontrei 3, saindo do laço com break
+Laço com break terminou
+
+Demonstração com continue:
+  Processando 1
+  Processando 2
+  Encontrei 3, pulando com continue
+  Processando 4
+  Processando 5
+Laço com continue terminou
+</code></pre>
+<hr />
+<h2 id="5-controle-de-fluxo-em-laços-aninhados">5. Controle de Fluxo em Laços Aninhados</h2>
+<h3 id="5-1-code-break-code-e-code-continue-code-em-laços-aninhados">5.1. <code>break</code> e <code>continue</code> em Laços Aninhados</h3>
+<p>Por padrão, <code>break</code> e <code>continue</code> afetam apenas o laço mais interno em que estão contidos.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Println(&quot;Laços aninhados com break:&quot;)
+
+    for i := 1; i &lt;= 3; i++ {
+        fmt.Printf(&quot;Laço externo: i = %d\n&quot;, i)
+
+        for j := 1; j &lt;= 3; j++ {
+            if j == 2 {
+                fmt.Println(&quot;  j = 2, usando break no laço interno&quot;)
+                break // Afeta apenas o laço interno
+            }
+
+            fmt.Printf(&quot;  Laço interno: j = %d\n&quot;, j)
+        }
+
+        fmt.Println(&quot;  Fim da iteração do laço externo&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Laços aninhados com break:
+Laço externo: i = 1
+  Laço interno: j = 1
+  j = 2, usando break no laço interno
+  Fim da iteração do laço externo
+Laço externo: i = 2
+  Laço interno: j = 1
+  j = 2, usando break no laço interno
+  Fim da iteração do laço externo
+Laço externo: i = 3
+  Laço interno: j = 1
+  j = 2, usando break no laço interno
+  Fim da iteração do laço externo
+</code></pre>
+<p>Observe que o <code>break</code> sai apenas do laço interno, e o laço externo continua normalmente.</p>
+<h3 id="5-2-usando-rótulos-labels-para-controle-avançado">5.2. Usando Rótulos (Labels) para Controle Avançado</h3>
+<p>Em Go, podemos usar rótulos (labels) para especificar qual laço queremos afetar com <code>break</code> ou <code>continue</code>.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Println(&quot;Usando rótulos com break:&quot;)
+
+ExternoLoop:
+    for i := 1; i &lt;= 3; i++ {
+        fmt.Printf(&quot;Laço externo: i = %d\n&quot;, i)
+
+        for j := 1; j &lt;= 3; j++ {
+            if i == 2 &amp;&amp; j == 2 {
+                fmt.Println(&quot;  i = 2, j = 2, usando break para sair do laço externo&quot;)
+                break ExternoLoop // Sai do laço rotulado como ExternoLoop
+            }
+
+            fmt.Printf(&quot;  Laço interno: j = %d\n&quot;, j)
+        }
+
+        fmt.Println(&quot;  Fim da iteração do laço externo&quot;)
+    }
+
+    fmt.Println(&quot;Programa concluído&quot;)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Usando rótulos com break:
+Laço externo: i = 1
+  Laço interno: j = 1
+  Laço interno: j = 2
+  Laço interno: j = 3
+  Fim da iteração do laço externo
+Laço externo: i = 2
+  Laço interno: j = 1
+  i = 2, j = 2, usando break para sair do laço externo
+Programa concluído
+</code></pre>
+<p>Neste exemplo, quando <code>i == 2</code> e <code>j == 2</code>, usamos <code>break ExternoLoop</code> para sair completamente do laço externo, não apenas do laço interno.</p>
+<h3 id="5-3-exemplo-prático-busca-em-matriz">5.3. Exemplo Prático: Busca em Matriz</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Matriz 3x3
+    matriz := [][]int{
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9},
+    }
+
+    valorProcurado := 5
+    encontrado := false
+    var linha, coluna int
+
+BuscaLoop:
+    for i := 0; i &lt; len(matriz); i++ {
+        for j := 0; j &lt; len(matriz[i]); j++ {
+            if matriz[i][j] == valorProcurado {
+                linha = i
+                coluna = j
+                encontrado = true
+                break BuscaLoop
+            }
+        }
+    }
+
+    if encontrado {
+        fmt.Printf(&quot;Valor %d encontrado na posição [%d][%d]\n&quot;, valorProcurado, linha, coluna)
+    } else {
+        fmt.Printf(&quot;Valor %d não encontrado na matriz\n&quot;, valorProcurado)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Valor 5 encontrado na posição [1][1]
+</code></pre>
+<p>Neste exemplo, usamos um rótulo e <code>break</code> para sair de ambos os laços assim que encontramos o valor procurado.</p>
+<hr />
+<h2 id="6-aplicações-práticas">6. Aplicações Práticas</h2>
+<h3 id="6-1-validação-de-entrada-com-code-break-code">6.1. Validação de Entrada com <code>break</code></h3>
+<pre><code class="language-go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;strings&quot;
+)
+
+func main() {
+    var senha string
+
+    for {
+        fmt.Print(&quot;Digite uma senha (mínimo 8 caracteres, pelo menos 1 número): &quot;)
+        fmt.Scanln(&amp;senha)
+
+        // Verifica o comprimento
+        if len(senha) &lt; 8 {
+            fmt.Println(&quot;Erro: A senha deve ter pelo menos 8 caracteres&quot;)
+            continue
+        }
+
+        // Verifica se contém pelo menos um número
+        contemNumero := false
+        for _, char := range senha {
+            if strings.ContainsRune(&quot;0123456789&quot;, char) {
+                contemNumero = true
+                break
+            }
+        }
+
+        if !contemNumero {
+            fmt.Println(&quot;Erro: A senha deve conter pelo menos um número&quot;)
+            continue
+        }
+
+        // Se chegou aqui, a senha é válida
+        fmt.Println(&quot;Senha válida!&quot;)
+        break
+    }
+
+    fmt.Println(&quot;Cadastro concluído&quot;)
+}
+</code></pre>
+<p>Este exemplo usa <code>continue</code> para pular para a próxima iteração quando a senha não atende aos critérios e <code>break</code> para sair do laço quando a senha é válida.</p>
+<h3 id="6-2-processamento-de-lista-com-code-continue-code">6.2. Processamento de Lista com <code>continue</code></h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    numeros := []int{1, -2, 3, 0, -4, 5, 6, -7, 8, 9, 10}
+    soma := 0
+    contador := 0
+
+    fmt.Println(&quot;Calculando a média dos números positivos:&quot;)
+
+    for _, num := range numeros {
+        // Pula números negativos e zero
+        if num &lt;= 0 {
+            fmt.Printf(&quot;  Pulando %d (não é positivo)\n&quot;, num)
+            continue
+        }
+
+        soma += num
+        contador++
+        fmt.Printf(&quot;  Adicionando %d: soma = %d, contador = %d\n&quot;, num, soma, contador)
+    }
+
+    if contador &gt; 0 {
+        media := float64(soma) / float64(contador)
+        fmt.Printf(&quot;Média dos números positivos: %.2f\n&quot;, media)
+    } else {
+        fmt.Println(&quot;Nenhum número positivo encontrado&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Calculando a média dos números positivos:
+  Adicionando 1: soma = 1, contador = 1
+  Pulando -2 (não é positivo)
+  Adicionando 3: soma = 4, contador = 2
+  Pulando 0 (não é positivo)
+  Pulando -4 (não é positivo)
+  Adicionando 5: soma = 9, contador = 3
+  Adicionando 6: soma = 15, contador = 4
+  Pulando -7 (não é positivo)
+  Adicionando 8: soma = 23, contador = 5
+  Adicionando 9: soma = 32, contador = 6
+  Adicionando 10: soma = 42, contador = 7
+Média dos números positivos: 6.00
+</code></pre>
+<p>Este exemplo usa <code>continue</code> para pular números não positivos ao calcular a média.</p>
+<h3 id="6-3-busca-eficiente-com-code-break-code">6.3. Busca Eficiente com <code>break</code></h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Lista ordenada de números
+    numeros := []int{2, 5, 8, 12, 16, 23, 38, 56, 72, 91}
+
+    // Valor a ser procurado
+    alvo := 23
+
+    // Busca linear
+    encontrado := false
+    posicao := -1
+
+    for i, num := range numeros {
+        fmt.Printf(&quot;Verificando posição %d: valor %d\n&quot;, i, num)
+
+        if num == alvo {
+            encontrado = true
+            posicao = i
+            break // Sai do laço assim que encontra o valor
+        }
+
+        // Se a lista estiver ordenada, podemos otimizar ainda mais
+        if num &gt; alvo {
+            fmt.Printf(&quot;O valor %d é maior que o alvo %d, não precisa continuar a busca\n&quot;, num, alvo)
+            break // Sai do laço se o valor atual for maior que o alvo (lista ordenada)
+        }
+    }
+
+    if encontrado {
+        fmt.Printf(&quot;Valor %d encontrado na posição %d\n&quot;, alvo, posicao)
+    } else {
+        fmt.Printf(&quot;Valor %d não encontrado na lista\n&quot;, alvo)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Verificando posição 0: valor 2
+Verificando posição 1: valor 5
+Verificando posição 2: valor 8
+Verificando posição 3: valor 12
+Verificando posição 4: valor 16
+Verificando posição 5: valor 23
+Valor 23 encontrado na posição 5
+</code></pre>
+<p>Este exemplo usa <code>break</code> para sair do laço assim que encontra o valor procurado, evitando verificações desnecessárias.</p>
+<h3 id="6-4-processamento-de-texto-com-code-continue-code">6.4. Processamento de Texto com <code>continue</code></h3>
+<pre><code class="language-go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;strings&quot;
+)
+
+func main() {
+    texto := &quot;Go é uma linguagem de programação concorrente e compilada, desenvolvida pelo Google.&quot;
+    vogais := &quot;aeiouAEIOU&quot;
+
+    fmt.Println(&quot;Contando consoantes no texto:&quot;)
+    fmt.Println(texto)
+
+    consoantes := 0
+
+    for _, char := range texto {
+        // Pula caracteres que não são letras
+        if !((char &gt;= 'a' &amp;&amp; char &lt;= 'z') || (char &gt;= 'A' &amp;&amp; char &lt;= 'Z')) {
+            continue
+        }
+
+        // Pula vogais
+        if strings.ContainsRune(vogais, char) {
+            continue
+        }
+
+        // Se chegou aqui, é uma consoante
+        consoantes++
+    }
+
+    fmt.Printf(&quot;O texto contém %d consoantes\n&quot;, consoantes)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Contando consoantes no texto:
+Go é uma linguagem de programação concorrente e compilada, desenvolvida pelo Google.
+O texto contém 40 consoantes
+</code></pre>
+<p>Este exemplo usa <code>continue</code> para pular caracteres que não são letras e vogais, contando apenas as consoantes.</p>
+<hr />
+<h2 id="7-boas-práticas">7. Boas Práticas</h2>
+<h3 id="7-1-use-code-break-code-e-code-continue-code-com-moderação">7.1. Use <code>break</code> e <code>continue</code> com Moderação</h3>
+<p>Embora <code>break</code> e <code>continue</code> sejam ferramentas poderosas, o uso excessivo pode tornar o código difícil de entender e manter. Use-os quando realmente melhorarem a clareza ou eficiência do código.</p>
+<h3 id="7-2-prefira-condições-claras">7.2. Prefira Condições Claras</h3>
+<p>Em vez de usar <code>break</code> ou <code>continue</code> com condições complexas, considere refatorar o código para usar condições mais claras:</p>
+<pre><code class="language-go">// Menos claro
+for i := 0; i &lt; len(items); i++ {
+    if i &lt; 5 || items[i].IsSpecial() || processedCount &gt; 10 {
+        continue
+    }
+    // Processamento
+}
+
+// Mais claro
+for i := 0; i &lt; len(items); i++ {
+    shouldSkip := i &lt; 5 || items[i].IsSpecial() || processedCount &gt; 10
+    if shouldSkip {
+        continue
+    }
+    // Processamento
+}
+</code></pre>
+<h3 id="7-3-evite-laços-aninhados-profundos-com-rótulos">7.3. Evite Laços Aninhados Profundos com Rótulos</h3>
+<p>Embora os rótulos sejam úteis, laços aninhados muito profundos com múltiplos <code>break</code> e <code>continue</code> rotulados podem tornar o código difícil de entender. Considere refatorar o código em funções separadas.</p>
+<h3 id="7-4-documente-o-propósito">7.4. Documente o Propósito</h3>
+<p>Quando usar <code>break</code> ou <code>continue</code> em situações não triviais, adicione um comentário explicando o propósito:</p>
+<pre><code class="language-go">for _, item := range items {
+    // Pula itens inválidos para evitar processamento desnecessário
+    if !item.IsValid() {
+        continue
+    }
+
+    // Processamento
+}
+</code></pre>
+<h3 id="7-5-considere-alternativas">7.5. Considere Alternativas</h3>
+<p>Em alguns casos, há alternativas mais claras ao uso de <code>break</code> e <code>continue</code>:</p>
+<ul>
+<li>Use funções com retorno antecipado em vez de laços com múltiplos <code>break</code></li>
+<li>Use filtros antes do laço em vez de <code>continue</code> para pular itens</li>
+<li>Use condições compostas em vez de múltiplos <code>if</code> com <code>continue</code></li>
+</ul>
+<hr />
+<h2 id="8-exercícios-offline">8. Exercícios Offline</h2>
+<ol>
+<li>
+<p><strong>Números Primos</strong>: Escreva um algoritmo que encontre os primeiros 10 números primos. Use <code>break</code> para sair do laço de verificação assim que encontrar um divisor.</p>
+</li>
+<li>
+<p><strong>Filtro de Palavras</strong>: Crie um algoritmo que processe uma lista de palavras, ignorando aquelas com menos de 3 letras. Use <code>continue</code> para pular palavras curtas.</p>
+</li>
+<li>
+<p><strong>Jogo de Adivinhação</strong>: Desenvolva um algoritmo para um jogo onde o jogador tenta adivinhar um número. Use <code>break</code> para sair quando o jogador acertar ou atingir o número máximo de tentativas.</p>
+</li>
+<li>
+<p><strong>Processamento de Matriz</strong>: Crie um algoritmo que procure um valor específico em uma matriz. Use rótulos e <code>break</code> para sair de ambos os laços quando encontrar o valor.</p>
+</li>
+<li>
+<p><strong>Validação de Formulário</strong>: Desenvolva um algoritmo que valide vários campos de um formulário. Use <code>continue</code> para pular para o próximo campo quando o atual for válido.</p>
+</li>
+</ol>
+<hr />
+<h2 id="9-quiz-rápido">9. Quiz Rápido</h2>
+<ol>
+<li>
+<p>O que a instrução <code>break</code> faz em um laço?
+   a) Pula para a próxima iteração
+   b) Sai completamente do laço
+   c) Pausa o laço temporariamente
+   d) Reinicia o laço do início</p>
+</li>
+<li>
+<p>O que a instrução <code>continue</code> faz em um laço?
+   a) Sai completamente do laço
+   b) Pula para a próxima iteração
+   c) Pausa o laço temporariamente
+   d) Repete a iteração atual</p>
+</li>
+<li>
+<p>Em laços aninhados, o que acontece quando usamos <code>break</code> sem rótulo?
+   a) Sai de todos os laços aninhados
+   b) Sai apenas do laço mais interno
+   c) Sai apenas do laço mais externo
+   d) Causa um erro de compilação</p>
+</li>
+<li>
+<p>Como podemos usar <code>break</code> para sair de um laço externo em laços aninhados?
+   a) Usando uma variável de controle
+   b) Usando <code>break 2</code>
+   c) Usando um rótulo (label)
+   d) Não é possível em Go</p>
+</li>
+<li>
+<p>Qual é a principal diferença entre <code>break</code> e <code>continue</code>?
+   a) <code>break</code> funciona apenas em <code>switch</code>, enquanto <code>continue</code> funciona apenas em laços
+   b) <code>break</code> sai do laço, enquanto <code>continue</code> pula para a próxima iteração
+   c) <code>break</code> pode ser usado com rótulos, mas <code>continue</code> não
+   d) <code>break</code> afeta apenas o laço interno, enquanto <code>continue</code> afeta todos os laços</p>
+</li>
+</ol>
+<hr />
+<h2 id="10-desafio-prático-processador-de-texto">10. Desafio Prático: Processador de Texto</h2>
+<p>Crie um programa em Go que analise um texto e forneça estatísticas sobre ele. O programa deve:</p>
+<ol>
+<li>Contar o número total de palavras no texto</li>
+<li>Contar o número de palavras com mais de 5 letras</li>
+<li>Identificar a palavra mais longa</li>
+<li>Contar a frequência das 5 palavras mais comuns</li>
+<li>Ignorar pontuação e considerar maiúsculas e minúsculas como iguais</li>
+</ol>
+<p>Use <code>continue</code> para pular caracteres de pontuação e <code>break</code> para otimizar a busca quando necessário.</p>
+<p><strong>Exemplo de Entrada:</strong></p>
+<pre><code>Go é uma linguagem de programação concorrente e compilada, desenvolvida pelo Google. É uma linguagem de programação compilada e estaticamente tipada. Go foi criada para ser eficiente em termos de processamento, memória e simplicidade de código.
+</code></pre>
+<p><strong>Exemplo de Saída Esperada:</strong></p>
+<pre><code>Estatísticas do Texto:
+---------------------
+Total de palavras: 32
+Palavras com mais de 5 letras: 14
+Palavra mais longa: &quot;estaticamente&quot; (13 letras)
+
+Top 5 palavras mais frequentes:
+1. &quot;de&quot; (4 vezes)
+2. &quot;e&quot; (3 vezes)
+3. &quot;go&quot; (3 vezes)
+4. &quot;programação&quot; (2 vezes)
+5. &quot;linguagem&quot; (2 vezes)
+</code></pre>
+<p><strong>Dica:</strong> Use <code>strings.Fields()</code> para dividir o texto em palavras e <code>strings.ToLower()</code> para converter para minúsculas.</p>
+<hr />
+<h2 id="11-resumo-da-aula">11. Resumo da Aula</h2>
+<p>Nesta aula, aprendemos sobre:</p>
+<ul>
+<li><strong>Instrução <code>break</code></strong>: Usada para sair completamente de um laço antes que sua condição normal de término seja atingida.</li>
+<li><strong>Instrução <code>continue</code></strong>: Usada para pular o restante do código na iteração atual e avançar para a próxima iteração.</li>
+<li><strong>Laços Aninhados</strong>: Por padrão, <code>break</code> e <code>continue</code> afetam apenas o laço mais interno.</li>
+<li><strong>Rótulos (Labels)</strong>: Permitem especificar qual laço queremos afetar com <code>break</code> ou <code>continue</code> em laços aninhados.</li>
+<li><strong>Aplicações Práticas</strong>: Validação de entrada, processamento de listas, busca eficiente e processamento de texto.</li>
+<li><strong>Boas Práticas</strong>: Usar com moderação, preferir condições claras, evitar laços aninhados profundos com rótulos e documentar o propósito.</li>
+</ul>
+<p>O controle de fluxo em laços com <code>break</code> e <code>continue</code> é uma ferramenta poderosa que, quando usada adequadamente, pode tornar seu código mais eficiente e legível.</p>
+<hr />
+<h2 id="12-ficha-de-referência-rápida">12. Ficha de Referência Rápida</h2>
+<h3 id="instruções-de-controle-de-fluxo">Instruções de Controle de Fluxo</h3>
+<table>
+<thead>
+<tr>
+<th>Instrução</th>
+<th>Sintaxe</th>
+<th>Efeito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>break</code></td>
+<td><code>break</code></td>
+<td>Sai completamente do laço</td>
+</tr>
+<tr>
+<td><code>continue</code></td>
+<td><code>continue</code></td>
+<td>Pula para a próxima iteração</td>
+</tr>
+<tr>
+<td><code>break</code> com rótulo</td>
+<td><code>break rotulo</code></td>
+<td>Sai do laço rotulado</td>
+</tr>
+<tr>
+<td><code>continue</code> com rótulo</td>
+<td><code>continue rotulo</code></td>
+<td>Pula para a próxima iteração do laço rotulado</td>
+</tr>
+</tbody>
+</table>
+<h3 id="casos-de-uso-comuns">Casos de Uso Comuns</h3>
+<table>
+<thead>
+<tr>
+<th>Instrução</th>
+<th>Casos de Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>break</code></td>
+<td>Busca (sair quando encontrar), validação (sair quando válido), menus (sair quando escolher sair)</td>
+</tr>
+<tr>
+<td><code>continue</code></td>
+<td>Filtragem (pular itens inválidos), tratamento de casos especiais, otimização (pular processamento desnecessário)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="padrões-comuns">Padrões Comuns</h3>
+<table>
+<thead>
+<tr>
+<th>Padrão</th>
+<th>Código</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Busca em coleção</td>
+<td><code>for _, item := range items { if item == target { found = true; break } }</code></td>
+</tr>
+<tr>
+<td>Filtragem</td>
+<td><code>for _, item := range items { if !isValid(item) { continue } process(item) }</code></td>
+</tr>
+<tr>
+<td>Validação de entrada</td>
+<td><code>for { input := getInput(); if isValid(input) { break } showError() }</code></td>
+</tr>
+<tr>
+<td>Busca em matriz</td>
+<td><code>outer: for i := range matrix { for j := range matrix[i] { if matrix[i][j] == target { break outer } } }</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="13-modelos-de-código">13. Modelos de Código</h2>
+<h3 id="modelo-1-busca-com-code-break-code">Modelo 1: Busca com <code>break</code></h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Lista de itens para busca
+    itens := []string{&quot;maçã&quot;, &quot;banana&quot;, &quot;laranja&quot;, &quot;uva&quot;, &quot;pera&quot;}
+    alvo := &quot;laranja&quot;
+
+    // Inicializa variáveis
+    encontrado := false
+    posicao := -1
+
+    // Busca o item na lista
+    for i, item := range itens {
+        if item == alvo {
+            encontrado = true
+            posicao = i
+            break // Sai do laço assim que encontra o item
+        }
+    }
+
+    // Exibe o resultado
+    if encontrado {
+        fmt.Printf(&quot;Item '%s' encontrado na posição %d\n&quot;, alvo, posicao)
+    } else {
+        fmt.Printf(&quot;Item '%s' não encontrado na lista\n&quot;, alvo)
+    }
+}
+</code></pre>
+<h3 id="modelo-2-filtragem-com-code-continue-code">Modelo 2: Filtragem com <code>continue</code></h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Lista de números
+    numeros := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+
+    fmt.Println(&quot;Números ímpares:&quot;)
+
+    // Filtra e processa apenas os números ímpares
+    for _, num := range numeros {
+        // Pula os números pares
+        if num%2 == 0 {
+            continue
+        }
+
+        // Processa apenas os números ímpares
+        fmt.Printf(&quot;%d ao quadrado = %d\n&quot;, num, num*num)
+    }
+}
+</code></pre>
+<h3 id="modelo-3-validação-de-entrada-com-code-break-code">Modelo 3: Validação de Entrada com <code>break</code></h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var idade int
+
+    // Loop até receber uma idade válida
+    for {
+        fmt.Print(&quot;Digite sua idade (entre 0 e 120): &quot;)
+        fmt.Scanln(&amp;idade)
+
+        // Verifica se a idade é válida
+        if idade &gt;= 0 &amp;&amp; idade &lt;= 120 {
+            break // Sai do laço se a idade for válida
+        }
+
+        fmt.Println(&quot;Idade inválida! Por favor, tente novamente.&quot;)
+    }
+
+    fmt.Printf(&quot;Idade válida: %d anos\n&quot;, idade)
+}
+</code></pre>
+<h3 id="modelo-4-laços-aninhados-com-rótulos">Modelo 4: Laços Aninhados com Rótulos</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Matriz 3x3
+    matriz := [][]int{
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9},
+    }
+
+    // Busca um valor específico na matriz
+    valorAlvo := 5
+    encontrado := false
+
+ExternoLoop:
+    for i := 0; i &lt; len(matriz); i++ {
+        for j := 0; j &lt; len(matriz[i]); j++ {
+            fmt.Printf(&quot;Verificando posição [%d][%d]: %d\n&quot;, i, j, matriz[i][j])
+
+            if matriz[i][j] == valorAlvo {
+                fmt.Printf(&quot;Valor %d encontrado na posição [%d][%d]\n&quot;, valorAlvo, i, j)
+                encontrado = true
+                break ExternoLoop // Sai de ambos os laços
+            }
+        }
+    }
+
+    if !encontrado {
+        fmt.Printf(&quot;Valor %d não encontrado na matriz\n&quot;, valorAlvo)
+    }
+}
+</code></pre>
+<hr />
+<p><strong>Gabarito do Quiz:</strong>
+1. b) Sai completamente do laço
+2. b) Pula para a próxima iteração
+3. b) Sai apenas do laço mais interno
+4. c) Usando um rótulo (label)
+5. b) <code>break</code> sai do laço, enquanto <code>continue</code> pula para a próxima iteração</p>
+  </article>
+</main>
+
+</body>
+</html>

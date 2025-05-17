@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 6: Condicional If/Else</title>
+  <link rel="stylesheet" href="themes/rustbook/css/water-dark.css">
+  <link rel="stylesheet" href="themes/rustbook/css/theme.css">
+  <script src="themes/rustbook/js/theme.js" defer></script>
+</head>
+<body>
+
+<aside>
+  <header><h1>Curso de Algoritmos com Go</h1></header>
+  <nav aria-label="Conteúdo do curso">
+    <ul>
+      <li><a href="index.html">📚 Índice Geral</a></li>
+      <li><a href="algoritmos-base.html">Aula 1: Algoritmos – A Base de Tudo!</a></li>
+      <li><a href="break-e-continue.html">Aula 10: Break e Continue</a></li>
+      <li><a href="condicional-if-else.html">Aula 6: Condicional If/Else</a></li>
+      <li><a href="condicional-switch.html">Aula 7: Condicional Switch</a></li>
+      <li><a href="entrada-e-saida.html">Aula 4: Entrada e Saída com Go</a></li>
+      <li><a href="estrutura-sequencial.html">Aula 5: Estrutura Sequencial</a></li>
+      <li><a href="identificadores-operadores.html">Aula 3: Identificadores e Operadores</a></li>
+      <li><a href="nova_aula.html">Nova aula</a></li>
+      <li><a href="repeticao-for.html">Aula 8: Repetição com For</a></li>
+      <li><a href="variaveis-e-tipos.html">Aula 2: Variáveis e Tipos de Dados em Go</a></li>
+      <li><a href="while-com-for.html">Aula 9: While com For</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<main>
+  <article>
+    <h2>Aula 6: Condicional If/Else</h2>
+    <nav class="minimap"><ul><li class="lvl2"><a href="#objetivos-da-aula">Objetivos da Aula</a></li><li class="lvl2"><a href="#1-introdução-às-estruturas-condicionais">1. Introdução às Estruturas Condicionais</a></li><li class="lvl3"><a href="#1-1-o-que-são-estruturas-condicionais">1.1. O que são Estruturas Condicionais?</a></li><li class="lvl3"><a href="#1-2-por-que-precisamos-de-estruturas-condicionais">1.2. Por que Precisamos de Estruturas Condicionais?</a></li><li class="lvl3"><a href="#1-3-tipos-de-estruturas-condicionais-em-go">1.3. Tipos de Estruturas Condicionais em Go</a></li><li class="lvl2"><a href="#2-a-estrutura-code-if-code-em-go">2. A Estrutura <code>if</code> em Go</a></li><li class="lvl3"><a href="#2-1-sintaxe-básica-do-code-if-code">2.1. Sintaxe Básica do <code>if</code></a></li><li class="lvl3"><a href="#2-2-condições-em-go">2.2. Condições em Go</a></li><li class="lvl3"><a href="#2-3-inicialização-de-variáveis-no-code-if-code">2.3. Inicialização de Variáveis no <code>if</code></a></li><li class="lvl2"><a href="#3-a-estrutura-code-if-code-code-else-code-em-go">3. A Estrutura <code>if</code>-<code>else</code> em Go</a></li><li class="lvl3"><a href="#3-1-sintaxe-do-code-if-code-code-else-code">3.1. Sintaxe do <code>if</code>-<code>else</code></a></li><li class="lvl3"><a href="#3-2-exemplo-prático-verificação-de-número-par-ou-ímpar">3.2. Exemplo Prático: Verificação de Número Par ou Ímpar</a></li><li class="lvl3"><a href="#3-3-exemplo-prático-verificação-de-aprovação">3.3. Exemplo Prático: Verificação de Aprovação</a></li><li class="lvl2"><a href="#4-a-estrutura-code-if-code-code-else-if-code-code-else-code-em-go">4. A Estrutura <code>if</code>-<code>else if</code>-<code>else</code> em Go</a></li><li class="lvl3"><a href="#4-1-sintaxe-do-code-if-code-code-else-if-code-code-else-code">4.1. Sintaxe do <code>if</code>-<code>else if</code>-<code>else</code></a></li><li class="lvl3"><a href="#4-2-exemplo-classificação-de-notas">4.2. Exemplo: Classificação de Notas</a></li><li class="lvl3"><a href="#4-3-exemplo-classificação-de-imc">4.3. Exemplo: Classificação de IMC</a></li><li class="lvl3"><a href="#4-4-ordem-das-condições">4.4. Ordem das Condições</a></li><li class="lvl2"><a href="#5-condições-compostas">5. Condições Compostas</a></li><li class="lvl3"><a href="#5-1-usando-o-operador-code-amp-amp-code-and">5.1. Usando o Operador <code>&amp;&amp;</code> (AND)</a></li><li class="lvl3"><a href="#5-2-usando-o-operador-code-code-or">5.2. Usando o Operador <code>||</code> (OR)</a></li><li class="lvl3"><a href="#5-3-usando-o-operador-code-code-not">5.3. Usando o Operador <code>!</code> (NOT)</a></li><li class="lvl3"><a href="#5-4-combinando-operadores-lógicos">5.4. Combinando Operadores Lógicos</a></li><li class="lvl3"><a href="#5-5-precedência-de-operadores">5.5. Precedência de Operadores</a></li><li class="lvl2"><a href="#6-boas-práticas-com-estruturas-condicionais">6. Boas Práticas com Estruturas Condicionais</a></li><li class="lvl3"><a href="#6-1-mantenha-as-condições-simples">6.1. Mantenha as Condições Simples</a></li><li class="lvl3"><a href="#6-2-evite-negações-duplas">6.2. Evite Negações Duplas</a></li><li class="lvl3"><a href="#6-3-use-chaves-mesmo-para-blocos-de-uma-linha">6.3. Use Chaves Mesmo para Blocos de Uma Linha</a></li><li class="lvl3"><a href="#6-4-retorno-antecipado">6.4. Retorno Antecipado</a></li><li class="lvl3"><a href="#6-5-evite-condições-redundantes">6.5. Evite Condições Redundantes</a></li><li class="lvl2"><a href="#7-exemplos-práticos">7. Exemplos Práticos</a></li><li class="lvl3"><a href="#7-1-calculadora-simples">7.1. Calculadora Simples</a></li><li class="lvl3"><a href="#7-2-verificação-de-ano-bissexto">7.2. Verificação de Ano Bissexto</a></li><li class="lvl3"><a href="#7-3-sistema-de-login-simples">7.3. Sistema de Login Simples</a></li><li class="lvl3"><a href="#7-4-verificação-de-triângulo">7.4. Verificação de Triângulo</a></li><li class="lvl2"><a href="#8-exercícios-offline">8. Exercícios Offline</a></li><li class="lvl2"><a href="#9-quiz-rápido">9. Quiz Rápido</a></li><li class="lvl2"><a href="#10-desafio-prático-sistema-de-notas">10. Desafio Prático: Sistema de Notas</a></li><li class="lvl2"><a href="#11-resumo-da-aula">11. Resumo da Aula</a></li><li class="lvl2"><a href="#12-ficha-de-referência-rápida">12. Ficha de Referência Rápida</a></li><li class="lvl3"><a href="#estruturas-condicionais-em-go">Estruturas Condicionais em Go</a></li><li class="lvl3"><a href="#operadores-relacionais">Operadores Relacionais</a></li><li class="lvl3"><a href="#operadores-lógicos">Operadores Lógicos</a></li><li class="lvl3"><a href="#precedência-de-operadores">Precedência de Operadores</a></li><li class="lvl2"><a href="#13-modelos-de-código">13. Modelos de Código</a></li><li class="lvl3"><a href="#modelo-1-estrutura-code-if-code-básica">Modelo 1: Estrutura <code>if</code> Básica</a></li><li class="lvl3"><a href="#modelo-2-estrutura-code-if-code-code-else-code">Modelo 2: Estrutura <code>if</code>-<code>else</code></a></li><li class="lvl3"><a href="#modelo-3-estrutura-code-if-code-code-else-if-code-code-else-code">Modelo 3: Estrutura <code>if</code>-<code>else if</code>-<code>else</code></a></li><li class="lvl3"><a href="#modelo-4-condições-compostas">Modelo 4: Condições Compostas</a></li></ul></nav><h1>Aula 6: Estrutura Condicional <code>if</code>, <code>else</code> em Go</h1>
+<h2 id="objetivos-da-aula">Objetivos da Aula</h2>
+<p>Ao final desta aula, você será capaz de:</p>
+<ul>
+<li>Compreender o conceito de estruturas condicionais e sua importância na programação</li>
+<li>Utilizar a estrutura <code>if</code>, <code>else if</code> e <code>else</code> em Go para criar fluxos de decisão</li>
+<li>Aplicar operadores relacionais e lógicos em condições</li>
+<li>Implementar blocos de código condicionais para resolver problemas</li>
+<li>Criar programas em Go que tomam decisões com base em diferentes condições</li>
+</ul>
+<hr />
+<h2 id="1-introdução-às-estruturas-condicionais">1. Introdução às Estruturas Condicionais</h2>
+<h3 id="1-1-o-que-são-estruturas-condicionais">1.1. O que são Estruturas Condicionais?</h3>
+<p>As <strong>estruturas condicionais</strong> são recursos fundamentais em programação que permitem que um programa tome decisões e execute diferentes blocos de código dependendo de condições específicas. Elas são essenciais para criar programas dinâmicos que podem responder a diferentes situações.</p>
+<p>Pense nas estruturas condicionais como as "bifurcações" em uma estrada: dependendo de uma condição (como um sinal de trânsito), você segue por um caminho ou outro.</p>
+<p>Na vida cotidiana, tomamos decisões condicionais o tempo todo:</p>
+<ul>
+<li><strong>Se</strong> estiver chovendo, <strong>então</strong> levo um guarda-chuva.</li>
+<li><strong>Se</strong> a temperatura estiver abaixo de 15°C, <strong>então</strong> visto um casaco; <strong>senão</strong>, visto uma camiseta.</li>
+<li><strong>Se</strong> o semáforo estiver verde, <strong>então</strong> atravesso a rua; <strong>senão</strong>, espero.</li>
+</ul>
+<p>Em programação, as estruturas condicionais funcionam de maneira similar, permitindo que o programa "decida" qual caminho seguir com base em condições lógicas.</p>
+<h3 id="1-2-por-que-precisamos-de-estruturas-condicionais">1.2. Por que Precisamos de Estruturas Condicionais?</h3>
+<p>Sem estruturas condicionais, os programas seriam limitados a executar sempre a mesma sequência de instruções, independentemente das circunstâncias. As estruturas condicionais permitem:</p>
+<ol>
+<li><strong>Flexibilidade</strong>: O programa pode se adaptar a diferentes situações.</li>
+<li><strong>Interatividade</strong>: O programa pode responder às entradas do usuário.</li>
+<li><strong>Tratamento de casos especiais</strong>: O programa pode lidar com exceções e casos limites.</li>
+<li><strong>Tomada de decisões</strong>: O programa pode escolher entre diferentes ações com base em critérios específicos.</li>
+</ol>
+<h3 id="1-3-tipos-de-estruturas-condicionais-em-go">1.3. Tipos de Estruturas Condicionais em Go</h3>
+<p>Go oferece as seguintes estruturas condicionais:</p>
+<ol>
+<li><strong><code>if</code></strong>: Executa um bloco de código se uma condição for verdadeira.</li>
+<li><strong><code>if</code>-<code>else</code></strong>: Executa um bloco se a condição for verdadeira e outro bloco se for falsa.</li>
+<li><strong><code>if</code>-<code>else if</code>-<code>else</code></strong>: Permite verificar múltiplas condições em sequência.</li>
+</ol>
+<p>Vamos explorar cada uma delas em detalhes.</p>
+<hr />
+<h2 id="2-a-estrutura-code-if-code-em-go">2. A Estrutura <code>if</code> em Go</h2>
+<p>A estrutura <code>if</code> é a forma mais básica de estrutura condicional. Ela executa um bloco de código apenas se a condição especificada for verdadeira.</p>
+<h3 id="2-1-sintaxe-básica-do-code-if-code">2.1. Sintaxe Básica do <code>if</code></h3>
+<pre><code class="language-go">if condição {
+    // Código a ser executado se a condição for verdadeira
+}
+</code></pre>
+<p>Observe que em Go:
+- A condição não precisa estar entre parênteses (embora seja permitido).
+- As chaves <code>{}</code> são obrigatórias, mesmo que o bloco tenha apenas uma instrução.
+- Não há ponto e vírgula após a condição.</p>
+<p>Exemplo simples:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    idade := 18
+
+    if idade &gt;= 18 {
+        fmt.Println(&quot;Você é maior de idade.&quot;)
+    }
+
+    fmt.Println(&quot;Fim do programa.&quot;)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Você é maior de idade.
+Fim do programa.
+</code></pre>
+<p>Neste exemplo, a mensagem "Você é maior de idade" só é exibida porque a condição <code>idade &gt;= 18</code> é verdadeira. O programa sempre exibe "Fim do programa", independentemente da condição.</p>
+<h3 id="2-2-condições-em-go">2.2. Condições em Go</h3>
+<p>Uma condição em Go é uma expressão que é avaliada como um valor booleano (<code>true</code> ou <code>false</code>). As condições geralmente envolvem operadores relacionais e lógicos.</p>
+<h4>Operadores Relacionais</h4>
+<table>
+<thead>
+<tr>
+<th>Operador</th>
+<th>Descrição</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>==</code></td>
+<td>Igual a</td>
+<td><code>a == b</code></td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td>Diferente de</td>
+<td><code>a != b</code></td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>Menor que</td>
+<td><code>a &lt; b</code></td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>Maior que</td>
+<td><code>a &gt; b</code></td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td>Menor ou igual a</td>
+<td><code>a &lt;= b</code></td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td>Maior ou igual a</td>
+<td><code>a &gt;= b</code></td>
+</tr>
+</tbody>
+</table>
+<h4>Operadores Lógicos</h4>
+<table>
+<thead>
+<tr>
+<th>Operador</th>
+<th>Descrição</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;&amp;</code></td>
+<td>E lógico (AND)</td>
+<td><code>a &amp;&amp; b</code></td>
+</tr>
+<tr>
+<td><code>\|\|</code></td>
+<td>OU lógico (OR)</td>
+<td><code>a \|\| b</code></td>
+</tr>
+<tr>
+<td><code>!</code></td>
+<td>NÃO lógico (NOT)</td>
+<td><code>!a</code></td>
+</tr>
+</tbody>
+</table>
+<p>Exemplo com operadores relacionais e lógicos:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    idade := 25
+    temCarteira := true
+
+    if idade &gt;= 18 &amp;&amp; temCarteira {
+        fmt.Println(&quot;Você pode dirigir.&quot;)
+    }
+
+    temperatura := 30
+
+    if temperatura &gt; 25 {
+        fmt.Println(&quot;Está quente hoje.&quot;)
+    }
+
+    chovendo := false
+
+    if !chovendo {
+        fmt.Println(&quot;Não precisa de guarda-chuva.&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Você pode dirigir.
+Está quente hoje.
+Não precisa de guarda-chuva.
+</code></pre>
+<h3 id="2-3-inicialização-de-variáveis-no-code-if-code">2.3. Inicialização de Variáveis no <code>if</code></h3>
+<p>Go permite inicializar uma variável diretamente na instrução <code>if</code>. A variável só estará disponível dentro do escopo do <code>if</code> (e do <code>else</code>, se houver).</p>
+<pre><code class="language-go">if inicialização; condição {
+    // Código a ser executado se a condição for verdadeira
+}
+</code></pre>
+<p>Exemplo:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    if nota := 8.5; nota &gt;= 7.0 {
+        fmt.Printf(&quot;Aprovado com nota %.1f\n&quot;, nota)
+    }
+
+    // A linha abaixo causaria erro, pois 'nota' só existe dentro do if
+    // fmt.Println(&quot;Sua nota foi:&quot;, nota)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Aprovado com nota 8.5
+</code></pre>
+<p>Esta é uma característica útil quando você precisa de uma variável apenas para a verificação condicional.</p>
+<hr />
+<h2 id="3-a-estrutura-code-if-code-code-else-code-em-go">3. A Estrutura <code>if</code>-<code>else</code> em Go</h2>
+<p>A estrutura <code>if</code>-<code>else</code> permite executar um bloco de código se a condição for verdadeira e outro bloco se for falsa.</p>
+<h3 id="3-1-sintaxe-do-code-if-code-code-else-code">3.1. Sintaxe do <code>if</code>-<code>else</code></h3>
+<pre><code class="language-go">if condição {
+    // Código a ser executado se a condição for verdadeira
+} else {
+    // Código a ser executado se a condição for falsa
+}
+</code></pre>
+<p>Exemplo:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    idade := 15
+
+    if idade &gt;= 18 {
+        fmt.Println(&quot;Você é maior de idade.&quot;)
+    } else {
+        fmt.Println(&quot;Você é menor de idade.&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Você é menor de idade.
+</code></pre>
+<p>Neste exemplo, como a condição <code>idade &gt;= 18</code> é falsa, o programa executa o bloco de código após o <code>else</code>.</p>
+<h3 id="3-2-exemplo-prático-verificação-de-número-par-ou-ímpar">3.2. Exemplo Prático: Verificação de Número Par ou Ímpar</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    numero := 7
+
+    if numero%2 == 0 {
+        fmt.Printf(&quot;%d é um número par.\n&quot;, numero)
+    } else {
+        fmt.Printf(&quot;%d é um número ímpar.\n&quot;, numero)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>7 é um número ímpar.
+</code></pre>
+<p>Este programa verifica se um número é par ou ímpar usando o operador de módulo (<code>%</code>). Se o resto da divisão por 2 for 0, o número é par; caso contrário, é ímpar.</p>
+<h3 id="3-3-exemplo-prático-verificação-de-aprovação">3.3. Exemplo Prático: Verificação de Aprovação</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    if nota := 6.5; nota &gt;= 7.0 {
+        fmt.Printf(&quot;Aprovado com nota %.1f\n&quot;, nota)
+    } else {
+        fmt.Printf(&quot;Reprovado com nota %.1f\n&quot;, nota)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Reprovado com nota 6.5
+</code></pre>
+<p>Este exemplo combina a inicialização de variável no <code>if</code> com a estrutura <code>if</code>-<code>else</code>.</p>
+<hr />
+<h2 id="4-a-estrutura-code-if-code-code-else-if-code-code-else-code-em-go">4. A Estrutura <code>if</code>-<code>else if</code>-<code>else</code> em Go</h2>
+<p>A estrutura <code>if</code>-<code>else if</code>-<code>else</code> permite verificar múltiplas condições em sequência.</p>
+<h3 id="4-1-sintaxe-do-code-if-code-code-else-if-code-code-else-code">4.1. Sintaxe do <code>if</code>-<code>else if</code>-<code>else</code></h3>
+<pre><code class="language-go">if condição1 {
+    // Código a ser executado se condição1 for verdadeira
+} else if condição2 {
+    // Código a ser executado se condição1 for falsa e condição2 for verdadeira
+} else if condição3 {
+    // Código a ser executado se condição1 e condição2 forem falsas e condição3 for verdadeira
+} else {
+    // Código a ser executado se todas as condições anteriores forem falsas
+}
+</code></pre>
+<p>Você pode ter quantos blocos <code>else if</code> forem necessários. O bloco <code>else</code> é opcional.</p>
+<h3 id="4-2-exemplo-classificação-de-notas">4.2. Exemplo: Classificação de Notas</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    nota := 85
+
+    if nota &gt;= 90 {
+        fmt.Println(&quot;Conceito A&quot;)
+    } else if nota &gt;= 80 {
+        fmt.Println(&quot;Conceito B&quot;)
+    } else if nota &gt;= 70 {
+        fmt.Println(&quot;Conceito C&quot;)
+    } else if nota &gt;= 60 {
+        fmt.Println(&quot;Conceito D&quot;)
+    } else {
+        fmt.Println(&quot;Conceito F&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Conceito B
+</code></pre>
+<p>Neste exemplo, o programa verifica várias faixas de notas e atribui um conceito correspondente.</p>
+<h3 id="4-3-exemplo-classificação-de-imc">4.3. Exemplo: Classificação de IMC</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    peso := 70.0    // em kg
+    altura := 1.75  // em metros
+
+    imc := peso / (altura * altura)
+
+    fmt.Printf(&quot;Seu IMC é: %.2f\n&quot;, imc)
+
+    if imc &lt; 18.5 {
+        fmt.Println(&quot;Classificação: Abaixo do peso&quot;)
+    } else if imc &lt; 25.0 {
+        fmt.Println(&quot;Classificação: Peso normal&quot;)
+    } else if imc &lt; 30.0 {
+        fmt.Println(&quot;Classificação: Sobrepeso&quot;)
+    } else if imc &lt; 35.0 {
+        fmt.Println(&quot;Classificação: Obesidade grau 1&quot;)
+    } else if imc &lt; 40.0 {
+        fmt.Println(&quot;Classificação: Obesidade grau 2&quot;)
+    } else {
+        fmt.Println(&quot;Classificação: Obesidade grau 3&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Seu IMC é: 22.86
+Classificação: Peso normal
+</code></pre>
+<p>Este programa calcula o Índice de Massa Corporal (IMC) e fornece uma classificação com base no valor calculado.</p>
+<h3 id="4-4-ordem-das-condições">4.4. Ordem das Condições</h3>
+<p>A ordem das condições em uma estrutura <code>if</code>-<code>else if</code>-<code>else</code> é importante. O programa verifica as condições na ordem em que aparecem e executa o bloco correspondente à primeira condição verdadeira encontrada.</p>
+<p>Exemplo com ordem incorreta:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    nota := 85
+
+    // Ordem incorreta
+    if nota &gt;= 60 {
+        fmt.Println(&quot;Conceito D ou melhor&quot;)
+    } else if nota &gt;= 70 {
+        fmt.Println(&quot;Conceito C ou melhor&quot;)
+    } else if nota &gt;= 80 {
+        fmt.Println(&quot;Conceito B ou melhor&quot;)
+    } else if nota &gt;= 90 {
+        fmt.Println(&quot;Conceito A&quot;)
+    } else {
+        fmt.Println(&quot;Conceito F&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Conceito D ou melhor
+</code></pre>
+<p>Neste exemplo, mesmo que a nota seja 85 (o que deveria ser "Conceito B"), o programa exibe "Conceito D ou melhor" porque essa é a primeira condição verdadeira encontrada.</p>
+<p>Exemplo com ordem correta:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    nota := 85
+
+    // Ordem correta
+    if nota &gt;= 90 {
+        fmt.Println(&quot;Conceito A&quot;)
+    } else if nota &gt;= 80 {
+        fmt.Println(&quot;Conceito B&quot;)
+    } else if nota &gt;= 70 {
+        fmt.Println(&quot;Conceito C&quot;)
+    } else if nota &gt;= 60 {
+        fmt.Println(&quot;Conceito D&quot;)
+    } else {
+        fmt.Println(&quot;Conceito F&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Conceito B
+</code></pre>
+<p>Agora o programa exibe o resultado correto.</p>
+<hr />
+<h2 id="5-condições-compostas">5. Condições Compostas</h2>
+<p>Condições compostas são formadas pela combinação de múltiplas condições simples usando operadores lógicos.</p>
+<h3 id="5-1-usando-o-operador-code-amp-amp-code-and">5.1. Usando o Operador <code>&amp;&amp;</code> (AND)</h3>
+<p>O operador <code>&amp;&amp;</code> (AND) retorna <code>true</code> apenas se ambas as condições forem verdadeiras.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    idade := 25
+    temCarteira := true
+
+    if idade &gt;= 18 &amp;&amp; temCarteira {
+        fmt.Println(&quot;Pode dirigir&quot;)
+    } else {
+        fmt.Println(&quot;Não pode dirigir&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Pode dirigir
+</code></pre>
+<h3 id="5-2-usando-o-operador-code-code-or">5.2. Usando o Operador <code>||</code> (OR)</h3>
+<p>O operador <code>||</code> (OR) retorna <code>true</code> se pelo menos uma das condições for verdadeira.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    diaSemana := &quot;Sábado&quot;
+
+    if diaSemana == &quot;Sábado&quot; || diaSemana == &quot;Domingo&quot; {
+        fmt.Println(&quot;É fim de semana!&quot;)
+    } else {
+        fmt.Println(&quot;É dia útil.&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>É fim de semana!
+</code></pre>
+<h3 id="5-3-usando-o-operador-code-code-not">5.3. Usando o Operador <code>!</code> (NOT)</h3>
+<p>O operador <code>!</code> (NOT) inverte o valor de uma expressão booleana.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    chovendo := false
+
+    if !chovendo {
+        fmt.Println(&quot;Não está chovendo, pode sair sem guarda-chuva.&quot;)
+    } else {
+        fmt.Println(&quot;Está chovendo, leve um guarda-chuva.&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Não está chovendo, pode sair sem guarda-chuva.
+</code></pre>
+<h3 id="5-4-combinando-operadores-lógicos">5.4. Combinando Operadores Lógicos</h3>
+<p>Você pode combinar múltiplos operadores lógicos para criar condições mais complexas.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    idade := 25
+    temCarteira := true
+    bebeu := false
+
+    if idade &gt;= 18 &amp;&amp; temCarteira &amp;&amp; !bebeu {
+        fmt.Println(&quot;Pode dirigir&quot;)
+    } else {
+        fmt.Println(&quot;Não pode dirigir&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Pode dirigir
+</code></pre>
+<p>Neste exemplo, a pessoa só pode dirigir se for maior de idade, tiver carteira de motorista e não tiver bebido.</p>
+<h3 id="5-5-precedência-de-operadores">5.5. Precedência de Operadores</h3>
+<p>Quando você combina múltiplos operadores lógicos, é importante entender a precedência:</p>
+<ol>
+<li><code>!</code> (NOT) tem a maior precedência</li>
+<li><code>&amp;&amp;</code> (AND) tem precedência intermediária</li>
+<li><code>||</code> (OR) tem a menor precedência</li>
+</ol>
+<p>Você pode usar parênteses para alterar a ordem de avaliação.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    a, b, c := true, false, true
+
+    // Sem parênteses: ! tem precedência sobre &amp;&amp;, que tem precedência sobre ||
+    resultado1 := a || b &amp;&amp; !c
+    fmt.Println(&quot;a || b &amp;&amp; !c =&quot;, resultado1)
+
+    // Com parênteses: a ordem de avaliação é alterada
+    resultado2 := (a || b) &amp;&amp; !c
+    fmt.Println(&quot;(a || b) &amp;&amp; !c =&quot;, resultado2)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>a || b &amp;&amp; !c = true
+(a || b) &amp;&amp; !c = false
+</code></pre>
+<hr />
+<h2 id="6-boas-práticas-com-estruturas-condicionais">6. Boas Práticas com Estruturas Condicionais</h2>
+<h3 id="6-1-mantenha-as-condições-simples">6.1. Mantenha as Condições Simples</h3>
+<p>Condições muito complexas podem ser difíceis de entender e manter. Se uma condição estiver ficando muito complexa, considere dividi-la em partes menores ou usar variáveis intermediárias.</p>
+<pre><code class="language-go">// Difícil de ler
+if idade &gt;= 18 &amp;&amp; (temCarteira || temAutorizacao) &amp;&amp; !bebeu &amp;&amp; !estaCansado {
+    // ...
+}
+
+// Mais fácil de ler
+podeConduzir := idade &gt;= 18 &amp;&amp; (temCarteira || temAutorizacao)
+estaSaudavel := !bebeu &amp;&amp; !estaCansado
+
+if podeConduzir &amp;&amp; estaSaudavel {
+    // ...
+}
+</code></pre>
+<h3 id="6-2-evite-negações-duplas">6.2. Evite Negações Duplas</h3>
+<p>Negações duplas (<code>!!</code>) podem confundir e tornar o código menos legível.</p>
+<pre><code class="language-go">// Menos legível
+if !(idade &lt; 18) {
+    // ...
+}
+
+// Mais legível
+if idade &gt;= 18 {
+    // ...
+}
+</code></pre>
+<h3 id="6-3-use-chaves-mesmo-para-blocos-de-uma-linha">6.3. Use Chaves Mesmo para Blocos de Uma Linha</h3>
+<p>Em Go, as chaves são obrigatórias para blocos <code>if</code>, mesmo que contenham apenas uma instrução. Isso é uma boa prática que evita erros comuns em outras linguagens.</p>
+<pre><code class="language-go">// Correto em Go
+if idade &gt;= 18 {
+    fmt.Println(&quot;Maior de idade&quot;)
+}
+
+// Incorreto em Go (não compila)
+// if idade &gt;= 18
+//     fmt.Println(&quot;Maior de idade&quot;)
+</code></pre>
+<h3 id="6-4-retorno-antecipado">6.4. Retorno Antecipado</h3>
+<p>Em funções, às vezes é mais claro usar retornos antecipados em vez de estruturas <code>if</code>-<code>else</code> aninhadas.</p>
+<pre><code class="language-go">// Com if-else aninhado
+func verificarIdade(idade int) string {
+    var resultado string
+    if idade &gt;= 18 {
+        resultado = &quot;Maior de idade&quot;
+    } else {
+        resultado = &quot;Menor de idade&quot;
+    }
+    return resultado
+}
+
+// Com retorno antecipado
+func verificarIdade(idade int) string {
+    if idade &gt;= 18 {
+        return &quot;Maior de idade&quot;
+    }
+    return &quot;Menor de idade&quot;
+}
+</code></pre>
+<h3 id="6-5-evite-condições-redundantes">6.5. Evite Condições Redundantes</h3>
+<p>Evite verificar a mesma condição múltiplas vezes.</p>
+<pre><code class="language-go">// Redundante
+if idade &gt;= 18 {
+    fmt.Println(&quot;Maior de idade&quot;)
+} else if idade &lt; 18 {
+    fmt.Println(&quot;Menor de idade&quot;)
+}
+
+// Melhor
+if idade &gt;= 18 {
+    fmt.Println(&quot;Maior de idade&quot;)
+} else {
+    fmt.Println(&quot;Menor de idade&quot;)
+}
+</code></pre>
+<hr />
+<h2 id="7-exemplos-práticos">7. Exemplos Práticos</h2>
+<h3 id="7-1-calculadora-simples">7.1. Calculadora Simples</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    a := 10
+    b := 5
+    operacao := &quot;+&quot;
+
+    fmt.Printf(&quot;Operação: %d %s %d\n&quot;, a, operacao, b)
+
+    if operacao == &quot;+&quot; {
+        fmt.Printf(&quot;Resultado: %d\n&quot;, a+b)
+    } else if operacao == &quot;-&quot; {
+        fmt.Printf(&quot;Resultado: %d\n&quot;, a-b)
+    } else if operacao == &quot;*&quot; {
+        fmt.Printf(&quot;Resultado: %d\n&quot;, a*b)
+    } else if operacao == &quot;/&quot; {
+        if b == 0 {
+            fmt.Println(&quot;Erro: Divisão por zero&quot;)
+        } else {
+            fmt.Printf(&quot;Resultado: %d\n&quot;, a/b)
+        }
+    } else {
+        fmt.Println(&quot;Operação inválida&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Operação: 10 + 5
+Resultado: 15
+</code></pre>
+<h3 id="7-2-verificação-de-ano-bissexto">7.2. Verificação de Ano Bissexto</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    ano := 2024
+
+    fmt.Printf(&quot;Verificando se %d é um ano bissexto...\n&quot;, ano)
+
+    if (ano%4 == 0 &amp;&amp; ano%100 != 0) || (ano%400 == 0) {
+        fmt.Printf(&quot;%d é um ano bissexto.\n&quot;, ano)
+    } else {
+        fmt.Printf(&quot;%d não é um ano bissexto.\n&quot;, ano)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Verificando se 2024 é um ano bissexto...
+2024 é um ano bissexto.
+</code></pre>
+<h3 id="7-3-sistema-de-login-simples">7.3. Sistema de Login Simples</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    usuarioCorreto := &quot;admin&quot;
+    senhaCorreta := &quot;123456&quot;
+
+    usuario := &quot;admin&quot;
+    senha := &quot;123456&quot;
+
+    if usuario == usuarioCorreto &amp;&amp; senha == senhaCorreta {
+        fmt.Println(&quot;Login bem-sucedido!&quot;)
+    } else if usuario != usuarioCorreto {
+        fmt.Println(&quot;Usuário incorreto.&quot;)
+    } else {
+        fmt.Println(&quot;Senha incorreta.&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Login bem-sucedido!
+</code></pre>
+<h3 id="7-4-verificação-de-triângulo">7.4. Verificação de Triângulo</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    a := 3
+    b := 4
+    c := 5
+
+    fmt.Printf(&quot;Lados do triângulo: %d, %d, %d\n&quot;, a, b, c)
+
+    // Verificar se os lados podem formar um triângulo
+    if a+b &gt; c &amp;&amp; a+c &gt; b &amp;&amp; b+c &gt; a {
+        fmt.Println(&quot;Os lados podem formar um triângulo.&quot;)
+
+        // Verificar o tipo de triângulo
+        if a == b &amp;&amp; b == c {
+            fmt.Println(&quot;É um triângulo equilátero.&quot;)
+        } else if a == b || b == c || a == c {
+            fmt.Println(&quot;É um triângulo isósceles.&quot;)
+        } else {
+            fmt.Println(&quot;É um triângulo escaleno.&quot;)
+        }
+
+        // Verificar se é um triângulo retângulo (Teorema de Pitágoras)
+        if a*a + b*b == c*c || a*a + c*c == b*b || b*b + c*c == a*a {
+            fmt.Println(&quot;É um triângulo retângulo.&quot;)
+        }
+    } else {
+        fmt.Println(&quot;Os lados não podem formar um triângulo.&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Lados do triângulo: 3, 4, 5
+Os lados podem formar um triângulo.
+É um triângulo escaleno.
+É um triângulo retângulo.
+</code></pre>
+<hr />
+<h2 id="8-exercícios-offline">8. Exercícios Offline</h2>
+<ol>
+<li>
+<p><strong>Verificação de Número Positivo, Negativo ou Zero</strong>: Escreva um algoritmo que verifica se um número é positivo, negativo ou zero.</p>
+</li>
+<li>
+<p><strong>Calculadora de IMC com Classificação</strong>: Crie um algoritmo que calcule o IMC (Índice de Massa Corporal) e classifique o resultado em: abaixo do peso, peso normal, sobrepeso, obesidade grau 1, 2 ou 3.</p>
+</li>
+<li>
+<p><strong>Verificação de Vogal ou Consoante</strong>: Desenvolva um algoritmo que verifica se uma letra é vogal ou consoante.</p>
+</li>
+<li>
+<p><strong>Calculadora de Desconto</strong>: Crie um algoritmo que aplique diferentes percentuais de desconto com base no valor da compra: até R$ 100 (sem desconto), de R$ 100 a R$ 500 (5% de desconto), acima de R$ 500 (10% de desconto).</p>
+</li>
+<li>
+<p><strong>Verificação de Dia da Semana</strong>: Desenvolva um algoritmo que, dado um número de 1 a 7, retorne o dia da semana correspondente (1 = Domingo, 2 = Segunda, etc.).</p>
+</li>
+</ol>
+<hr />
+<h2 id="9-quiz-rápido">9. Quiz Rápido</h2>
+<ol>
+<li>
+<p>Qual é a sintaxe correta para uma estrutura <code>if</code> em Go?
+   a) <code>if (condição) { código }</code>
+   b) <code>if condição { código }</code>
+   c) <code>if condição: código</code>
+   d) <code>if (condição) código</code></p>
+</li>
+<li>
+<p>O que acontece se a condição em um <code>if</code> for avaliada como <code>false</code>?
+   a) O bloco de código dentro do <code>if</code> é executado
+   b) O programa gera um erro
+   c) O bloco de código dentro do <code>if</code> não é executado
+   d) O programa pula para o próximo <code>if</code></p>
+</li>
+<li>
+<p>Qual operador lógico representa "E" (AND) em Go?
+   a) <code>&amp;</code>
+   b) <code>AND</code>
+   c) <code>&amp;&amp;</code>
+   d) <code>||</code></p>
+</li>
+<li>
+<p>Em uma estrutura <code>if</code>-<code>else if</code>-<code>else</code>, quantas condições podem ser verdadeiras simultaneamente?
+   a) Todas
+   b) Nenhuma
+   c) Apenas a primeira verdadeira será executada
+   d) Apenas a última verdadeira será executada</p>
+</li>
+<li>
+<p>Qual é a particularidade da inicialização de variáveis em um <code>if</code> em Go?
+   a) A variável só existe dentro do escopo do <code>if</code> (e do <code>else</code>, se houver)
+   b) A variável existe em todo o programa
+   c) A variável só pode ser do tipo booleano
+   d) A variável não pode ser modificada dentro do bloco <code>if</code></p>
+</li>
+</ol>
+<hr />
+<h2 id="10-desafio-prático-sistema-de-notas">10. Desafio Prático: Sistema de Notas</h2>
+<p>Crie um programa em Go que calcule a média de um aluno e determine sua situação com base nas seguintes regras:</p>
+<ol>
+<li>O programa deve declarar três variáveis para armazenar as notas de um aluno (valores de ponto flutuante).</li>
+<li>Calcular a média das três notas.</li>
+<li>Se a média for maior ou igual a 7.0, o aluno está "Aprovado".</li>
+<li>Se a média for menor que 7.0 e maior ou igual a 5.0, o aluno está em "Recuperação".</li>
+<li>Se a média for menor que 5.0, o aluno está "Reprovado".</li>
+<li>Além disso, se a média for 10.0, o programa deve exibir "Aprovado com Distinção".</li>
+<li>O programa deve exibir as três notas, a média calculada e a situação do aluno.</li>
+</ol>
+<p><strong>Exemplo de Saída Esperada:</strong></p>
+<pre><code>Sistema de Notas
+---------------
+Nota 1: 8.5
+Nota 2: 7.0
+Nota 3: 9.5
+
+Média: 8.33
+Situação: Aprovado
+</code></pre>
+<p><strong>Dica:</strong> Use <code>fmt.Printf</code> para formatar a saída com duas casas decimais.</p>
+<hr />
+<h2 id="11-resumo-da-aula">11. Resumo da Aula</h2>
+<p>Nesta aula, aprendemos sobre:</p>
+<ul>
+<li><strong>Estruturas Condicionais</strong>: Permitem que o programa tome decisões e execute diferentes blocos de código dependendo de condições específicas.</li>
+<li><strong>Estrutura <code>if</code></strong>: Executa um bloco de código se a condição for verdadeira.</li>
+<li><strong>Estrutura <code>if</code>-<code>else</code></strong>: Executa um bloco se a condição for verdadeira e outro bloco se for falsa.</li>
+<li><strong>Estrutura <code>if</code>-<code>else if</code>-<code>else</code></strong>: Permite verificar múltiplas condições em sequência.</li>
+<li><strong>Condições Compostas</strong>: Combinação de múltiplas condições simples usando operadores lógicos (<code>&amp;&amp;</code>, <code>||</code>, <code>!</code>).</li>
+<li><strong>Inicialização de Variáveis no <code>if</code></strong>: Go permite inicializar uma variável diretamente na instrução <code>if</code>.</li>
+<li><strong>Boas Práticas</strong>: Manter condições simples, evitar negações duplas, usar chaves mesmo para blocos de uma linha, etc.</li>
+</ul>
+<p>As estruturas condicionais são fundamentais para criar programas dinâmicos que podem responder a diferentes situações e tomar decisões com base em condições específicas.</p>
+<hr />
+<h2 id="12-ficha-de-referência-rápida">12. Ficha de Referência Rápida</h2>
+<h3 id="estruturas-condicionais-em-go">Estruturas Condicionais em Go</h3>
+<table>
+<thead>
+<tr>
+<th>Estrutura</th>
+<th>Sintaxe</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>if</code></td>
+<td><code>if condição { código }</code></td>
+<td>Executa o código se a condição for verdadeira</td>
+</tr>
+<tr>
+<td><code>if</code>-<code>else</code></td>
+<td><code>if condição { código1 } else { código2 }</code></td>
+<td>Executa código1 se a condição for verdadeira, código2 se for falsa</td>
+</tr>
+<tr>
+<td><code>if</code>-<code>else if</code>-<code>else</code></td>
+<td><code>if cond1 { cód1 } else if cond2 { cód2 } else { cód3 }</code></td>
+<td>Verifica múltiplas condições em sequência</td>
+</tr>
+</tbody>
+</table>
+<h3 id="operadores-relacionais">Operadores Relacionais</h3>
+<table>
+<thead>
+<tr>
+<th>Operador</th>
+<th>Descrição</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>==</code></td>
+<td>Igual a</td>
+<td><code>a == b</code></td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td>Diferente de</td>
+<td><code>a != b</code></td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>Menor que</td>
+<td><code>a &lt; b</code></td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>Maior que</td>
+<td><code>a &gt; b</code></td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td>Menor ou igual a</td>
+<td><code>a &lt;= b</code></td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td>Maior ou igual a</td>
+<td><code>a &gt;= b</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="operadores-lógicos">Operadores Lógicos</h3>
+<table>
+<thead>
+<tr>
+<th>Operador</th>
+<th>Descrição</th>
+<th>Exemplo</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;&amp;</code></td>
+<td>E lógico (AND)</td>
+<td><code>true &amp;&amp; true</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>&amp;&amp;</code></td>
+<td>E lógico (AND)</td>
+<td><code>true &amp;&amp; false</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>\|\|</code></td>
+<td>OU lógico (OR)</td>
+<td><code>true \|\| false</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>\|\|</code></td>
+<td>OU lógico (OR)</td>
+<td><code>false \|\| false</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>!</code></td>
+<td>NÃO lógico (NOT)</td>
+<td><code>!true</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>!</code></td>
+<td>NÃO lógico (NOT)</td>
+<td><code>!false</code></td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="precedência-de-operadores">Precedência de Operadores</h3>
+<ol>
+<li><code>!</code> (NOT) - maior precedência</li>
+<li><code>&amp;&amp;</code> (AND) - precedência intermediária</li>
+<li><code>||</code> (OR) - menor precedência</li>
+</ol>
+<p>Use parênteses para alterar a ordem de avaliação.</p>
+<hr />
+<h2 id="13-modelos-de-código">13. Modelos de Código</h2>
+<h3 id="modelo-1-estrutura-code-if-code-básica">Modelo 1: Estrutura <code>if</code> Básica</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Variável para teste
+    valor := 10
+
+    // Estrutura if básica
+    if valor &gt; 5 {
+        fmt.Println(&quot;O valor é maior que 5&quot;)
+    }
+
+    // Estrutura if com inicialização
+    if x := valor * 2; x &gt; 15 {
+        fmt.Printf(&quot;x = %d, que é maior que 15\n&quot;, x)
+    }
+}
+</code></pre>
+<h3 id="modelo-2-estrutura-code-if-code-code-else-code">Modelo 2: Estrutura <code>if</code>-<code>else</code></h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Variável para teste
+    idade := 17
+
+    // Estrutura if-else
+    if idade &gt;= 18 {
+        fmt.Println(&quot;Maior de idade&quot;)
+    } else {
+        fmt.Println(&quot;Menor de idade&quot;)
+        anos := 18 - idade
+        fmt.Printf(&quot;Faltam %d anos para a maioridade\n&quot;, anos)
+    }
+}
+</code></pre>
+<h3 id="modelo-3-estrutura-code-if-code-code-else-if-code-code-else-code">Modelo 3: Estrutura <code>if</code>-<code>else if</code>-<code>else</code></h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Variável para teste
+    nota := 75
+
+    // Estrutura if-else if-else
+    if nota &gt;= 90 {
+        fmt.Println(&quot;Conceito A&quot;)
+    } else if nota &gt;= 80 {
+        fmt.Println(&quot;Conceito B&quot;)
+    } else if nota &gt;= 70 {
+        fmt.Println(&quot;Conceito C&quot;)
+    } else if nota &gt;= 60 {
+        fmt.Println(&quot;Conceito D&quot;)
+    } else {
+        fmt.Println(&quot;Conceito F&quot;)
+    }
+}
+</code></pre>
+<h3 id="modelo-4-condições-compostas">Modelo 4: Condições Compostas</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Variáveis para teste
+    idade := 20
+    temCarteira := true
+    bebeu := false
+
+    // Condição composta com AND e NOT
+    if idade &gt;= 18 &amp;&amp; temCarteira &amp;&amp; !bebeu {
+        fmt.Println(&quot;Pode dirigir&quot;)
+    } else {
+        fmt.Println(&quot;Não pode dirigir&quot;)
+
+        // Explicar o motivo
+        if idade &lt; 18 {
+            fmt.Println(&quot;Motivo: Menor de idade&quot;)
+        } else if !temCarteira {
+            fmt.Println(&quot;Motivo: Não possui carteira de motorista&quot;)
+        } else if bebeu {
+            fmt.Println(&quot;Motivo: Consumiu bebida alcoólica&quot;)
+        }
+    }
+}
+</code></pre>
+<hr />
+<p><strong>Gabarito do Quiz:</strong>
+1. b) <code>if condição { código }</code>
+2. c) O bloco de código dentro do <code>if</code> não é executado
+3. c) <code>&amp;&amp;</code>
+4. c) Apenas a primeira verdadeira será executada
+5. a) A variável só existe dentro do escopo do <code>if</code> (e do <code>else</code>, se houver)</p>
+  </article>
+</main>
+
+</body>
+</html>

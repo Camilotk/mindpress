@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 3: Identificadores e Operadores</title>
+  <link rel="stylesheet" href="themes/rustbook/css/water-dark.css">
+  <link rel="stylesheet" href="themes/rustbook/css/theme.css">
+  <script src="themes/rustbook/js/theme.js" defer></script>
+</head>
+<body>
+
+<aside>
+  <header><h1>Curso de Algoritmos com Go</h1></header>
+  <nav aria-label="Conteúdo do curso">
+    <ul>
+      <li><a href="index.html">📚 Índice Geral</a></li>
+      <li><a href="algoritmos-base.html">Aula 1: Algoritmos – A Base de Tudo!</a></li>
+      <li><a href="break-e-continue.html">Aula 10: Break e Continue</a></li>
+      <li><a href="condicional-if-else.html">Aula 6: Condicional If/Else</a></li>
+      <li><a href="condicional-switch.html">Aula 7: Condicional Switch</a></li>
+      <li><a href="entrada-e-saida.html">Aula 4: Entrada e Saída com Go</a></li>
+      <li><a href="estrutura-sequencial.html">Aula 5: Estrutura Sequencial</a></li>
+      <li><a href="identificadores-operadores.html">Aula 3: Identificadores e Operadores</a></li>
+      <li><a href="nova_aula.html">Nova aula</a></li>
+      <li><a href="repeticao-for.html">Aula 8: Repetição com For</a></li>
+      <li><a href="variaveis-e-tipos.html">Aula 2: Variáveis e Tipos de Dados em Go</a></li>
+      <li><a href="while-com-for.html">Aula 9: While com For</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<main>
+  <article>
+    <h2>Aula 3: Identificadores e Operadores</h2>
+    <nav class="minimap"><ul><li class="lvl2"><a href="#objetivos-da-aula">Objetivos da Aula</a></li><li class="lvl2"><a href="#1-identificadores-em-go">1. Identificadores em Go</a></li><li class="lvl3"><a href="#1-1-o-que-são-identificadores">1.1. O que são Identificadores?</a></li><li class="lvl3"><a href="#1-2-regras-para-identificadores-em-go">1.2. Regras para Identificadores em Go</a></li><li class="lvl3"><a href="#1-3-palavras-reservadas-em-go">1.3. Palavras Reservadas em Go</a></li><li class="lvl3"><a href="#1-4-convenções-de-nomenclatura">1.4. Convenções de Nomenclatura</a></li><li class="lvl3"><a href="#1-5-exemplos-em-go">1.5. Exemplos em Go</a></li><li class="lvl2"><a href="#2-operadores-em-go">2. Operadores em Go</a></li><li class="lvl3"><a href="#2-1-operadores-aritméticos">2.1. Operadores Aritméticos</a></li><li class="lvl3"><a href="#2-2-operadores-relacionais">2.2. Operadores Relacionais</a></li><li class="lvl3"><a href="#2-3-operadores-lógicos">2.3. Operadores Lógicos</a></li><li class="lvl3"><a href="#2-4-precedência-de-operadores">2.4. Precedência de Operadores</a></li><li class="lvl3"><a href="#2-5-exemplos-práticos">2.5. Exemplos Práticos</a></li><li class="lvl2"><a href="#3-exercícios-offline-lápis-e-papel-editor-de-texto-simples">3. Exercícios Offline (Lápis e Papel / Editor de Texto Simples)</a></li><li class="lvl2"><a href="#4-quiz-rápido">4. Quiz Rápido</a></li><li class="lvl2"><a href="#5-desafio-prático-calculadora-de-média-e-aprovação">5. Desafio Prático: Calculadora de Média e Aprovação</a></li><li class="lvl2"><a href="#6-resumo-da-aula-e-ficha-imprimível">6. Resumo da Aula e Ficha Imprimível</a></li><li class="lvl2"><a href="#7-modelos-de-código-go-para-reutilização">7. Modelos de Código Go para Reutilização</a></li></ul></nav><h1>Aula 3: Identificadores e Operadores em Go – Nomeando e Operando Dados</h1>
+<h2 id="objetivos-da-aula">Objetivos da Aula</h2>
+<p>Ao final desta aula, você será capaz de:</p>
+<ul>
+<li>Compreender e aplicar as regras para criação de identificadores válidos em Go.</li>
+<li>Reconhecer e utilizar os diferentes tipos de operadores: aritméticos, relacionais e lógicos.</li>
+<li>Entender a precedência de operadores e como ela afeta o resultado de expressões.</li>
+<li>Escrever expressões complexas combinando diferentes operadores.</li>
+<li>Criar programas em Go que utilizam operadores para resolver problemas simples.</li>
+</ul>
+<hr />
+<h2 id="1-identificadores-em-go">1. Identificadores em Go</h2>
+<h3 id="1-1-o-que-são-identificadores">1.1. O que são Identificadores?</h3>
+<p>Em programação, <strong>identificadores</strong> são nomes que damos a elementos do código como variáveis, constantes, funções, tipos e pacotes. Eles servem como "etiquetas" que nos permitem referenciar esses elementos ao longo do programa.</p>
+<p>Pense nos identificadores como os nomes que você dá às pessoas, lugares ou objetos no mundo real. Assim como você usa o nome de um amigo para se referir a ele em uma conversa, você usa identificadores para se referir a elementos específicos em seu código.</p>
+<h3 id="1-2-regras-para-identificadores-em-go">1.2. Regras para Identificadores em Go</h3>
+<p>A linguagem Go possui regras específicas para a criação de identificadores válidos. Essas regras são importantes porque ajudam a manter o código consistente e evitam conflitos com palavras reservadas da linguagem.</p>
+<p><strong>Regras básicas:</strong></p>
+<ol>
+<li><strong>Caracteres permitidos:</strong> Identificadores podem conter letras (a-z, A-Z), dígitos (0-9) e o caractere sublinhado (_).</li>
+<li><strong>Primeiro caractere:</strong> O primeiro caractere deve ser uma letra ou um sublinhado, nunca um dígito.</li>
+<li><strong>Sensibilidade a maiúsculas/minúsculas:</strong> Go é uma linguagem case-sensitive, ou seja, <code>idade</code>, <code>Idade</code> e <code>IDADE</code> são três identificadores diferentes.</li>
+<li><strong>Sem espaços ou caracteres especiais:</strong> Não são permitidos espaços, hífens, pontos ou outros caracteres especiais (exceto o sublinhado).</li>
+<li><strong>Sem palavras reservadas:</strong> Não é possível usar palavras reservadas da linguagem Go como identificadores.</li>
+</ol>
+<p><strong>Exemplos de identificadores válidos:</strong></p>
+<pre><code class="language-go">nome
+idade
+_temporario
+contador1
+PrimeiroNome
+ultimo_nome
+totalCompras
+</code></pre>
+<p><strong>Exemplos de identificadores inválidos:</strong></p>
+<pre><code class="language-go">1numero       // Não pode começar com dígito
+nome-completo // Não pode conter hífen
+meu nome      // Não pode conter espaço
+for           // Palavra reservada da linguagem
+</code></pre>
+<h3 id="1-3-palavras-reservadas-em-go">1.3. Palavras Reservadas em Go</h3>
+<p>Go possui um conjunto de palavras reservadas que não podem ser usadas como identificadores porque têm significados especiais na linguagem. Conhecer essas palavras é importante para evitar erros de sintaxe.</p>
+<pre><code class="language-go">break     default      func    interface  select
+case      defer        go      map        struct
+chan      else         goto    package    switch
+const     fallthrough  if      range      type
+continue  for          import  return     var
+</code></pre>
+<h3 id="1-4-convenções-de-nomenclatura">1.4. Convenções de Nomenclatura</h3>
+<p>Embora não sejam regras obrigatórias, existem convenções de nomenclatura que são amplamente seguidas pela comunidade Go. Seguir essas convenções torna seu código mais legível e mais fácil de entender para outros programadores.</p>
+<ol>
+<li>
+<p><strong>camelCase para variáveis e funções locais:</strong> Primeira letra minúscula, demais palavras com inicial maiúscula.
+   <code>go
+   nomeCompleto
+   idadeAluno
+   calcularMedia</code></p>
+</li>
+<li>
+<p><strong>PascalCase (ou UpperCamelCase) para exportação:</strong> Elementos que devem ser acessíveis fora do pacote atual começam com letra maiúscula.
+   <code>go
+   TotalVendas    // Exportado (visível fora do pacote)
+   contadorLocal  // Não exportado (visível apenas dentro do pacote)</code></p>
+</li>
+<li>
+<p><strong>Acrônimos em maiúsculas:</strong> Acrônimos como HTTP, URL, ID geralmente são escritos em maiúsculas.
+   <code>go
+   clienteHTTP
+   urlBase
+   userID</code></p>
+</li>
+<li>
+<p><strong>Nomes descritivos:</strong> Use nomes que descrevam claramente o propósito do elemento.
+   ```go
+   // Bom
+   idade
+   nomeProduto
+   calcularTotal</p>
+</li>
+</ol>
+<p>// Ruim (evite)
+   x
+   temp
+   func1
+   ```</p>
+<ol>
+<li><strong>Evite nomes muito longos:</strong> Embora os nomes devam ser descritivos, evite identificadores excessivamente longos.
+   ```go
+   // Muito longo
+   numeroDeClientesAtivosNoPeriodoAtual</li>
+</ol>
+<p>// Melhor
+   clientesAtivosPeriodo
+   ```</p>
+<h3 id="1-5-exemplos-em-go">1.5. Exemplos em Go</h3>
+<p>Vamos ver alguns exemplos de declaração e uso de identificadores em Go:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Variáveis com identificadores válidos
+    var nome string = &quot;Ana&quot;
+    var idade int = 25
+    var _temp float64 = 37.5
+
+    // Usando camelCase para variáveis locais
+    var salarioMensal float64 = 3500.50
+    var enderecoCompleto string = &quot;Rua das Flores, 123&quot;
+
+    // Constante com PascalCase (poderia ser exportada)
+    const PI float64 = 3.14159
+
+    // Variável com acrônimo
+    var cpfUsuario string = &quot;123.456.789-00&quot;
+
+    fmt.Println(&quot;Nome:&quot;, nome)
+    fmt.Println(&quot;Idade:&quot;, idade)
+    fmt.Println(&quot;Temperatura:&quot;, _temp)
+    fmt.Println(&quot;Salário Mensal:&quot;, salarioMensal)
+    fmt.Println(&quot;Endereço:&quot;, enderecoCompleto)
+    fmt.Println(&quot;PI:&quot;, PI)
+    fmt.Println(&quot;CPF:&quot;, cpfUsuario)
+
+    // Exemplo de escopo e visibilidade
+    {
+        // Esta variável só é visível dentro deste bloco
+        var contador int = 1
+        fmt.Println(&quot;Contador dentro do bloco:&quot;, contador)
+    }
+
+    // A linha abaixo causaria erro, pois 'contador' não é visível aqui
+    // fmt.Println(&quot;Contador fora do bloco:&quot;, contador)
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a>)</p>
+<hr />
+<h2 id="2-operadores-em-go">2. Operadores em Go</h2>
+<p>Operadores são símbolos especiais que realizam operações específicas em um, dois ou às vezes três operandos e produzem um resultado. Go oferece vários tipos de operadores para diferentes propósitos.</p>
+<h3 id="2-1-operadores-aritméticos">2.1. Operadores Aritméticos</h3>
+<p>Os operadores aritméticos são usados para realizar operações matemáticas básicas.</p>
+<table>
+<thead>
+<tr>
+<th>Operador</th>
+<th>Descrição</th>
+<th>Exemplo</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+</code></td>
+<td>Adição</td>
+<td><code>10 + 5</code></td>
+<td><code>15</code></td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>Subtração</td>
+<td><code>10 - 5</code></td>
+<td><code>5</code></td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>Multiplicação</td>
+<td><code>10 * 5</code></td>
+<td><code>50</code></td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>Divisão</td>
+<td><code>10 / 5</code></td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>Módulo (resto da divisão)</td>
+<td><code>10 % 3</code></td>
+<td><code>1</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Observações importantes sobre divisão:</strong>
+- Quando dividimos dois inteiros, o resultado é um inteiro (a parte fracionária é truncada).
+- Para obter um resultado com casas decimais, pelo menos um dos operandos deve ser do tipo float.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Operadores aritméticos básicos
+    a := 10
+    b := 3
+
+    soma := a + b
+    subtracao := a - b
+    multiplicacao := a * b
+    divisao := a / b         // Divisão de inteiros (resultado: 3)
+    resto := a % b
+
+    fmt.Println(&quot;Soma:&quot;, soma)
+    fmt.Println(&quot;Subtração:&quot;, subtracao)
+    fmt.Println(&quot;Multiplicação:&quot;, multiplicacao)
+    fmt.Println(&quot;Divisão (inteiros):&quot;, divisao)
+    fmt.Println(&quot;Resto da divisão:&quot;, resto)
+
+    // Divisão com números de ponto flutuante
+    c := 10.0
+    d := 3.0
+    divisaoFloat := c / d    // Resultado: 3.3333...
+
+    fmt.Println(&quot;Divisão (float):&quot;, divisaoFloat)
+
+    // Conversão para obter divisão com decimal a partir de inteiros
+    divisaoConvertida := float64(a) / float64(b)
+    fmt.Println(&quot;Divisão convertida para float:&quot;, divisaoConvertida)
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a>)</p>
+<p><strong>Operadores de Atribuição Combinados</strong></p>
+<p>Go também oferece operadores de atribuição combinados que realizam uma operação e atribuem o resultado à variável em uma única etapa.</p>
+<table>
+<thead>
+<tr>
+<th>Operador</th>
+<th>Equivalente a</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+=</code></td>
+<td><code>x = x + y</code></td>
+<td><code>x += 5</code></td>
+</tr>
+<tr>
+<td><code>-=</code></td>
+<td><code>x = x - y</code></td>
+<td><code>x -= 5</code></td>
+</tr>
+<tr>
+<td><code>*=</code></td>
+<td><code>x = x * y</code></td>
+<td><code>x *= 5</code></td>
+</tr>
+<tr>
+<td><code>/=</code></td>
+<td><code>x = x / y</code></td>
+<td><code>x /= 5</code></td>
+</tr>
+<tr>
+<td><code>%=</code></td>
+<td><code>x = x % y</code></td>
+<td><code>x %= 5</code></td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    x := 10
+
+    // Operadores de atribuição combinados
+    x += 5      // x = x + 5 (x agora é 15)
+    fmt.Println(&quot;Após x += 5:&quot;, x)
+
+    x -= 3      // x = x - 3 (x agora é 12)
+    fmt.Println(&quot;Após x -= 3:&quot;, x)
+
+    x *= 2      // x = x * 2 (x agora é 24)
+    fmt.Println(&quot;Após x *= 2:&quot;, x)
+
+    x /= 4      // x = x / 4 (x agora é 6)
+    fmt.Println(&quot;Após x /= 4:&quot;, x)
+
+    x %= 4      // x = x % 4 (x agora é 2)
+    fmt.Println(&quot;Após x %= 4:&quot;, x)
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a>)</p>
+<p><strong>Incremento e Decremento</strong></p>
+<p>Go também possui operadores de incremento (<code>++</code>) e decremento (<code>--</code>), mas com uma particularidade: eles são instruções, não expressões, e só podem ser usados como sufixos.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    contador := 0
+
+    contador++  // Incrementa contador em 1 (contador = 1)
+    fmt.Println(&quot;Após incremento:&quot;, contador)
+
+    contador--  // Decrementa contador em 1 (contador = 0)
+    fmt.Println(&quot;Após decremento:&quot;, contador)
+
+    // Observações importantes:
+    // 1. Em Go, ++ e -- são instruções, não expressões
+    // 2. Não é possível fazer: x = y++ (isso daria erro)
+    // 3. Não é possível fazer: ++contador (prefixo não é permitido)
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a>)</p>
+<h3 id="2-2-operadores-relacionais">2.2. Operadores Relacionais</h3>
+<p>Os operadores relacionais são usados para comparar valores e retornam um resultado booleano (<code>true</code> ou <code>false</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Operador</th>
+<th>Descrição</th>
+<th>Exemplo</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>==</code></td>
+<td>Igual a</td>
+<td><code>5 == 5</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td>Diferente de</td>
+<td><code>5 != 3</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>Menor que</td>
+<td><code>3 &lt; 5</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>Maior que</td>
+<td><code>5 &gt; 3</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td>Menor ou igual a</td>
+<td><code>5 &lt;= 5</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td>Maior ou igual a</td>
+<td><code>5 &gt;= 3</code></td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    a := 10
+    b := 5
+    c := 10
+
+    // Operadores relacionais
+    igual := a == c          // true
+    diferente := a != b      // true
+    maior := a &gt; b           // true
+    menor := b &lt; a           // true
+    maiorOuIgual := a &gt;= c   // true
+    menorOuIgual := b &lt;= c   // true
+
+    fmt.Println(&quot;a == c:&quot;, igual)
+    fmt.Println(&quot;a != b:&quot;, diferente)
+    fmt.Println(&quot;a &gt; b:&quot;, maior)
+    fmt.Println(&quot;b &lt; a:&quot;, menor)
+    fmt.Println(&quot;a &gt;= c:&quot;, maiorOuIgual)
+    fmt.Println(&quot;b &lt;= c:&quot;, menorOuIgual)
+
+    // Comparando strings (comparação lexicográfica)
+    nome1 := &quot;Ana&quot;
+    nome2 := &quot;Bruno&quot;
+
+    fmt.Println(&quot;Ana == Bruno:&quot;, nome1 == nome2)     // false
+    fmt.Println(&quot;Ana != Bruno:&quot;, nome1 != nome2)     // true
+    fmt.Println(&quot;Ana &lt; Bruno:&quot;, nome1 &lt; nome2)       // true (A vem antes de B)
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a>)</p>
+<h3 id="2-3-operadores-lógicos">2.3. Operadores Lógicos</h3>
+<p>Os operadores lógicos são usados para combinar expressões booleanas.</p>
+<table>
+<thead>
+<tr>
+<th>Operador</th>
+<th>Descrição</th>
+<th>Exemplo</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;&amp;</code></td>
+<td>E lógico (AND)</td>
+<td><code>true &amp;&amp; true</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>\|\|</code></td>
+<td>OU lógico (OR)</td>
+<td><code>true \|\| false</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>!</code></td>
+<td>NÃO lógico (NOT)</td>
+<td><code>!true</code></td>
+<td><code>false</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Tabela da verdade para o operador AND (<code>&amp;&amp;</code>):</strong>
+- <code>true &amp;&amp; true</code> = <code>true</code>
+- <code>true &amp;&amp; false</code> = <code>false</code>
+- <code>false &amp;&amp; true</code> = <code>false</code>
+- <code>false &amp;&amp; false</code> = <code>false</code></p>
+<p><strong>Tabela da verdade para o operador OR (<code>||</code>):</strong>
+- <code>true || true</code> = <code>true</code>
+- <code>true || false</code> = <code>true</code>
+- <code>false || true</code> = <code>true</code>
+- <code>false || false</code> = <code>false</code></p>
+<p><strong>Tabela da verdade para o operador NOT (<code>!</code>):</strong>
+- <code>!true</code> = <code>false</code>
+- <code>!false</code> = <code>true</code></p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    a := true
+    b := false
+
+    // Operadores lógicos
+    andResult := a &amp;&amp; b      // false
+    orResult := a || b       // true
+    notA := !a               // false
+    notB := !b               // true
+
+    fmt.Println(&quot;a &amp;&amp; b:&quot;, andResult)
+    fmt.Println(&quot;a || b:&quot;, orResult)
+    fmt.Println(&quot;!a:&quot;, notA)
+    fmt.Println(&quot;!b:&quot;, notB)
+
+    // Exemplo com expressões mais complexas
+    idade := 25
+    temCarteira := true
+
+    // Verificar se a pessoa pode dirigir (idade &gt;= 18 E tem carteira)
+    podeDirigir := idade &gt;= 18 &amp;&amp; temCarteira
+    fmt.Println(&quot;Pode dirigir:&quot;, podeDirigir)
+
+    // Verificar se a pessoa precisa pagar meia-entrada (idade &lt; 18 OU idade &gt;= 60)
+    pagaMeia := idade &lt; 18 || idade &gt;= 60
+    fmt.Println(&quot;Paga meia-entrada:&quot;, pagaMeia)
+
+    // Verificar se a pessoa NÃO pode dirigir
+    naoPodeDirigir := !(idade &gt;= 18 &amp;&amp; temCarteira)
+    // Equivalente a: naoPodeDirigir := idade &lt; 18 || !temCarteira
+    fmt.Println(&quot;Não pode dirigir:&quot;, naoPodeDirigir)
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a>)</p>
+<p><strong>Avaliação de Curto-Circuito</strong></p>
+<p>Go utiliza avaliação de curto-circuito para operadores lógicos, o que significa que:</p>
+<ul>
+<li>Para o operador <code>&amp;&amp;</code>, se o primeiro operando for <code>false</code>, o segundo operando não será avaliado, pois o resultado já será <code>false</code>.</li>
+<li>Para o operador <code>||</code>, se o primeiro operando for <code>true</code>, o segundo operando não será avaliado, pois o resultado já será <code>true</code>.</li>
+</ul>
+<p>Isso é útil para evitar operações desnecessárias ou para evitar erros potenciais.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Exemplo de curto-circuito com &amp;&amp;
+    x := 10
+
+    // O segundo operando só será avaliado se x &gt; 5 for true
+    if x &gt; 5 &amp;&amp; x &lt; 20 {
+        fmt.Println(&quot;x está entre 5 e 20&quot;)
+    }
+
+    // Exemplo de curto-circuito com ||
+    y := 3
+
+    // O segundo operando só será avaliado se y &gt; 10 for false
+    if y &gt; 10 || y &lt; 5 {
+        fmt.Println(&quot;y é maior que 10 ou menor que 5&quot;)
+    }
+
+    // Exemplo prático: evitar divisão por zero
+    divisor := 0
+
+    // O segundo operando (divisão) só será avaliado se divisor != 0
+    if divisor != 0 &amp;&amp; 10/divisor &gt; 2 {
+        fmt.Println(&quot;Resultado da divisão é maior que 2&quot;)
+    } else {
+        fmt.Println(&quot;Não foi possível fazer a divisão ou o resultado não é maior que 2&quot;)
+    }
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a>)</p>
+<h3 id="2-4-precedência-de-operadores">2.4. Precedência de Operadores</h3>
+<p>A precedência de operadores determina a ordem em que as operações são realizadas em uma expressão. Operadores com maior precedência são avaliados antes dos operadores com menor precedência.</p>
+<p><strong>Ordem de precedência (do maior para o menor):</strong></p>
+<ol>
+<li>Parênteses <code>()</code></li>
+<li>Operadores unários (<code>!</code>, <code>-</code> unário, <code>+</code> unário)</li>
+<li>Operadores multiplicativos (<code>*</code>, <code>/</code>, <code>%</code>)</li>
+<li>Operadores aditivos (<code>+</code>, <code>-</code>)</li>
+<li>Operadores relacionais (<code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>)</li>
+<li>Operador AND lógico (<code>&amp;&amp;</code>)</li>
+<li>Operador OR lógico (<code>||</code>)</li>
+<li>Operadores de atribuição (<code>=</code>, <code>+=</code>, <code>-=</code>, etc.)</li>
+</ol>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Exemplos de precedência de operadores
+
+    // Exemplo 1: operadores aritméticos
+    resultado1 := 5 + 3 * 2      // 3 * 2 é avaliado primeiro, depois a adição
+    fmt.Println(&quot;5 + 3 * 2 =&quot;, resultado1)  // 11, não 16
+
+    // Usando parênteses para alterar a precedência
+    resultado2 := (5 + 3) * 2    // A adição é avaliada primeiro por causa dos parênteses
+    fmt.Println(&quot;(5 + 3) * 2 =&quot;, resultado2)  // 16
+
+    // Exemplo 2: operadores lógicos e relacionais
+    a := 5
+    b := 10
+    c := 15
+
+    // &amp;&amp; tem precedência maior que ||
+    resultado3 := a &lt; b || b &gt; c &amp;&amp; a &lt; c
+    // Equivalente a: a &lt; b || (b &gt; c &amp;&amp; a &lt; c)
+    fmt.Println(&quot;a &lt; b || b &gt; c &amp;&amp; a &lt; c =&quot;, resultado3)  // true
+
+    // Usando parênteses para alterar a precedência
+    resultado4 := (a &lt; b || b &gt; c) &amp;&amp; a &lt; c
+    fmt.Println(&quot;(a &lt; b || b &gt; c) &amp;&amp; a &lt; c =&quot;, resultado4)  // true
+
+    // Exemplo 3: combinando vários operadores
+    x := 2
+    y := 3
+    z := 4
+
+    resultado5 := x + y * z / 2 - 1
+    // Equivalente a: x + ((y * z) / 2) - 1
+    fmt.Println(&quot;x + y * z / 2 - 1 =&quot;, resultado5)  // 5
+
+    // Usando parênteses para maior clareza
+    resultado6 := x + ((y * z) / 2) - 1
+    fmt.Println(&quot;x + ((y * z) / 2) - 1 =&quot;, resultado6)  // 5
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a>)</p>
+<p><strong>Dica:</strong> Quando em dúvida sobre a precedência, use parênteses para tornar a expressão mais clara e garantir que as operações sejam realizadas na ordem desejada.</p>
+<h3 id="2-5-exemplos-práticos">2.5. Exemplos Práticos</h3>
+<p>Vamos ver alguns exemplos práticos de como usar operadores em Go para resolver problemas comuns.</p>
+<p><strong>Exemplo 1: Calculadora Simples</strong></p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Valores de entrada
+    a := 15.0
+    b := 4.0
+
+    // Operações básicas
+    soma := a + b
+    subtracao := a - b
+    multiplicacao := a * b
+    divisao := a / b
+
+    fmt.Println(&quot;Calculadora Simples&quot;)
+    fmt.Println(&quot;-------------------&quot;)
+    fmt.Printf(&quot;%.1f + %.1f = %.1f\n&quot;, a, b, soma)
+    fmt.Printf(&quot;%.1f - %.1f = %.1f\n&quot;, a, b, subtracao)
+    fmt.Printf(&quot;%.1f * %.1f = %.1f\n&quot;, a, b, multiplicacao)
+    fmt.Printf(&quot;%.1f / %.1f = %.1f\n&quot;, a, b, divisao)
+
+    // Operações adicionais
+    resto := int(a) % int(b)
+    potencia := a * a  // a² (em Go não há operador de potência nativo)
+
+    fmt.Printf(&quot;%d %% %d = %d (resto da divisão)\n&quot;, int(a), int(b), resto)
+    fmt.Printf(&quot;%.1f² = %.1f\n&quot;, a, potencia)
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a>)</p>
+<p><strong>Exemplo 2: Verificação de Elegibilidade para Empréstimo</strong></p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Dados do cliente
+    idade := 28
+    salario := 3500.0
+    tempoEmprego := 3  // anos
+    temRestricoesCredito := false
+
+    // Critérios para aprovação de empréstimo:
+    // 1. Idade entre 21 e 65 anos
+    // 2. Salário acima de 2000
+    // 3. Pelo menos 1 ano no emprego atual
+    // 4. Sem restrições de crédito
+
+    idadeOk := idade &gt;= 21 &amp;&amp; idade &lt;= 65
+    salarioOk := salario &gt; 2000.0
+    tempoEmpregoOk := tempoEmprego &gt;= 1
+    creditoOk := !temRestricoesCredito
+
+    // Verificação final: todos os critérios devem ser atendidos
+    aprovado := idadeOk &amp;&amp; salarioOk &amp;&amp; tempoEmpregoOk &amp;&amp; creditoOk
+
+    // Exibir resultado
+    fmt.Println(&quot;Análise de Empréstimo&quot;)
+    fmt.Println(&quot;---------------------&quot;)
+    fmt.Println(&quot;Idade adequada?&quot;, idadeOk)
+    fmt.Println(&quot;Salário adequado?&quot;, salarioOk)
+    fmt.Println(&quot;Tempo de emprego adequado?&quot;, tempoEmpregoOk)
+    fmt.Println(&quot;Situação de crédito adequada?&quot;, creditoOk)
+    fmt.Println(&quot;---------------------&quot;)
+    fmt.Println(&quot;Empréstimo aprovado?&quot;, aprovado)
+
+    // Mensagem personalizada
+    if aprovado {
+        fmt.Println(&quot;Parabéns! Seu empréstimo foi aprovado.&quot;)
+    } else {
+        fmt.Println(&quot;Infelizmente, seu empréstimo não foi aprovado.&quot;)
+
+        // Identificar os motivos da rejeição
+        if !idadeOk {
+            fmt.Println(&quot;Motivo: Idade fora da faixa permitida (21-65 anos).&quot;)
+        }
+        if !salarioOk {
+            fmt.Println(&quot;Motivo: Salário abaixo do mínimo exigido (R$ 2000).&quot;)
+        }
+        if !tempoEmpregoOk {
+            fmt.Println(&quot;Motivo: Tempo de emprego insuficiente (mínimo 1 ano).&quot;)
+        }
+        if !creditoOk {
+            fmt.Println(&quot;Motivo: Existem restrições de crédito.&quot;)
+        }
+    }
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a>)</p>
+<p><strong>Exemplo 3: Cálculo de IMC (Índice de Massa Corporal)</strong></p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Dados de entrada
+    peso := 70.5    // em kg
+    altura := 1.75  // em metros
+
+    // Cálculo do IMC: peso / (altura * altura)
+    imc := peso / (altura * altura)
+
+    // Classificação do IMC
+    abaixoDoPeso := imc &lt; 18.5
+    pesoNormal := imc &gt;= 18.5 &amp;&amp; imc &lt; 25.0
+    sobrepeso := imc &gt;= 25.0 &amp;&amp; imc &lt; 30.0
+    obesidade := imc &gt;= 30.0
+
+    // Exibir resultados
+    fmt.Println(&quot;Calculadora de IMC&quot;)
+    fmt.Println(&quot;------------------&quot;)
+    fmt.Printf(&quot;Peso: %.1f kg\n&quot;, peso)
+    fmt.Printf(&quot;Altura: %.2f m\n&quot;, altura)
+    fmt.Printf(&quot;IMC: %.2f\n&quot;, imc)
+    fmt.Println(&quot;------------------&quot;)
+
+    // Exibir classificação
+    fmt.Println(&quot;Classificação:&quot;)
+    if abaixoDoPeso {
+        fmt.Println(&quot;Abaixo do peso (IMC &lt; 18.5)&quot;)
+    } else if pesoNormal {
+        fmt.Println(&quot;Peso normal (18.5 &lt;= IMC &lt; 25.0)&quot;)
+    } else if sobrepeso {
+        fmt.Println(&quot;Sobrepeso (25.0 &lt;= IMC &lt; 30.0)&quot;)
+    } else if obesidade {
+        fmt.Println(&quot;Obesidade (IMC &gt;= 30.0)&quot;)
+    }
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a>)</p>
+<hr />
+<h2 id="3-exercícios-offline-lápis-e-papel-editor-de-texto-simples">3. Exercícios Offline (Lápis e Papel / Editor de Texto Simples)</h2>
+<ol>
+<li><strong>Identificadores Válidos:</strong> Para cada um dos seguintes identificadores, indique se é válido ou inválido em Go. Se for inválido, explique o motivo.</li>
+<li><code>nome_completo</code></li>
+<li><code>1valor</code></li>
+<li><code>Preço</code></li>
+<li><code>if</code></li>
+<li><code>_temp</code></li>
+<li><code>usuario-id</code></li>
+<li><code>TotalVendas</code></li>
+<li>
+<p><code>meu nome</code></p>
+</li>
+<li>
+<p><strong>Avaliação de Expressões:</strong> Calcule o resultado de cada uma das seguintes expressões:</p>
+</li>
+<li><code>5 + 3 * 2</code></li>
+<li><code>(5 + 3) * 2</code></li>
+<li><code>10 / 3</code></li>
+<li><code>10.0 / 3.0</code></li>
+<li><code>10 % 3</code></li>
+<li><code>true &amp;&amp; false</code></li>
+<li><code>true || false</code></li>
+<li><code>!true</code></li>
+<li><code>5 &gt; 3 &amp;&amp; 10 &lt;= 10</code></li>
+<li>
+<p><code>5 &lt;= 3 || !(10 &gt; 5)</code></p>
+</li>
+<li>
+<p><strong>Precedência de Operadores:</strong> Reescreva as seguintes expressões usando parênteses para mostrar a ordem de avaliação de acordo com as regras de precedência:</p>
+</li>
+<li><code>a + b * c</code></li>
+<li><code>a || b &amp;&amp; c</code></li>
+<li><code>a &gt; b + c</code></li>
+<li><code>!a &amp;&amp; b</code></li>
+<li>
+<p><code>a * b + c / d</code></p>
+</li>
+<li>
+<p><strong>Conversão de Expressões:</strong> Converta as seguintes frases em expressões booleanas usando operadores lógicos e relacionais:</p>
+</li>
+<li>Uma pessoa pode votar se tiver 18 anos ou mais e possuir título de eleitor.</li>
+<li>Um aluno é aprovado se sua média for maior ou igual a 7.0 ou se sua média for maior ou igual a 5.0 e sua frequência for maior ou igual a 75%.</li>
+<li>Um número é par se o resto da divisão por 2 for igual a 0.</li>
+<li>Uma pessoa pode se aposentar se for mulher com 62 anos ou mais, ou se for homem com 65 anos ou mais.</li>
+</ol>
+<hr />
+<h2 id="4-quiz-rápido">4. Quiz Rápido</h2>
+<p>Escolha a melhor resposta para cada pergunta.</p>
+<p><strong>1. Qual dos seguintes identificadores é válido em Go?</strong>
+   a) <code>123abc</code>
+   b) <code>nome-completo</code>
+   c) <code>_temporario</code>
+   d) <code>break</code></p>
+<p><strong>2. Em Go, qual é o resultado da expressão <code>15 / 4</code>?</strong>
+   a) <code>3.75</code>
+   b) <code>3</code>
+   c) <code>4</code>
+   d) <code>3.0</code></p>
+<p><strong>3. Qual operador é usado para verificar se dois valores são diferentes?</strong>
+   a) <code>&lt;&gt;</code>
+   b) <code>~=</code>
+   c) <code>!=</code>
+   d) <code>not=</code></p>
+<p><strong>4. Qual é o resultado da expressão <code>true || (false &amp;&amp; true)</code>?</strong>
+   a) <code>true</code>
+   b) <code>false</code>
+   c) Erro de compilação
+   d) Depende do contexto</p>
+<p><strong>5. Em Go, qual é a precedência correta dos operadores?</strong>
+   a) Aritméticos &gt; Relacionais &gt; Lógicos
+   b) Lógicos &gt; Relacionais &gt; Aritméticos
+   c) Relacionais &gt; Aritméticos &gt; Lógicos
+   d) Aritméticos &gt; Lógicos &gt; Relacionais</p>
+<p><em>(Respostas do Quiz no final da página da aula ou em uma seção de gabarito)</em></p>
+<hr />
+<h2 id="5-desafio-prático-calculadora-de-média-e-aprovação">5. Desafio Prático: Calculadora de Média e Aprovação</h2>
+<p>Escreva um programa em Go que:</p>
+<ol>
+<li>Declare variáveis para armazenar duas notas de um aluno (valores de ponto flutuante).</li>
+<li>Atribua valores às notas (por exemplo, 7.5 e 8.2).</li>
+<li>Calcule a média das notas.</li>
+<li>Verifique se o aluno foi aprovado, considerando que a média para aprovação é 6.0.</li>
+<li>Exiba as notas, a média calculada e uma mensagem indicando se o aluno foi aprovado ou reprovado.</li>
+</ol>
+<p><strong>Exemplo de Saída Esperada:</strong></p>
+<pre><code>--- Calculadora de Média ---
+Nota 1: 7.5
+Nota 2: 8.2
+Média: 7.85
+Situação: APROVADO
+</code></pre>
+<p><strong>Dica:</strong> Crie um arquivo chamado <code>calculadora_media.go</code>, escreva o código nele e tente compilar e rodar (<code>go run calculadora_media.go</code>) no seu terminal se tiver Go instalado, ou use o <a href="https://go.dev/play/">Go Playground</a>.</p>
+<p><strong>Desafio Extra:</strong> Modifique o programa para considerar três notas e incluir um conceito baseado na média:
+- Média &gt;= 9.0: Conceito A
+- Média &gt;= 7.5 e &lt; 9.0: Conceito B
+- Média &gt;= 6.0 e &lt; 7.5: Conceito C
+- Média &lt; 6.0: Conceito D (Reprovado)</p>
+<hr />
+<h2 id="6-resumo-da-aula-e-ficha-imprimível">6. Resumo da Aula e Ficha Imprimível</h2>
+<p><strong>Resumo dos Conceitos Chave:</strong></p>
+<ul>
+<li>
+<p><strong>Identificadores:</strong></p>
+<ul>
+<li>Nomes dados a variáveis, constantes, funções, tipos e pacotes.</li>
+<li>Regras: devem começar com letra ou sublinhado, podem conter letras, números e sublinhados, são case-sensitive.</li>
+<li>Convenções: camelCase para variáveis e funções locais, PascalCase para elementos exportados.</li>
+<li>Palavras reservadas não podem ser usadas como identificadores.</li>
+</ul>
+</li>
+<li>
+<p><strong>Operadores Aritméticos:</strong></p>
+<ul>
+<li><code>+</code> (adição), <code>-</code> (subtração), <code>*</code> (multiplicação), <code>/</code> (divisão), <code>%</code> (módulo/resto).</li>
+<li>Operadores de atribuição combinados: <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code>.</li>
+<li>Incremento (<code>++</code>) e decremento (<code>--</code>) são instruções, não expressões.</li>
+</ul>
+</li>
+<li>
+<p><strong>Operadores Relacionais:</strong></p>
+<ul>
+<li><code>==</code> (igual a), <code>!=</code> (diferente de), <code>&lt;</code> (menor que), <code>&gt;</code> (maior que), <code>&lt;=</code> (menor ou igual a), <code>&gt;=</code> (maior ou igual a).</li>
+<li>Retornam valores booleanos (<code>true</code> ou <code>false</code>).</li>
+</ul>
+</li>
+<li>
+<p><strong>Operadores Lógicos:</strong></p>
+<ul>
+<li><code>&amp;&amp;</code> (AND lógico), <code>||</code> (OR lógico), <code>!</code> (NOT lógico).</li>
+<li>Usados para combinar expressões booleanas.</li>
+<li>Avaliação de curto-circuito: em <code>&amp;&amp;</code>, se o primeiro operando for <code>false</code>, o segundo não é avaliado; em <code>||</code>, se o primeiro for <code>true</code>, o segundo não é avaliado.</li>
+</ul>
+</li>
+<li>
+<p><strong>Precedência de Operadores:</strong></p>
+<ul>
+<li>Ordem de avaliação: parênteses &gt; unários &gt; multiplicativos &gt; aditivos &gt; relacionais &gt; AND &gt; OR &gt; atribuição.</li>
+<li>Use parênteses para tornar as expressões mais claras e garantir a ordem desejada.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Ficha Imprimível (Principais Termos e Sintaxe):</strong></p>
+<ul>
+<li>
+<p><strong>Identificadores Válidos:</strong></p>
+<ul>
+<li><code>nome</code>, <code>_temp</code>, <code>contador1</code>, <code>NomeCompleto</code></li>
+<li>Não válidos: <code>1nome</code>, <code>nome-completo</code>, <code>for</code> (palavra reservada)</li>
+</ul>
+</li>
+<li>
+<p><strong>Operadores Aritméticos:</strong></p>
+<ul>
+<li><code>a + b</code>, <code>a - b</code>, <code>a * b</code>, <code>a / b</code>, <code>a % b</code></li>
+<li><code>a += b</code>, <code>a -= b</code>, <code>a++</code>, <code>b--</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Operadores Relacionais:</strong></p>
+<ul>
+<li><code>a == b</code>, <code>a != b</code>, <code>a &lt; b</code>, <code>a &gt; b</code>, <code>a &lt;= b</code>, <code>a &gt;= b</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Operadores Lógicos:</strong></p>
+<ul>
+<li><code>a &amp;&amp; b</code>, <code>a || b</code>, <code>!a</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Precedência (do maior para o menor):</strong></p>
+<ul>
+<li><code>()</code> &gt; <code>!</code> &gt; <code>*</code>, <code>/</code>, <code>%</code> &gt; <code>+</code>, <code>-</code> &gt; <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code> &gt; <code>&amp;&amp;</code> &gt; <code>||</code> &gt; <code>=</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Exemplos de Expressões:</strong></p>
+<ul>
+<li><code>media := (nota1 + nota2) / 2</code></li>
+<li><code>aprovado := media &gt;= 6.0</code></li>
+<li><code>elegivel := idade &gt;= 18 &amp;&amp; temDocumento</code></li>
+</ul>
+</li>
+</ul>
+<p><em>(Esta seção pode ser formatada para impressão em um PDF separado posteriormente)</em></p>
+<hr />
+<h2 id="7-modelos-de-código-go-para-reutilização">7. Modelos de Código Go para Reutilização</h2>
+<p><strong>Modelo 1: Estrutura Básica com Operadores</strong></p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Declaração de variáveis
+    var a int = 10
+    var b int = 3
+
+    // Operações aritméticas
+    soma := a + b
+    subtracao := a - b
+    multiplicacao := a * b
+    divisao := a / b
+    resto := a % b
+
+    // Exibição dos resultados
+    fmt.Println(&quot;Operações com&quot;, a, &quot;e&quot;, b)
+    fmt.Println(&quot;Soma:&quot;, soma)
+    fmt.Println(&quot;Subtração:&quot;, subtracao)
+    fmt.Println(&quot;Multiplicação:&quot;, multiplicacao)
+    fmt.Println(&quot;Divisão:&quot;, divisao)
+    fmt.Println(&quot;Resto:&quot;, resto)
+
+    // Operações relacionais
+    fmt.Println(&quot;\nComparações:&quot;)
+    fmt.Println(&quot;a == b:&quot;, a == b)
+    fmt.Println(&quot;a != b:&quot;, a != b)
+    fmt.Println(&quot;a &gt; b:&quot;, a &gt; b)
+    fmt.Println(&quot;a &lt; b:&quot;, a &lt; b)
+
+    // Operações lógicas
+    condicao1 := a &gt; 5      // true
+    condicao2 := b &lt; 2      // false
+
+    fmt.Println(&quot;\nOperações lógicas:&quot;)
+    fmt.Println(&quot;condicao1:&quot;, condicao1)
+    fmt.Println(&quot;condicao2:&quot;, condicao2)
+    fmt.Println(&quot;condicao1 &amp;&amp; condicao2:&quot;, condicao1 &amp;&amp; condicao2)
+    fmt.Println(&quot;condicao1 || condicao2:&quot;, condicao1 || condicao2)
+    fmt.Println(&quot;!condicao1:&quot;, !condicao1)
+}
+</code></pre>
+<p><strong>Modelo 2: Calculadora Simples</strong></p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Valores de entrada
+    num1 := 10.0
+    num2 := 5.0
+
+    // Operações
+    soma := num1 + num2
+    subtracao := num1 - num2
+    multiplicacao := num1 * num2
+    divisao := num1 / num2
+
+    // Exibição formatada
+    fmt.Println(&quot;Calculadora&quot;)
+    fmt.Println(&quot;===========&quot;)
+    fmt.Printf(&quot;%.2f + %.2f = %.2f\n&quot;, num1, num2, soma)
+    fmt.Printf(&quot;%.2f - %.2f = %.2f\n&quot;, num1, num2, subtracao)
+    fmt.Printf(&quot;%.2f * %.2f = %.2f\n&quot;, num1, num2, multiplicacao)
+    fmt.Printf(&quot;%.2f / %.2f = %.2f\n&quot;, num1, num2, divisao)
+}
+</code></pre>
+<p><strong>Modelo 3: Verificação de Condições</strong></p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Dados de entrada
+    idade := 25
+    temCarteira := true
+
+    // Verificações usando operadores lógicos
+    maiorDeIdade := idade &gt;= 18
+    podeDirigir := maiorDeIdade &amp;&amp; temCarteira
+
+    // Exibição dos resultados
+    fmt.Println(&quot;Verificação de Condições&quot;)
+    fmt.Println(&quot;=======================&quot;)
+    fmt.Println(&quot;Idade:&quot;, idade)
+    fmt.Println(&quot;Possui carteira:&quot;, temCarteira)
+    fmt.Println(&quot;É maior de idade?&quot;, maiorDeIdade)
+    fmt.Println(&quot;Pode dirigir?&quot;, podeDirigir)
+
+    // Usando condicionais para exibir mensagens personalizadas
+    if podeDirigir {
+        fmt.Println(&quot;Esta pessoa está autorizada a dirigir.&quot;)
+    } else {
+        if !maiorDeIdade {
+            fmt.Println(&quot;Motivo: Não tem idade mínima para dirigir.&quot;)
+        }
+        if !temCarteira {
+            fmt.Println(&quot;Motivo: Não possui carteira de motorista.&quot;)
+        }
+    }
+}
+</code></pre>
+<hr />
+<p><strong>Gabarito do Quiz:</strong>
+1.  c) <code>_temporario</code>
+2.  b) <code>3</code> (divisão de inteiros em Go trunca o resultado)
+3.  c) <code>!=</code>
+4.  a) <code>true</code> (devido à precedência de operadores e avaliação de curto-circuito)
+5.  a) Aritméticos &gt; Relacionais &gt; Lógicos</p>
+  </article>
+</main>
+
+</body>
+</html>

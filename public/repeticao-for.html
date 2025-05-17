@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 8: Repetição com For</title>
+  <link rel="stylesheet" href="themes/rustbook/css/water-dark.css">
+  <link rel="stylesheet" href="themes/rustbook/css/theme.css">
+  <script src="themes/rustbook/js/theme.js" defer></script>
+</head>
+<body>
+
+<aside>
+  <header><h1>Curso de Algoritmos com Go</h1></header>
+  <nav aria-label="Conteúdo do curso">
+    <ul>
+      <li><a href="index.html">📚 Índice Geral</a></li>
+      <li><a href="algoritmos-base.html">Aula 1: Algoritmos – A Base de Tudo!</a></li>
+      <li><a href="break-e-continue.html">Aula 10: Break e Continue</a></li>
+      <li><a href="condicional-if-else.html">Aula 6: Condicional If/Else</a></li>
+      <li><a href="condicional-switch.html">Aula 7: Condicional Switch</a></li>
+      <li><a href="entrada-e-saida.html">Aula 4: Entrada e Saída com Go</a></li>
+      <li><a href="estrutura-sequencial.html">Aula 5: Estrutura Sequencial</a></li>
+      <li><a href="identificadores-operadores.html">Aula 3: Identificadores e Operadores</a></li>
+      <li><a href="nova_aula.html">Nova aula</a></li>
+      <li><a href="repeticao-for.html">Aula 8: Repetição com For</a></li>
+      <li><a href="variaveis-e-tipos.html">Aula 2: Variáveis e Tipos de Dados em Go</a></li>
+      <li><a href="while-com-for.html">Aula 9: While com For</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<main>
+  <article>
+    <h2>Aula 8: Repetição com For</h2>
+    <nav class="minimap"><ul><li class="lvl2"><a href="#objetivos-da-aula">Objetivos da Aula</a></li><li class="lvl2"><a href="#1-introdução-às-estruturas-de-repetição">1. Introdução às Estruturas de Repetição</a></li><li class="lvl3"><a href="#1-1-o-que-são-estruturas-de-repetição">1.1. O que são Estruturas de Repetição?</a></li><li class="lvl3"><a href="#1-2-por-que-precisamos-de-estruturas-de-repetição">1.2. Por que Precisamos de Estruturas de Repetição?</a></li><li class="lvl3"><a href="#1-3-tipos-de-estruturas-de-repetição-em-go">1.3. Tipos de Estruturas de Repetição em Go</a></li><li class="lvl2"><a href="#2-a-estrutura-code-for-code-em-go">2. A Estrutura <code>for</code> em Go</a></li><li class="lvl3"><a href="#2-1-sintaxe-básica-do-code-for-code-clássico">2.1. Sintaxe Básica do <code>for</code> Clássico</a></li><li class="lvl3"><a href="#2-2-fluxo-de-execução-do-code-for-code">2.2. Fluxo de Execução do <code>for</code></a></li><li class="lvl3"><a href="#2-3-variáveis-de-controle">2.3. Variáveis de Controle</a></li><li class="lvl3"><a href="#2-4-incremento-e-decremento">2.4. Incremento e Decremento</a></li><li class="lvl3"><a href="#2-5-incrementos-diferentes-de-1">2.5. Incrementos Diferentes de 1</a></li><li class="lvl2"><a href="#3-aplicações-práticas-do-code-for-code-com-contador">3. Aplicações Práticas do <code>for</code> com Contador</a></li><li class="lvl3"><a href="#3-1-soma-de-números">3.1. Soma de Números</a></li><li class="lvl3"><a href="#3-2-tabuada">3.2. Tabuada</a></li><li class="lvl3"><a href="#3-3-fatorial">3.3. Fatorial</a></li><li class="lvl3"><a href="#3-4-desenho-de-padrões">3.4. Desenho de Padrões</a></li><li class="lvl2"><a href="#4-loops-aninhados">4. Loops Aninhados</a></li><li class="lvl3"><a href="#4-1-o-que-são-loops-aninhados">4.1. O que são Loops Aninhados?</a></li><li class="lvl3"><a href="#4-2-exemplo-multiplicação-de-matrizes">4.2. Exemplo: Multiplicação de Matrizes</a></li><li class="lvl3"><a href="#4-3-exemplo-tabela-de-multiplicação">4.3. Exemplo: Tabela de Multiplicação</a></li><li class="lvl2"><a href="#5-boas-práticas-com-loops">5. Boas Práticas com Loops</a></li><li class="lvl3"><a href="#5-1-evite-loops-infinitos">5.1. Evite Loops Infinitos</a></li><li class="lvl3"><a href="#5-2-use-nomes-significativos-para-contadores">5.2. Use Nomes Significativos para Contadores</a></li><li class="lvl3"><a href="#5-3-inicialização-e-incremento-consistentes">5.3. Inicialização e Incremento Consistentes</a></li><li class="lvl3"><a href="#5-4-evite-modificar-o-contador-dentro-do-loop">5.4. Evite Modificar o Contador Dentro do Loop</a></li><li class="lvl3"><a href="#5-5-limite-o-escopo-das-variáveis">5.5. Limite o Escopo das Variáveis</a></li><li class="lvl2"><a href="#6-exemplos-práticos">6. Exemplos Práticos</a></li><li class="lvl3"><a href="#6-1-verificação-de-número-primo">6.1. Verificação de Número Primo</a></li><li class="lvl3"><a href="#6-2-sequência-de-fibonacci">6.2. Sequência de Fibonacci</a></li><li class="lvl3"><a href="#6-3-conversão-de-decimal-para-binário">6.3. Conversão de Decimal para Binário</a></li><li class="lvl3"><a href="#6-4-cálculo-de-média">6.4. Cálculo de Média</a></li><li class="lvl2"><a href="#7-exercícios-offline">7. Exercícios Offline</a></li><li class="lvl2"><a href="#8-quiz-rápido">8. Quiz Rápido</a></li><li class="lvl2"><a href="#9-desafio-prático-jogo-de-adivinhação">9. Desafio Prático: Jogo de Adivinhação</a></li><li class="lvl2"><a href="#10-resumo-da-aula">10. Resumo da Aula</a></li><li class="lvl2"><a href="#11-ficha-de-referência-rápida">11. Ficha de Referência Rápida</a></li><li class="lvl3"><a href="#estrutura-code-for-code-em-go">Estrutura <code>for</code> em Go</a></li><li class="lvl3"><a href="#componentes-do-code-for-code-clássico">Componentes do <code>for</code> Clássico</a></li><li class="lvl3"><a href="#operadores-de-incremento-decremento">Operadores de Incremento/Decremento</a></li><li class="lvl3"><a href="#padrões-comuns">Padrões Comuns</a></li><li class="lvl2"><a href="#12-modelos-de-código">12. Modelos de Código</a></li><li class="lvl3"><a href="#modelo-1-loop-básico">Modelo 1: Loop Básico</a></li><li class="lvl3"><a href="#modelo-2-soma-de-valores">Modelo 2: Soma de Valores</a></li><li class="lvl3"><a href="#modelo-3-loop-com-condição-composta">Modelo 3: Loop com Condição Composta</a></li><li class="lvl3"><a href="#modelo-4-loops-aninhados">Modelo 4: Loops Aninhados</a></li></ul></nav><h1>Aula 8: Estrutura de Repetição com Contador: <code>for</code> em Go</h1>
+<h2 id="objetivos-da-aula">Objetivos da Aula</h2>
+<p>Ao final desta aula, você será capaz de:</p>
+<ul>
+<li>Compreender o conceito de estruturas de repetição e sua importância na programação</li>
+<li>Utilizar a estrutura <code>for</code> em Go para repetir blocos de código</li>
+<li>Implementar loops com contador para executar tarefas repetitivas</li>
+<li>Controlar o fluxo de execução dentro de loops</li>
+<li>Criar programas em Go que utilizam repetições para resolver problemas</li>
+</ul>
+<hr />
+<h2 id="1-introdução-às-estruturas-de-repetição">1. Introdução às Estruturas de Repetição</h2>
+<h3 id="1-1-o-que-são-estruturas-de-repetição">1.1. O que são Estruturas de Repetição?</h3>
+<p>As <strong>estruturas de repetição</strong>, também conhecidas como <strong>loops</strong> ou <strong>laços</strong>, são recursos fundamentais em programação que permitem executar um bloco de código múltiplas vezes. Elas são essenciais para automatizar tarefas repetitivas e processar conjuntos de dados.</p>
+<p>Pense nas estruturas de repetição como instruções do tipo "faça isso várias vezes" ou "repita até que algo aconteça". Na vida cotidiana, realizamos muitas atividades repetitivas:</p>
+<ul>
+<li>Escovar cada dente da boca</li>
+<li>Contar de 1 até 100</li>
+<li>Ler cada página de um livro</li>
+<li>Verificar cada item de uma lista de compras</li>
+</ul>
+<p>Em programação, as estruturas de repetição funcionam de maneira similar, permitindo que o programa execute a mesma tarefa múltiplas vezes sem a necessidade de escrever o mesmo código repetidamente.</p>
+<h3 id="1-2-por-que-precisamos-de-estruturas-de-repetição">1.2. Por que Precisamos de Estruturas de Repetição?</h3>
+<p>Sem estruturas de repetição, teríamos que escrever o mesmo código várias vezes para realizar tarefas repetitivas. Por exemplo, se quiséssemos imprimir os números de 1 a 10, teríamos que escrever 10 linhas de código:</p>
+<pre><code class="language-go">fmt.Println(1)
+fmt.Println(2)
+fmt.Println(3)
+// ... e assim por diante
+fmt.Println(10)
+</code></pre>
+<p>Com uma estrutura de repetição, podemos fazer isso de forma muito mais concisa:</p>
+<pre><code class="language-go">for i := 1; i &lt;= 10; i++ {
+    fmt.Println(i)
+}
+</code></pre>
+<p>As estruturas de repetição oferecem várias vantagens:</p>
+<ol>
+<li><strong>Código mais conciso</strong>: Menos linhas de código para realizar a mesma tarefa.</li>
+<li><strong>Manutenção mais fácil</strong>: Se precisarmos alterar a lógica, modificamos apenas um bloco de código.</li>
+<li><strong>Flexibilidade</strong>: Podemos repetir o código um número variável de vezes, determinado durante a execução.</li>
+<li><strong>Processamento de dados</strong>: Podemos processar grandes conjuntos de dados de forma eficiente.</li>
+</ol>
+<h3 id="1-3-tipos-de-estruturas-de-repetição-em-go">1.3. Tipos de Estruturas de Repetição em Go</h3>
+<p>Go oferece uma única estrutura de repetição, o <code>for</code>, mas com várias formas de utilização:</p>
+<ol>
+<li><strong><code>for</code> clássico</strong>: Com inicialização, condição e incremento.</li>
+<li><strong><code>for</code> como <code>while</code></strong>: Apenas com condição.</li>
+<li><strong><code>for</code> infinito</strong>: Sem condição.</li>
+<li><strong><code>for range</code></strong>: Para iterar sobre coleções (arrays, slices, maps, etc.).</li>
+</ol>
+<p>Nesta aula, focaremos no <code>for</code> clássico com contador. Nas próximas aulas, exploraremos as outras variações.</p>
+<hr />
+<h2 id="2-a-estrutura-code-for-code-em-go">2. A Estrutura <code>for</code> em Go</h2>
+<h3 id="2-1-sintaxe-básica-do-code-for-code-clássico">2.1. Sintaxe Básica do <code>for</code> Clássico</h3>
+<p>A sintaxe básica do <code>for</code> clássico em Go é:</p>
+<pre><code class="language-go">for inicialização; condição; pós-execução {
+    // Código a ser repetido
+}
+</code></pre>
+<p>Onde:
+- <strong>inicialização</strong>: Executada uma vez, no início do loop.
+- <strong>condição</strong>: Verificada antes de cada iteração; o loop continua enquanto for verdadeira.
+- <strong>pós-execução</strong>: Executada após cada iteração.</p>
+<p>Exemplo simples:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    for i := 1; i &lt;= 5; i++ {
+        fmt.Println(i)
+    }
+    fmt.Println(&quot;Fim do loop&quot;)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>1
+2
+3
+4
+5
+Fim do loop
+</code></pre>
+<p>Neste exemplo:
+- <strong>inicialização</strong>: <code>i := 1</code> (declara e inicializa a variável <code>i</code> com o valor 1)
+- <strong>condição</strong>: <code>i &lt;= 5</code> (o loop continua enquanto <code>i</code> for menor ou igual a 5)
+- <strong>pós-execução</strong>: <code>i++</code> (incrementa <code>i</code> em 1 após cada iteração)</p>
+<h3 id="2-2-fluxo-de-execução-do-code-for-code">2.2. Fluxo de Execução do <code>for</code></h3>
+<p>Vamos analisar o fluxo de execução do <code>for</code> passo a passo:</p>
+<ol>
+<li>A <strong>inicialização</strong> é executada uma única vez, no início.</li>
+<li>A <strong>condição</strong> é verificada.</li>
+<li>Se for verdadeira, o bloco de código é executado.</li>
+<li>Se for falsa, o loop termina e o programa continua após o bloco <code>for</code>.</li>
+<li>Após a execução do bloco, a <strong>pós-execução</strong> é realizada.</li>
+<li>Volta ao passo 2 (verificação da condição).</li>
+</ol>
+<p>Vamos visualizar o fluxo para o exemplo anterior:</p>
+<pre><code>Inicialização: i = 1
+Condição: 1 &lt;= 5? Sim, então:
+  Executa: fmt.Println(1)
+  Pós-execução: i = 2
+Condição: 2 &lt;= 5? Sim, então:
+  Executa: fmt.Println(2)
+  Pós-execução: i = 3
+Condição: 3 &lt;= 5? Sim, então:
+  Executa: fmt.Println(3)
+  Pós-execução: i = 4
+Condição: 4 &lt;= 5? Sim, então:
+  Executa: fmt.Println(4)
+  Pós-execução: i = 5
+Condição: 5 &lt;= 5? Sim, então:
+  Executa: fmt.Println(5)
+  Pós-execução: i = 6
+Condição: 6 &lt;= 5? Não, então sai do loop
+Executa: fmt.Println(&quot;Fim do loop&quot;)
+</code></pre>
+<h3 id="2-3-variáveis-de-controle">2.3. Variáveis de Controle</h3>
+<p>A variável declarada na inicialização do <code>for</code> (geralmente chamada de contador ou variável de controle) tem escopo limitado ao bloco do <code>for</code>. Isso significa que ela só existe dentro do loop.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    for i := 1; i &lt;= 3; i++ {
+        fmt.Println(&quot;Dentro do loop:&quot;, i)
+    }
+
+    // A linha abaixo causaria erro, pois 'i' só existe dentro do loop
+    // fmt.Println(&quot;Fora do loop:&quot;, i)
+}
+</code></pre>
+<p>Se você precisar acessar o valor do contador após o loop, declare a variável antes do <code>for</code>:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var i int
+    for i = 1; i &lt;= 3; i++ {
+        fmt.Println(&quot;Dentro do loop:&quot;, i)
+    }
+
+    fmt.Println(&quot;Fora do loop:&quot;, i) // i = 4 (valor que fez a condição se tornar falsa)
+}
+</code></pre>
+<h3 id="2-4-incremento-e-decremento">2.4. Incremento e Decremento</h3>
+<p>Em Go, <code>++</code> e <code>--</code> são operadores de pós-incremento e pós-decremento, respectivamente. Eles são instruções, não expressões, e só podem ser usados como instruções separadas.</p>
+<pre><code class="language-go">i++ // Correto: incrementa i em 1
+i-- // Correto: decrementa i em 1
+
+// As linhas abaixo causariam erro em Go
+// x = i++
+// y = i--
+</code></pre>
+<p>Para contar em ordem decrescente, use o decremento na pós-execução:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Println(&quot;Contagem regressiva:&quot;)
+    for i := 5; i &gt;= 1; i-- {
+        fmt.Println(i)
+    }
+    fmt.Println(&quot;Fogo!&quot;)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Contagem regressiva:
+5
+4
+3
+2
+1
+Fogo!
+</code></pre>
+<h3 id="2-5-incrementos-diferentes-de-1">2.5. Incrementos Diferentes de 1</h3>
+<p>Você não está limitado a incrementar ou decrementar em 1. Pode usar qualquer operação na pós-execução:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Println(&quot;Números pares de 0 a 10:&quot;)
+    for i := 0; i &lt;= 10; i += 2 {
+        fmt.Println(i)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Números pares de 0 a 10:
+0
+2
+4
+6
+8
+10
+</code></pre>
+<hr />
+<h2 id="3-aplicações-práticas-do-code-for-code-com-contador">3. Aplicações Práticas do <code>for</code> com Contador</h2>
+<h3 id="3-1-soma-de-números">3.1. Soma de Números</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    soma := 0
+    for i := 1; i &lt;= 100; i++ {
+        soma += i
+    }
+    fmt.Println(&quot;A soma dos números de 1 a 100 é:&quot;, soma)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>A soma dos números de 1 a 100 é: 5050
+</code></pre>
+<h3 id="3-2-tabuada">3.2. Tabuada</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    numero := 7
+    fmt.Printf(&quot;Tabuada do %d:\n&quot;, numero)
+
+    for i := 1; i &lt;= 10; i++ {
+        resultado := numero * i
+        fmt.Printf(&quot;%d x %d = %d\n&quot;, numero, i, resultado)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Tabuada do 7:
+7 x 1 = 7
+7 x 2 = 14
+7 x 3 = 21
+7 x 4 = 28
+7 x 5 = 35
+7 x 6 = 42
+7 x 7 = 49
+7 x 8 = 56
+7 x 9 = 63
+7 x 10 = 70
+</code></pre>
+<h3 id="3-3-fatorial">3.3. Fatorial</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    numero := 5
+    fatorial := 1
+
+    for i := 1; i &lt;= numero; i++ {
+        fatorial *= i
+    }
+
+    fmt.Printf(&quot;%d! = %d\n&quot;, numero, fatorial)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>5! = 120
+</code></pre>
+<h3 id="3-4-desenho-de-padrões">3.4. Desenho de Padrões</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    altura := 5
+
+    fmt.Println(&quot;Triângulo:&quot;)
+    for i := 1; i &lt;= altura; i++ {
+        for j := 1; j &lt;= i; j++ {
+            fmt.Print(&quot;* &quot;)
+        }
+        fmt.Println()
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Triângulo:
+* 
+* * 
+* * * 
+* * * * 
+* * * * * 
+</code></pre>
+<p>Este exemplo usa loops aninhados: um loop externo para as linhas e um loop interno para as colunas.</p>
+<hr />
+<h2 id="4-loops-aninhados">4. Loops Aninhados</h2>
+<h3 id="4-1-o-que-são-loops-aninhados">4.1. O que são Loops Aninhados?</h3>
+<p>Loops aninhados são loops dentro de outros loops. Para cada iteração do loop externo, o loop interno é executado completamente.</p>
+<h3 id="4-2-exemplo-multiplicação-de-matrizes">4.2. Exemplo: Multiplicação de Matrizes</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Matriz A (2x3)
+    matrizA := [][]int{
+        {1, 2, 3},
+        {4, 5, 6},
+    }
+
+    // Matriz B (3x2)
+    matrizB := [][]int{
+        {7, 8},
+        {9, 10},
+        {11, 12},
+    }
+
+    // Resultado (2x2)
+    resultado := [][]int{
+        {0, 0},
+        {0, 0},
+    }
+
+    // Multiplicação de matrizes
+    for i := 0; i &lt; 2; i++ {
+        for j := 0; j &lt; 2; j++ {
+            for k := 0; k &lt; 3; k++ {
+                resultado[i][j] += matrizA[i][k] * matrizB[k][j]
+            }
+        }
+    }
+
+    // Exibir resultado
+    fmt.Println(&quot;Resultado da multiplicação:&quot;)
+    for i := 0; i &lt; 2; i++ {
+        fmt.Println(resultado[i])
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Resultado da multiplicação:
+[58 64]
+[139 154]
+</code></pre>
+<p>Este exemplo usa três loops aninhados para realizar a multiplicação de matrizes.</p>
+<h3 id="4-3-exemplo-tabela-de-multiplicação">4.3. Exemplo: Tabela de Multiplicação</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Println(&quot;Tabela de Multiplicação (1 a 10):&quot;)
+
+    // Cabeçalho
+    fmt.Print(&quot;   |&quot;)
+    for i := 1; i &lt;= 10; i++ {
+        fmt.Printf(&quot;%3d&quot;, i)
+    }
+    fmt.Println()
+
+    // Linha separadora
+    fmt.Print(&quot;---+&quot;)
+    for i := 1; i &lt;= 10; i++ {
+        fmt.Print(&quot;---&quot;)
+    }
+    fmt.Println()
+
+    // Tabela
+    for i := 1; i &lt;= 10; i++ {
+        fmt.Printf(&quot;%2d |&quot;, i)
+        for j := 1; j &lt;= 10; j++ {
+            fmt.Printf(&quot;%3d&quot;, i*j)
+        }
+        fmt.Println()
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Tabela de Multiplicação (1 a 10):
+   |  1  2  3  4  5  6  7  8  9 10
+---+------------------------------
+ 1 |  1  2  3  4  5  6  7  8  9 10
+ 2 |  2  4  6  8 10 12 14 16 18 20
+ 3 |  3  6  9 12 15 18 21 24 27 30
+ 4 |  4  8 12 16 20 24 28 32 36 40
+ 5 |  5 10 15 20 25 30 35 40 45 50
+ 6 |  6 12 18 24 30 36 42 48 54 60
+ 7 |  7 14 21 28 35 42 49 56 63 70
+ 8 |  8 16 24 32 40 48 56 64 72 80
+ 9 |  9 18 27 36 45 54 63 72 81 90
+10 | 10 20 30 40 50 60 70 80 90100
+</code></pre>
+<p>Este exemplo usa loops aninhados para criar uma tabela de multiplicação.</p>
+<hr />
+<h2 id="5-boas-práticas-com-loops">5. Boas Práticas com Loops</h2>
+<h3 id="5-1-evite-loops-infinitos">5.1. Evite Loops Infinitos</h3>
+<p>Um loop infinito ocorre quando a condição de parada nunca se torna falsa. Isso pode travar seu programa.</p>
+<pre><code class="language-go">// Loop infinito (NÃO EXECUTE ESTE CÓDIGO)
+for i := 1; i &gt; 0; i++ {
+    fmt.Println(i)
+}
+</code></pre>
+<p>Sempre verifique se a condição eventualmente se tornará falsa.</p>
+<h3 id="5-2-use-nomes-significativos-para-contadores">5.2. Use Nomes Significativos para Contadores</h3>
+<p>Em loops simples, é comum usar <code>i</code>, <code>j</code>, <code>k</code> como nomes de contadores. No entanto, em loops mais complexos, use nomes mais descritivos:</p>
+<pre><code class="language-go">// Menos claro
+for i := 0; i &lt; len(alunos); i++ {
+    // ...
+}
+
+// Mais claro
+for indiceAluno := 0; indiceAluno &lt; len(alunos); indiceAluno++ {
+    // ...
+}
+</code></pre>
+<h3 id="5-3-inicialização-e-incremento-consistentes">5.3. Inicialização e Incremento Consistentes</h3>
+<p>Mantenha um padrão consistente para inicialização e incremento:</p>
+<pre><code class="language-go">// Padrão comum para iterar sobre arrays/slices em Go
+for i := 0; i &lt; len(array); i++ {
+    // ...
+}
+</code></pre>
+<h3 id="5-4-evite-modificar-o-contador-dentro-do-loop">5.4. Evite Modificar o Contador Dentro do Loop</h3>
+<p>Evite modificar a variável de controle dentro do loop, pois isso pode levar a comportamentos inesperados:</p>
+<pre><code class="language-go">// Evite isso
+for i := 0; i &lt; 10; i++ {
+    fmt.Println(i)
+    if i == 5 {
+        i = 8 // Pula para 8
+    }
+}
+</code></pre>
+<h3 id="5-5-limite-o-escopo-das-variáveis">5.5. Limite o Escopo das Variáveis</h3>
+<p>Declare variáveis no menor escopo possível:</p>
+<pre><code class="language-go">// Bom: 'i' só existe dentro do loop
+for i := 0; i &lt; 10; i++ {
+    // ...
+}
+
+// Menos bom: 'i' existe fora do loop, mesmo que não seja necessário
+var i int
+for i = 0; i &lt; 10; i++ {
+    // ...
+}
+</code></pre>
+<hr />
+<h2 id="6-exemplos-práticos">6. Exemplos Práticos</h2>
+<h3 id="6-1-verificação-de-número-primo">6.1. Verificação de Número Primo</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    numero := 17
+    ehPrimo := true
+
+    if numero &lt;= 1 {
+        ehPrimo = false
+    } else {
+        for i := 2; i*i &lt;= numero; i++ {
+            if numero%i == 0 {
+                ehPrimo = false
+                break
+            }
+        }
+    }
+
+    if ehPrimo {
+        fmt.Printf(&quot;%d é um número primo\n&quot;, numero)
+    } else {
+        fmt.Printf(&quot;%d não é um número primo\n&quot;, numero)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>17 é um número primo
+</code></pre>
+<h3 id="6-2-sequência-de-fibonacci">6.2. Sequência de Fibonacci</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    n := 10 // Número de termos
+
+    fmt.Printf(&quot;Os primeiros %d termos da sequência de Fibonacci:\n&quot;, n)
+
+    a, b := 0, 1
+
+    for i := 0; i &lt; n; i++ {
+        fmt.Print(a, &quot; &quot;)
+        a, b = b, a+b
+    }
+    fmt.Println()
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Os primeiros 10 termos da sequência de Fibonacci:
+0 1 1 2 3 5 8 13 21 34 
+</code></pre>
+<h3 id="6-3-conversão-de-decimal-para-binário">6.3. Conversão de Decimal para Binário</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    decimal := 25
+    binario := &quot;&quot;
+
+    // Caso especial para 0
+    if decimal == 0 {
+        binario = &quot;0&quot;
+    }
+
+    // Conversão para binário
+    temp := decimal
+    for temp &gt; 0 {
+        resto := temp % 2
+        binario = fmt.Sprintf(&quot;%d%s&quot;, resto, binario)
+        temp = temp / 2
+    }
+
+    fmt.Printf(&quot;O número decimal %d em binário é %s\n&quot;, decimal, binario)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>O número decimal 25 em binário é 11001
+</code></pre>
+<h3 id="6-4-cálculo-de-média">6.4. Cálculo de Média</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    notas := []float64{8.5, 7.0, 9.5, 6.0, 8.0}
+    soma := 0.0
+
+    for i := 0; i &lt; len(notas); i++ {
+        soma += notas[i]
+    }
+
+    media := soma / float64(len(notas))
+    fmt.Printf(&quot;A média das notas é: %.2f\n&quot;, media)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>A média das notas é: 7.80
+</code></pre>
+<hr />
+<h2 id="7-exercícios-offline">7. Exercícios Offline</h2>
+<ol>
+<li>
+<p><strong>Soma dos Pares</strong>: Escreva um algoritmo que calcule a soma de todos os números pares de 1 a 100.</p>
+</li>
+<li>
+<p><strong>Contagem de Dígitos</strong>: Crie um algoritmo que conte quantos dígitos tem um número inteiro positivo.</p>
+</li>
+<li>
+<p><strong>Padrão de Asteriscos</strong>: Desenvolva um algoritmo que desenhe um padrão de asteriscos em forma de pirâmide.</p>
+</li>
+<li>
+<p><strong>Verificação de Palíndromo</strong>: Crie um algoritmo que verifique se um número é um palíndromo (lê-se igual de trás para frente, como 121, 1221, etc.).</p>
+</li>
+<li>
+<p><strong>Tabuada Completa</strong>: Desenvolva um algoritmo que imprima a tabuada completa de 1 a 10.</p>
+</li>
+</ol>
+<hr />
+<h2 id="8-quiz-rápido">8. Quiz Rápido</h2>
+<ol>
+<li>
+<p>Qual é a sintaxe correta para um loop <code>for</code> com contador em Go?
+   a) <code>for (i = 0; i &lt; 10; i++) { código }</code>
+   b) <code>for i = 0; i &lt; 10; i++ { código }</code>
+   c) <code>for i := 0; i &lt; 10; i++ { código }</code>
+   d) <code>for (i := 0; i &lt; 10; i++) código</code></p>
+</li>
+<li>
+<p>O que acontece se a condição em um <code>for</code> for falsa logo no início?
+   a) O loop executa pelo menos uma vez
+   b) O loop não executa nenhuma vez
+   c) O programa gera um erro
+   d) O loop executa infinitamente</p>
+</li>
+<li>
+<p>Qual é o valor de <code>i</code> após a execução do seguinte loop?
+   <code>go
+   var i int
+   for i = 0; i &lt; 5; i++ {
+       // código
+   }</code>
+   a) 0
+   b) 4
+   c) 5
+   d) Indefinido</p>
+</li>
+<li>
+<p>Como podemos criar um loop que conte de 10 até 1 em ordem decrescente?
+   a) <code>for i := 10; i &gt;= 1; i-- { código }</code>
+   b) <code>for i := 10; i &gt; 0; i-- { código }</code>
+   c) <code>for i := 10; i &gt; 1; i-- { código }</code>
+   d) Ambas as alternativas a e b estão corretas</p>
+</li>
+<li>
+<p>O que faz o seguinte código?
+   <code>go
+   for i := 1; i &lt;= 20; i++ {
+       if i%2 == 0 {
+           fmt.Println(i)
+       }
+   }</code>
+   a) Imprime todos os números de 1 a 20
+   b) Imprime todos os números pares de 1 a 20
+   c) Imprime todos os números ímpares de 1 a 20
+   d) Imprime apenas o número 2</p>
+</li>
+</ol>
+<hr />
+<h2 id="9-desafio-prático-jogo-de-adivinhação">9. Desafio Prático: Jogo de Adivinhação</h2>
+<p>Crie um programa em Go que simule um jogo de adivinhação. O programa deve:</p>
+<ol>
+<li>Definir um número secreto entre 1 e 100.</li>
+<li>Dar ao jogador 10 tentativas para adivinhar o número.</li>
+<li>Para cada tentativa, informar se o palpite foi muito alto, muito baixo ou correto.</li>
+<li>Se o jogador acertar, mostrar uma mensagem de parabéns e em quantas tentativas ele acertou.</li>
+<li>Se o jogador usar todas as 10 tentativas sem acertar, revelar o número secreto.</li>
+</ol>
+<p><strong>Exemplo de Saída Esperada:</strong></p>
+<pre><code>Jogo de Adivinhação
+------------------
+Estou pensando em um número entre 1 e 100.
+Você tem 10 tentativas.
+
+Tentativa 1: Digite seu palpite: 50
+Muito alto! Tente um número menor.
+
+Tentativa 2: Digite seu palpite: 25
+Muito baixo! Tente um número maior.
+
+Tentativa 3: Digite seu palpite: 37
+Muito baixo! Tente um número maior.
+
+Tentativa 4: Digite seu palpite: 43
+Parabéns! Você acertou em 4 tentativas.
+O número secreto era 43.
+</code></pre>
+<p><strong>Dica:</strong> Use <code>rand.Intn(100) + 1</code> para gerar um número aleatório entre 1 e 100. Você precisará importar o pacote <code>math/rand</code> e inicializar o gerador de números aleatórios com <code>rand.Seed(time.Now().UnixNano())</code>.</p>
+<hr />
+<h2 id="10-resumo-da-aula">10. Resumo da Aula</h2>
+<p>Nesta aula, aprendemos sobre:</p>
+<ul>
+<li><strong>Estruturas de Repetição</strong>: Permitem executar um bloco de código múltiplas vezes.</li>
+<li><strong>Estrutura <code>for</code> Clássica</strong>: <code>for inicialização; condição; pós-execução { código }</code>.</li>
+<li><strong>Fluxo de Execução</strong>: Inicialização uma vez, seguida por ciclos de verificação da condição, execução do bloco e pós-execução.</li>
+<li><strong>Variáveis de Controle</strong>: Contadores que controlam o número de iterações.</li>
+<li><strong>Loops Aninhados</strong>: Loops dentro de outros loops, úteis para trabalhar com estruturas bidimensionais.</li>
+<li><strong>Boas Práticas</strong>: Evitar loops infinitos, usar nomes significativos, manter padrões consistentes, etc.</li>
+<li><strong>Aplicações Práticas</strong>: Soma de números, tabuada, fatorial, desenho de padrões, etc.</li>
+</ul>
+<p>As estruturas de repetição são fundamentais para automatizar tarefas repetitivas e processar conjuntos de dados, tornando o código mais conciso e eficiente.</p>
+<hr />
+<h2 id="11-ficha-de-referência-rápida">11. Ficha de Referência Rápida</h2>
+<h3 id="estrutura-code-for-code-em-go">Estrutura <code>for</code> em Go</h3>
+<table>
+<thead>
+<tr>
+<th>Variação</th>
+<th>Sintaxe</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Clássica</td>
+<td><code>for i := 0; i &lt; n; i++ { código }</code></td>
+<td>Repetir um número específico de vezes</td>
+</tr>
+<tr>
+<td>Decremento</td>
+<td><code>for i := n; i &gt; 0; i-- { código }</code></td>
+<td>Contar em ordem decrescente</td>
+</tr>
+<tr>
+<td>Incremento personalizado</td>
+<td><code>for i := 0; i &lt; n; i += 2 { código }</code></td>
+<td>Pular valores (ex: apenas pares)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="componentes-do-code-for-code-clássico">Componentes do <code>for</code> Clássico</h3>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Descrição</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inicialização</td>
+<td>Executada uma vez, no início</td>
+<td><code>i := 0</code></td>
+</tr>
+<tr>
+<td>Condição</td>
+<td>Verificada antes de cada iteração</td>
+<td><code>i &lt; 10</code></td>
+</tr>
+<tr>
+<td>Pós-execução</td>
+<td>Executada após cada iteração</td>
+<td><code>i++</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="operadores-de-incremento-decremento">Operadores de Incremento/Decremento</h3>
+<table>
+<thead>
+<tr>
+<th>Operador</th>
+<th>Descrição</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>++</code></td>
+<td>Incrementa em 1</td>
+<td><code>i++</code></td>
+</tr>
+<tr>
+<td><code>--</code></td>
+<td>Decrementa em 1</td>
+<td><code>i--</code></td>
+</tr>
+<tr>
+<td><code>+=</code></td>
+<td>Incrementa pelo valor especificado</td>
+<td><code>i += 2</code></td>
+</tr>
+<tr>
+<td><code>-=</code></td>
+<td>Decrementa pelo valor especificado</td>
+<td><code>i -= 2</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="padrões-comuns">Padrões Comuns</h3>
+<table>
+<thead>
+<tr>
+<th>Padrão</th>
+<th>Código</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Iterar sobre array/slice</td>
+<td><code>for i := 0; i &lt; len(arr); i++ { ... }</code></td>
+<td>Acessar elementos pelo índice</td>
+</tr>
+<tr>
+<td>Contar de 1 a n</td>
+<td><code>for i := 1; i &lt;= n; i++ { ... }</code></td>
+<td>Quando precisamos começar de 1</td>
+</tr>
+<tr>
+<td>Contar de n a 1</td>
+<td><code>for i := n; i &gt;= 1; i-- { ... }</code></td>
+<td>Contagem regressiva</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12-modelos-de-código">12. Modelos de Código</h2>
+<h3 id="modelo-1-loop-básico">Modelo 1: Loop Básico</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Loop básico que imprime números de 1 a 5
+    for i := 1; i &lt;= 5; i++ {
+        fmt.Println(i)
+    }
+}
+</code></pre>
+<h3 id="modelo-2-soma-de-valores">Modelo 2: Soma de Valores</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Calcular a soma dos números de 1 a n
+    n := 10
+    soma := 0
+
+    for i := 1; i &lt;= n; i++ {
+        soma += i
+    }
+
+    fmt.Printf(&quot;A soma dos números de 1 a %d é: %d\n&quot;, n, soma)
+}
+</code></pre>
+<h3 id="modelo-3-loop-com-condição-composta">Modelo 3: Loop com Condição Composta</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Imprimir números de 1 a 20, mas apenas os divisíveis por 3 ou 5
+    for i := 1; i &lt;= 20; i++ {
+        if i%3 == 0 || i%5 == 0 {
+            fmt.Println(i)
+        }
+    }
+}
+</code></pre>
+<h3 id="modelo-4-loops-aninhados">Modelo 4: Loops Aninhados</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Imprimir uma matriz 3x3
+    for i := 0; i &lt; 3; i++ {
+        for j := 0; j &lt; 3; j++ {
+            fmt.Printf(&quot;(%d,%d) &quot;, i, j)
+        }
+        fmt.Println() // Nova linha após cada linha da matriz
+    }
+}
+</code></pre>
+<hr />
+<p><strong>Gabarito do Quiz:</strong>
+1. c) <code>for i := 0; i &lt; 10; i++ { código }</code>
+2. b) O loop não executa nenhuma vez
+3. c) 5
+4. d) Ambas as alternativas a e b estão corretas
+5. b) Imprime todos os números pares de 1 a 20</p>
+  </article>
+</main>
+
+</body>
+</html>

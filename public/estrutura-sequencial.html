@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 5: Estrutura Sequencial</title>
+  <link rel="stylesheet" href="themes/rustbook/css/water-dark.css">
+  <link rel="stylesheet" href="themes/rustbook/css/theme.css">
+  <script src="themes/rustbook/js/theme.js" defer></script>
+</head>
+<body>
+
+<aside>
+  <header><h1>Curso de Algoritmos com Go</h1></header>
+  <nav aria-label="Conteúdo do curso">
+    <ul>
+      <li><a href="index.html">📚 Índice Geral</a></li>
+      <li><a href="algoritmos-base.html">Aula 1: Algoritmos – A Base de Tudo!</a></li>
+      <li><a href="break-e-continue.html">Aula 10: Break e Continue</a></li>
+      <li><a href="condicional-if-else.html">Aula 6: Condicional If/Else</a></li>
+      <li><a href="condicional-switch.html">Aula 7: Condicional Switch</a></li>
+      <li><a href="entrada-e-saida.html">Aula 4: Entrada e Saída com Go</a></li>
+      <li><a href="estrutura-sequencial.html">Aula 5: Estrutura Sequencial</a></li>
+      <li><a href="identificadores-operadores.html">Aula 3: Identificadores e Operadores</a></li>
+      <li><a href="nova_aula.html">Nova aula</a></li>
+      <li><a href="repeticao-for.html">Aula 8: Repetição com For</a></li>
+      <li><a href="variaveis-e-tipos.html">Aula 2: Variáveis e Tipos de Dados em Go</a></li>
+      <li><a href="while-com-for.html">Aula 9: While com For</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<main>
+  <article>
+    <h2>Aula 5: Estrutura Sequencial</h2>
+    <nav class="minimap"><ul><li class="lvl2"><a href="#objetivos-da-aula">Objetivos da Aula</a></li><li class="lvl2"><a href="#1-estrutura-sequencial-em-programação">1. Estrutura Sequencial em Programação</a></li><li class="lvl3"><a href="#1-1-o-que-é-estrutura-sequencial">1.1. O que é Estrutura Sequencial?</a></li><li class="lvl3"><a href="#1-2-fluxo-de-execução">1.2. Fluxo de Execução</a></li><li class="lvl3"><a href="#1-3-importância-da-ordem-das-instruções">1.3. Importância da Ordem das Instruções</a></li><li class="lvl2"><a href="#2-testando-pequenos-trechos-de-código">2. Testando Pequenos Trechos de Código</a></li><li class="lvl3"><a href="#2-1-usando-code-fmt-println-code-para-depuração">2.1. Usando <code>fmt.Println</code> para Depuração</a></li><li class="lvl3"><a href="#2-2-verificando-valores-intermediários">2.2. Verificando Valores Intermediários</a></li><li class="lvl3"><a href="#2-3-testando-expressões-isoladamente">2.3. Testando Expressões Isoladamente</a></li><li class="lvl3"><a href="#2-4-usando-comentários-para-documentar-testes">2.4. Usando Comentários para Documentar Testes</a></li><li class="lvl2"><a href="#3-técnicas-de-depuração-em-go">3. Técnicas de Depuração em Go</a></li><li class="lvl3"><a href="#3-1-usando-code-fmt-printf-code-para-depuração-formatada">3.1. Usando <code>fmt.Printf</code> para Depuração Formatada</a></li><li class="lvl3"><a href="#3-2-identificando-erros-comuns">3.2. Identificando Erros Comuns</a></li><li class="lvl3"><a href="#3-3-usando-comentários-para-desativar-código">3.3. Usando Comentários para Desativar Código</a></li><li class="lvl2"><a href="#4-exemplos-práticos-de-estrutura-sequencial">4. Exemplos Práticos de Estrutura Sequencial</a></li><li class="lvl3"><a href="#4-1-calculando-a-área-e-o-perímetro-de-um-retângulo">4.1. Calculando a Área e o Perímetro de um Retângulo</a></li><li class="lvl3"><a href="#4-2-convertendo-temperatura-de-celsius-para-fahrenheit">4.2. Convertendo Temperatura de Celsius para Fahrenheit</a></li><li class="lvl3"><a href="#4-3-calculando-o-troco-de-uma-compra">4.3. Calculando o Troco de uma Compra</a></li><li class="lvl3"><a href="#4-4-calculando-o-imc-índice-de-massa-corporal">4.4. Calculando o IMC (Índice de Massa Corporal)</a></li><li class="lvl2"><a href="#5-exercícios-offline">5. Exercícios Offline</a></li><li class="lvl2"><a href="#6-quiz-rápido">6. Quiz Rápido</a></li><li class="lvl2"><a href="#7-desafio-prático-conversor-de-unidades">7. Desafio Prático: Conversor de Unidades</a></li><li class="lvl2"><a href="#8-resumo-da-aula">8. Resumo da Aula</a></li><li class="lvl2"><a href="#9-ficha-de-referência-rápida">9. Ficha de Referência Rápida</a></li><li class="lvl3"><a href="#estrutura-sequencial">Estrutura Sequencial</a></li><li class="lvl3"><a href="#técnicas-de-depuração">Técnicas de Depuração</a></li><li class="lvl3"><a href="#verbos-de-formatação-úteis-para-depuração">Verbos de Formatação Úteis para Depuração</a></li><li class="lvl3"><a href="#erros-comuns-e-como-evitá-los">Erros Comuns e Como Evitá-los</a></li><li class="lvl2"><a href="#10-modelos-de-código">10. Modelos de Código</a></li><li class="lvl3"><a href="#modelo-1-estrutura-básica-de-um-programa-go">Modelo 1: Estrutura Básica de um Programa Go</a></li><li class="lvl3"><a href="#modelo-2-depuração-com-code-fmt-printf-code">Modelo 2: Depuração com <code>fmt.Printf</code></a></li><li class="lvl3"><a href="#modelo-3-verificação-de-erros">Modelo 3: Verificação de Erros</a></li><li class="lvl3"><a href="#modelo-4-cálculos-com-depuração-passo-a-passo">Modelo 4: Cálculos com Depuração Passo a Passo</a></li></ul></nav><h1>Aula 5: Estrutura Sequencial e Testes Simples em Go</h1>
+<h2 id="objetivos-da-aula">Objetivos da Aula</h2>
+<p>Ao final desta aula, você será capaz de:</p>
+<ul>
+<li>Compreender o conceito de estrutura sequencial em programação</li>
+<li>Executar instruções em ordem lógica para resolver problemas</li>
+<li>Utilizar <code>fmt.Println</code> e outras técnicas para depuração de código</li>
+<li>Testar pequenos trechos de código para verificar a lógica passo a passo</li>
+<li>Desenvolver programas simples com estrutura sequencial em Go</li>
+</ul>
+<hr />
+<h2 id="1-estrutura-sequencial-em-programação">1. Estrutura Sequencial em Programação</h2>
+<h3 id="1-1-o-que-é-estrutura-sequencial">1.1. O que é Estrutura Sequencial?</h3>
+<p>A <strong>estrutura sequencial</strong> é o modelo mais básico de execução em programação. Nela, as instruções são executadas uma após a outra, em ordem, do início ao fim do programa. Cada instrução só é executada após a conclusão da instrução anterior.</p>
+<p>Pense na estrutura sequencial como uma receita de bolo: você segue os passos na ordem exata em que estão escritos, sem pular etapas ou alterar a sequência.</p>
+<pre><code>1. Pré-aqueça o forno
+2. Misture os ingredientes secos
+3. Adicione os ingredientes líquidos
+4. Misture tudo até ficar homogêneo
+5. Coloque na forma
+6. Asse por 30 minutos
+</code></pre>
+<p>Na programação, a estrutura sequencial funciona da mesma forma:</p>
+<pre><code class="language-go">// Estrutura sequencial em Go
+package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Passo 1: Declarar variáveis
+    var base float64
+    var altura float64
+    var area float64
+
+    // Passo 2: Atribuir valores
+    base = 10.0
+    altura = 5.0
+
+    // Passo 3: Calcular a área
+    area = base * altura / 2
+
+    // Passo 4: Exibir o resultado
+    fmt.Println(&quot;A área do triângulo é:&quot;, area)
+}
+</code></pre>
+<p>Neste exemplo, o programa executa as instruções na ordem exata em que aparecem, de cima para baixo.</p>
+<h3 id="1-2-fluxo-de-execução">1.2. Fluxo de Execução</h3>
+<p>O fluxo de execução em uma estrutura sequencial é linear e previsível:</p>
+<ol>
+<li>O programa começa na primeira instrução</li>
+<li>Executa cada instrução, uma por vez, na ordem em que aparecem</li>
+<li>Termina após executar a última instrução</li>
+</ol>
+<p>Vamos visualizar o fluxo de execução com um exemplo simples:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Println(&quot;Passo 1: Iniciando o programa&quot;)
+
+    var numero int = 5
+    fmt.Println(&quot;Passo 2: Declarei a variável numero com valor&quot;, numero)
+
+    numero = numero * 2
+    fmt.Println(&quot;Passo 3: Multipliquei numero por 2, agora é&quot;, numero)
+
+    numero = numero + 10
+    fmt.Println(&quot;Passo 4: Adicionei 10 ao numero, agora é&quot;, numero)
+
+    fmt.Println(&quot;Passo 5: Finalizando o programa&quot;)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Passo 1: Iniciando o programa
+Passo 2: Declarei a variável numero com valor 5
+Passo 3: Multipliquei numero por 2, agora é 10
+Passo 4: Adicionei 10 ao numero, agora é 20
+Passo 5: Finalizando o programa
+</code></pre>
+<p>Observe como cada instrução é executada na ordem exata em que aparece no código, e cada passo depende do resultado do passo anterior.</p>
+<h3 id="1-3-importância-da-ordem-das-instruções">1.3. Importância da Ordem das Instruções</h3>
+<p>Em uma estrutura sequencial, a ordem das instruções é crucial. Trocar a ordem pode levar a resultados completamente diferentes ou até mesmo a erros.</p>
+<p>Vamos ver um exemplo onde a ordem importa:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Exemplo 1: Ordem correta
+    var x int = 10
+    var y int = x + 5  // y = 15
+    fmt.Println(&quot;Exemplo 1 (ordem correta):&quot;)
+    fmt.Println(&quot;x =&quot;, x)
+    fmt.Println(&quot;y =&quot;, y)
+
+    // Exemplo 2: Ordem incorreta (não compilaria, apenas ilustrativo)
+    /*
+    var a int
+    var b int = a + 5  // Usando 'a' antes de atribuir um valor
+    a = 10             // Atribuindo valor depois de usar
+    */
+
+    // Versão corrigida do Exemplo 2
+    fmt.Println(&quot;\nExemplo 2 (ordem corrigida):&quot;)
+    var a int = 10
+    var b int = a + 5
+    fmt.Println(&quot;a =&quot;, a)
+    fmt.Println(&quot;b =&quot;, b)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Exemplo 1 (ordem correta):
+x = 10
+y = 15
+
+Exemplo 2 (ordem corrigida):
+a = 10
+b = 15
+</code></pre>
+<p>No exemplo comentado (que não compilaria), tentamos usar a variável <code>a</code> antes de atribuir um valor a ela, o que causaria um problema. A ordem correta é primeiro atribuir um valor a <code>a</code> e só depois usá-la para calcular <code>b</code>.</p>
+<hr />
+<h2 id="2-testando-pequenos-trechos-de-código">2. Testando Pequenos Trechos de Código</h2>
+<p>Uma das habilidades mais importantes para um programador é saber testar e verificar seu código. Vamos explorar algumas técnicas para testar pequenos trechos de código em Go.</p>
+<h3 id="2-1-usando-code-fmt-println-code-para-depuração">2.1. Usando <code>fmt.Println</code> para Depuração</h3>
+<p>A função <code>fmt.Println</code> é uma ferramenta simples, mas poderosa, para depuração. Ela permite que você veja o valor de variáveis e o estado do programa em diferentes pontos da execução.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Calculando a média de três notas
+    nota1 := 7.5
+    nota2 := 8.0
+    nota3 := 6.5
+
+    fmt.Println(&quot;Nota 1:&quot;, nota1)
+    fmt.Println(&quot;Nota 2:&quot;, nota2)
+    fmt.Println(&quot;Nota 3:&quot;, nota3)
+
+    soma := nota1 + nota2 + nota3
+    fmt.Println(&quot;Soma das notas:&quot;, soma)
+
+    media := soma / 3
+    fmt.Println(&quot;Média:&quot;, media)
+
+    // Verificando se o aluno foi aprovado
+    aprovado := media &gt;= 7.0
+    fmt.Println(&quot;Aluno aprovado?&quot;, aprovado)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Nota 1: 7.5
+Nota 2: 8
+Nota 3: 6.5
+Soma das notas: 22
+Média: 7.333333333333333
+Aluno aprovado? true
+</code></pre>
+<p>Neste exemplo, usamos <code>fmt.Println</code> para acompanhar o valor de cada variável em cada etapa do cálculo. Isso nos ajuda a verificar se o programa está funcionando como esperado.</p>
+<h3 id="2-2-verificando-valores-intermediários">2.2. Verificando Valores Intermediários</h3>
+<p>Ao desenvolver um programa mais complexo, é útil verificar os valores intermediários para garantir que cada etapa está funcionando corretamente.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Calculando o preço final de um produto com desconto e imposto
+    preco := 100.0
+    fmt.Println(&quot;Preço original:&quot;, preco)
+
+    // Aplicando desconto de 10%
+    desconto := preco * 0.1
+    fmt.Println(&quot;Valor do desconto:&quot;, desconto)
+
+    precoComDesconto := preco - desconto
+    fmt.Println(&quot;Preço com desconto:&quot;, precoComDesconto)
+
+    // Aplicando imposto de 15%
+    imposto := precoComDesconto * 0.15
+    fmt.Println(&quot;Valor do imposto:&quot;, imposto)
+
+    precoFinal := precoComDesconto + imposto
+    fmt.Println(&quot;Preço final:&quot;, precoFinal)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Preço original: 100
+Valor do desconto: 10
+Preço com desconto: 90
+Valor do imposto: 13.5
+Preço final: 103.5
+</code></pre>
+<p>Ao verificar cada etapa do cálculo, podemos identificar facilmente onde um possível erro pode estar ocorrendo.</p>
+<h3 id="2-3-testando-expressões-isoladamente">2.3. Testando Expressões Isoladamente</h3>
+<p>Às vezes, é útil testar expressões isoladamente para entender como elas funcionam.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Testando expressões matemáticas
+    fmt.Println(&quot;5 + 3 * 2 =&quot;, 5 + 3 * 2)
+    fmt.Println(&quot;(5 + 3) * 2 =&quot;, (5 + 3) * 2)
+
+    // Testando expressões booleanas
+    a, b := 5, 10
+    fmt.Println(&quot;a =&quot;, a, &quot;b =&quot;, b)
+    fmt.Println(&quot;a &lt; b:&quot;, a &lt; b)
+    fmt.Println(&quot;a &gt; b:&quot;, a &gt; b)
+    fmt.Println(&quot;a &lt;= b:&quot;, a &lt;= b)
+    fmt.Println(&quot;a &gt;= b:&quot;, a &gt;= b)
+    fmt.Println(&quot;a == b:&quot;, a == b)
+    fmt.Println(&quot;a != b:&quot;, a != b)
+
+    // Testando expressões lógicas
+    c, d := true, false
+    fmt.Println(&quot;c =&quot;, c, &quot;d =&quot;, d)
+    fmt.Println(&quot;c &amp;&amp; d:&quot;, c &amp;&amp; d)
+    fmt.Println(&quot;c || d:&quot;, c || d)
+    fmt.Println(&quot;!c:&quot;, !c)
+    fmt.Println(&quot;!d:&quot;, !d)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>5 + 3 * 2 = 11
+(5 + 3) * 2 = 16
+a = 5 b = 10
+a &lt; b: true
+a &gt; b: false
+a &lt;= b: true
+a &gt;= b: false
+a == b: false
+a != b: true
+c = true d = false
+c &amp;&amp; d: false
+c || d: true
+!c: false
+!d: true
+</code></pre>
+<p>Este tipo de teste ajuda a entender como as expressões são avaliadas e pode prevenir erros de lógica.</p>
+<h3 id="2-4-usando-comentários-para-documentar-testes">2.4. Usando Comentários para Documentar Testes</h3>
+<p>É uma boa prática usar comentários para documentar seus testes e explicar o que você espera que cada parte do código faça.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Testando conversão de temperatura de Celsius para Fahrenheit
+    // Fórmula: F = C * 9/5 + 32
+
+    // Teste 1: 0°C deve ser 32°F
+    celsius := 0.0
+    fahrenheit := celsius*9/5 + 32
+    fmt.Printf(&quot;Teste 1: %g°C = %g°F (esperado: 32°F)\n&quot;, celsius, fahrenheit)
+
+    // Teste 2: 100°C deve ser 212°F
+    celsius = 100.0
+    fahrenheit = celsius*9/5 + 32
+    fmt.Printf(&quot;Teste 2: %g°C = %g°F (esperado: 212°F)\n&quot;, celsius, fahrenheit)
+
+    // Teste 3: -40°C deve ser -40°F (ponto onde as escalas se encontram)
+    celsius = -40.0
+    fahrenheit = celsius*9/5 + 32
+    fmt.Printf(&quot;Teste 3: %g°C = %g°F (esperado: -40°F)\n&quot;, celsius, fahrenheit)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Teste 1: 0°C = 32°F (esperado: 32°F)
+Teste 2: 100°C = 212°F (esperado: 212°F)
+Teste 3: -40°C = -40°F (esperado: -40°F)
+</code></pre>
+<p>Os comentários ajudam a documentar o que você está testando e qual resultado espera, tornando mais fácil verificar se o código está funcionando corretamente.</p>
+<hr />
+<h2 id="3-técnicas-de-depuração-em-go">3. Técnicas de Depuração em Go</h2>
+<p>A depuração é o processo de encontrar e corrigir erros em um programa. Vamos explorar algumas técnicas simples de depuração em Go.</p>
+<h3 id="3-1-usando-code-fmt-printf-code-para-depuração-formatada">3.1. Usando <code>fmt.Printf</code> para Depuração Formatada</h3>
+<p>A função <code>fmt.Printf</code> permite um controle mais preciso sobre como as informações são exibidas, o que pode ser útil para depuração.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Variáveis para depuração
+    nome := &quot;Maria&quot;
+    idade := 30
+    altura := 1.65
+    ativo := true
+
+    // Usando Printf para depuração formatada
+    fmt.Printf(&quot;Tipo: %T, Valor: %v\n&quot;, nome, nome)
+    fmt.Printf(&quot;Tipo: %T, Valor: %v\n&quot;, idade, idade)
+    fmt.Printf(&quot;Tipo: %T, Valor: %.2f\n&quot;, altura, altura)
+    fmt.Printf(&quot;Tipo: %T, Valor: %v\n&quot;, ativo, ativo)
+
+    // Depurando uma estrutura de dados mais complexa
+    notas := []float64{7.5, 8.0, 6.5, 9.0}
+    fmt.Printf(&quot;Notas: %v\n&quot;, notas)
+    fmt.Printf(&quot;Tipo: %T, Tamanho: %d\n&quot;, notas, len(notas))
+
+    // Depurando com representação detalhada
+    fmt.Printf(&quot;Representação Go: %#v\n&quot;, notas)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Tipo: string, Valor: Maria
+Tipo: int, Valor: 30
+Tipo: float64, Valor: 1.65
+Tipo: bool, Valor: true
+Notas: [7.5 8 6.5 9]
+Tipo: []float64, Tamanho: 4
+Representação Go: []float64{7.5, 8, 6.5, 9}
+</code></pre>
+<p>O verbo <code>%T</code> mostra o tipo da variável, <code>%v</code> mostra o valor, e <code>%#v</code> mostra uma representação Go do valor, o que pode ser útil para estruturas de dados mais complexas.</p>
+<h3 id="3-2-identificando-erros-comuns">3.2. Identificando Erros Comuns</h3>
+<p>Vamos explorar alguns erros comuns e como identificá-los:</p>
+<h4>3.2.1. Erro de Divisão por Zero</h4>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    a := 10
+    b := 0
+
+    fmt.Println(&quot;a =&quot;, a)
+    fmt.Println(&quot;b =&quot;, b)
+
+    // Verificando antes de fazer a divisão
+    if b == 0 {
+        fmt.Println(&quot;Erro: Divisão por zero não é permitida&quot;)
+    } else {
+        resultado := a / b
+        fmt.Println(&quot;a / b =&quot;, resultado)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>a = 10
+b = 0
+Erro: Divisão por zero não é permitida
+</code></pre>
+<p>Neste exemplo, verificamos se o divisor é zero antes de tentar fazer a divisão, evitando um erro em tempo de execução.</p>
+<h4>3.2.2. Erro de Índice Fora dos Limites</h4>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    numeros := []int{10, 20, 30, 40, 50}
+
+    fmt.Println(&quot;Slice:&quot;, numeros)
+    fmt.Println(&quot;Tamanho:&quot;, len(numeros))
+
+    // Acessando elementos do slice com verificação
+    indice := 6
+
+    if indice &gt;= 0 &amp;&amp; indice &lt; len(numeros) {
+        valor := numeros[indice]
+        fmt.Printf(&quot;numeros[%d] = %d\n&quot;, indice, valor)
+    } else {
+        fmt.Printf(&quot;Erro: Índice %d está fora dos limites [0-%d]\n&quot;, indice, len(numeros)-1)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Slice: [10 20 30 40 50]
+Tamanho: 5
+Erro: Índice 6 está fora dos limites [0-4]
+</code></pre>
+<p>Verificar se o índice está dentro dos limites antes de acessar um elemento de um slice ou array é uma boa prática para evitar erros em tempo de execução.</p>
+<h3 id="3-3-usando-comentários-para-desativar-código">3.3. Usando Comentários para Desativar Código</h3>
+<p>Durante a depuração, às vezes é útil desativar temporariamente partes do código para isolar problemas.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    valor := 15
+
+    // Versão 1: Cálculo original
+    resultado := valor * 2
+    fmt.Println(&quot;Versão 1 (original):&quot;, resultado)
+
+    // Versão 2: Cálculo alternativo (comentado para teste)
+    /*
+    resultado = valor * valor
+    fmt.Println(&quot;Versão 2 (alternativa):&quot;, resultado)
+    */
+
+    // Versão 3: Nova abordagem
+    resultado = valor + 10
+    fmt.Println(&quot;Versão 3 (nova):&quot;, resultado)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Versão 1 (original): 30
+Versão 3 (nova): 25
+</code></pre>
+<p>Comentar partes do código permite que você teste diferentes abordagens sem precisar apagar o código original.</p>
+<hr />
+<h2 id="4-exemplos-práticos-de-estrutura-sequencial">4. Exemplos Práticos de Estrutura Sequencial</h2>
+<p>Vamos ver alguns exemplos práticos de programas que utilizam estrutura sequencial em Go.</p>
+<h3 id="4-1-calculando-a-área-e-o-perímetro-de-um-retângulo">4.1. Calculando a Área e o Perímetro de um Retângulo</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Declaração de variáveis
+    var comprimento, largura float64
+
+    // Atribuição de valores
+    comprimento = 10.0
+    largura = 5.0
+
+    // Cálculo da área
+    area := comprimento * largura
+
+    // Cálculo do perímetro
+    perimetro := 2 * (comprimento + largura)
+
+    // Exibição dos resultados
+    fmt.Println(&quot;Dimensões do retângulo:&quot;)
+    fmt.Printf(&quot;Comprimento: %.2f\n&quot;, comprimento)
+    fmt.Printf(&quot;Largura: %.2f\n&quot;, largura)
+    fmt.Printf(&quot;Área: %.2f\n&quot;, area)
+    fmt.Printf(&quot;Perímetro: %.2f\n&quot;, perimetro)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Dimensões do retângulo:
+Comprimento: 10.00
+Largura: 5.00
+Área: 50.00
+Perímetro: 30.00
+</code></pre>
+<p>Este programa segue uma estrutura sequencial clara: declaração de variáveis, atribuição de valores, cálculos e exibição dos resultados.</p>
+<h3 id="4-2-convertendo-temperatura-de-celsius-para-fahrenheit">4.2. Convertendo Temperatura de Celsius para Fahrenheit</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Declaração e inicialização da temperatura em Celsius
+    celsius := 25.0
+
+    // Conversão para Fahrenheit: F = C * 9/5 + 32
+    fahrenheit := celsius*9/5 + 32
+
+    // Exibição dos resultados
+    fmt.Println(&quot;Conversão de Temperatura&quot;)
+    fmt.Println(&quot;------------------------&quot;)
+    fmt.Printf(&quot;%.1f°C = %.1f°F\n&quot;, celsius, fahrenheit)
+
+    // Teste com outros valores
+    celsius = 0.0
+    fahrenheit = celsius*9/5 + 32
+    fmt.Printf(&quot;%.1f°C = %.1f°F\n&quot;, celsius, fahrenheit)
+
+    celsius = 100.0
+    fahrenheit = celsius*9/5 + 32
+    fmt.Printf(&quot;%.1f°C = %.1f°F\n&quot;, celsius, fahrenheit)
+
+    celsius = -40.0
+    fahrenheit = celsius*9/5 + 32
+    fmt.Printf(&quot;%.1f°C = %.1f°F\n&quot;, celsius, fahrenheit)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Conversão de Temperatura
+------------------------
+25.0°C = 77.0°F
+0.0°C = 32.0°F
+100.0°C = 212.0°F
+-40.0°C = -40.0°F
+</code></pre>
+<p>Este programa converte temperaturas de Celsius para Fahrenheit e testa a fórmula com diferentes valores.</p>
+<h3 id="4-3-calculando-o-troco-de-uma-compra">4.3. Calculando o Troco de uma Compra</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Valores da compra
+    valorProduto := 45.50
+    valorPago := 100.00
+
+    // Cálculo do troco
+    troco := valorPago - valorProduto
+
+    // Exibição dos resultados
+    fmt.Println(&quot;Cálculo de Troco&quot;)
+    fmt.Println(&quot;---------------&quot;)
+    fmt.Printf(&quot;Valor do produto: R$ %.2f\n&quot;, valorProduto)
+    fmt.Printf(&quot;Valor pago: R$ %.2f\n&quot;, valorPago)
+    fmt.Printf(&quot;Troco: R$ %.2f\n&quot;, troco)
+
+    // Calculando as notas e moedas (simplificado)
+    fmt.Println(&quot;\nNotas e moedas do troco:&quot;)
+
+    // Notas de R$ 20
+    notas20 := int(troco / 20)
+    troco -= float64(notas20) * 20
+    fmt.Printf(&quot;Notas de R$ 20: %d\n&quot;, notas20)
+
+    // Notas de R$ 10
+    notas10 := int(troco / 10)
+    troco -= float64(notas10) * 10
+    fmt.Printf(&quot;Notas de R$ 10: %d\n&quot;, notas10)
+
+    // Notas de R$ 5
+    notas5 := int(troco / 5)
+    troco -= float64(notas5) * 5
+    fmt.Printf(&quot;Notas de R$ 5: %d\n&quot;, notas5)
+
+    // Notas de R$ 2
+    notas2 := int(troco / 2)
+    troco -= float64(notas2) * 2
+    fmt.Printf(&quot;Notas de R$ 2: %d\n&quot;, notas2)
+
+    // Moedas de R$ 1
+    moedas1 := int(troco)
+    troco -= float64(moedas1)
+    fmt.Printf(&quot;Moedas de R$ 1: %d\n&quot;, moedas1)
+
+    // Moedas de R$ 0.50
+    moedas50 := int(troco / 0.5)
+    troco -= float64(moedas50) * 0.5
+    fmt.Printf(&quot;Moedas de R$ 0.50: %d\n&quot;, moedas50)
+
+    // Arredondando para evitar problemas de precisão com números de ponto flutuante
+    moedas25 := int((troco + 0.001) / 0.25)
+    fmt.Printf(&quot;Moedas de R$ 0.25: %d\n&quot;, moedas25)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Cálculo de Troco
+---------------
+Valor do produto: R$ 45.50
+Valor pago: R$ 100.00
+Troco: R$ 54.50
+
+Notas e moedas do troco:
+Notas de R$ 20: 2
+Notas de R$ 10: 1
+Notas de R$ 5: 0
+Notas de R$ 2: 2
+Moedas de R$ 1: 0
+Moedas de R$ 0.50: 1
+Moedas de R$ 0.25: 0
+</code></pre>
+<p>Este programa calcula o troco de uma compra e decompõe o valor em notas e moedas, seguindo uma estrutura sequencial.</p>
+<h3 id="4-4-calculando-o-imc-índice-de-massa-corporal">4.4. Calculando o IMC (Índice de Massa Corporal)</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Dados de entrada
+    peso := 70.5    // em kg
+    altura := 1.75  // em metros
+
+    // Cálculo do IMC: peso / (altura * altura)
+    imc := peso / (altura * altura)
+
+    // Exibição dos resultados
+    fmt.Println(&quot;Calculadora de IMC&quot;)
+    fmt.Println(&quot;-----------------&quot;)
+    fmt.Printf(&quot;Peso: %.1f kg\n&quot;, peso)
+    fmt.Printf(&quot;Altura: %.2f m\n&quot;, altura)
+    fmt.Printf(&quot;IMC: %.2f\n&quot;, imc)
+
+    // Classificação do IMC
+    fmt.Println(&quot;\nClassificação:&quot;)
+
+    if imc &lt; 18.5 {
+        fmt.Println(&quot;Abaixo do peso&quot;)
+    } else if imc &lt; 25 {
+        fmt.Println(&quot;Peso normal&quot;)
+    } else if imc &lt; 30 {
+        fmt.Println(&quot;Sobrepeso&quot;)
+    } else if imc &lt; 35 {
+        fmt.Println(&quot;Obesidade grau 1&quot;)
+    } else if imc &lt; 40 {
+        fmt.Println(&quot;Obesidade grau 2&quot;)
+    } else {
+        fmt.Println(&quot;Obesidade grau 3&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Calculadora de IMC
+-----------------
+Peso: 70.5 kg
+Altura: 1.75 m
+IMC: 23.02
+
+Classificação:
+Peso normal
+</code></pre>
+<p>Este programa calcula o IMC com base no peso e altura fornecidos e exibe a classificação correspondente.</p>
+<hr />
+<h2 id="5-exercícios-offline">5. Exercícios Offline</h2>
+<ol>
+<li>
+<p><strong>Cálculo de Média Ponderada</strong>: Escreva um algoritmo que calcule a média ponderada de três notas com pesos 2, 3 e 5, respectivamente. Trace o fluxo de execução passo a passo.</p>
+</li>
+<li>
+<p><strong>Conversão de Moedas</strong>: Crie um algoritmo que converta um valor em reais para dólares, euros e libras, considerando as taxas de câmbio: 1 USD = R$ 5.00, 1 EUR = R$ 6.00, 1 GBP = R$ 7.00. Trace o fluxo de execução.</p>
+</li>
+<li>
+<p><strong>Cálculo de Salário</strong>: Desenvolva um algoritmo que calcule o salário líquido de um funcionário, considerando um salário bruto, descontos de 11% para INSS e 15% para Imposto de Renda. Trace o fluxo de execução.</p>
+</li>
+<li>
+<p><strong>Cálculo de Juros Compostos</strong>: Crie um algoritmo que calcule o montante final de um investimento de R$ 1.000,00 após 3 anos, com taxa de juros de 8% ao ano. Trace o fluxo de execução.</p>
+</li>
+<li>
+<p><strong>Conversão de Tempo</strong>: Desenvolva um algoritmo que converta um tempo em segundos para o formato horas, minutos e segundos. Por exemplo, 3665 segundos = 1 hora, 1 minuto e 5 segundos. Trace o fluxo de execução.</p>
+</li>
+</ol>
+<hr />
+<h2 id="6-quiz-rápido">6. Quiz Rápido</h2>
+<ol>
+<li>
+<p>O que é uma estrutura sequencial em programação?
+   a) Uma estrutura onde as instruções são executadas em ordem aleatória
+   b) Uma estrutura onde as instruções são executadas uma após a outra, em ordem
+   c) Uma estrutura onde as instruções são executadas apenas se uma condição for verdadeira
+   d) Uma estrutura onde as instruções são repetidas várias vezes</p>
+</li>
+<li>
+<p>Qual função é comumente usada para depuração em Go?
+   a) <code>debug.Print</code>
+   b) <code>log.Debug</code>
+   c) <code>fmt.Println</code>
+   d) <code>console.log</code></p>
+</li>
+<li>
+<p>Em uma estrutura sequencial, o que acontece se trocarmos a ordem das instruções?
+   a) Nada, a ordem não importa
+   b) O programa sempre funcionará da mesma forma
+   c) O programa pode produzir resultados diferentes ou até mesmo gerar erros
+   d) O compilador reorganiza automaticamente as instruções na ordem correta</p>
+</li>
+<li>
+<p>Qual é a melhor maneira de verificar valores intermediários em um programa Go?
+   a) Usar a função <code>fmt.Println</code> para exibir os valores
+   b) Escrever os valores em um arquivo de log
+   c) Usar um depurador gráfico
+   d) Comentar o código e verificar manualmente</p>
+</li>
+<li>
+<p>O que acontece se tentarmos acessar um índice fora dos limites de um slice em Go?
+   a) O programa continua normalmente, retornando um valor padrão
+   b) O programa gera um erro em tempo de execução (panic)
+   c) O compilador detecta o erro e não permite a compilação
+   d) O programa retorna nil</p>
+</li>
+</ol>
+<hr />
+<h2 id="7-desafio-prático-conversor-de-unidades">7. Desafio Prático: Conversor de Unidades</h2>
+<p>Crie um programa em Go que converta uma temperatura de Celsius para Fahrenheit e Kelvin. O programa deve:</p>
+<ol>
+<li>Declarar uma variável para armazenar a temperatura em Celsius.</li>
+<li>Atribuir um valor à temperatura (por exemplo, 25°C).</li>
+<li>Calcular a temperatura equivalente em Fahrenheit usando a fórmula: F = C * 9/5 + 32.</li>
+<li>Calcular a temperatura equivalente em Kelvin usando a fórmula: K = C + 273.15.</li>
+<li>Exibir as três temperaturas formatadas com uma casa decimal.</li>
+<li>Incluir mensagens de depuração para mostrar cada passo do cálculo.</li>
+</ol>
+<p><strong>Exemplo de Saída Esperada:</strong></p>
+<pre><code>Conversor de Temperatura
+-----------------------
+Temperatura em Celsius: 25.0°C
+
+Convertendo para Fahrenheit:
+Fórmula: F = C * 9/5 + 32
+Cálculo: 25.0 * 9/5 + 32 = 77.0°F
+
+Convertendo para Kelvin:
+Fórmula: K = C + 273.15
+Cálculo: 25.0 + 273.15 = 298.2K
+
+Resumo da Conversão:
+25.0°C = 77.0°F = 298.2K
+</code></pre>
+<p><strong>Dica:</strong> Use <code>fmt.Printf</code> para formatar a saída com uma casa decimal.</p>
+<hr />
+<h2 id="8-resumo-da-aula">8. Resumo da Aula</h2>
+<p>Nesta aula, aprendemos sobre:</p>
+<ul>
+<li><strong>Estrutura Sequencial</strong>: A forma mais básica de execução em programação, onde as instruções são executadas uma após a outra, em ordem.</li>
+<li><strong>Fluxo de Execução</strong>: Como as instruções são executadas do início ao fim do programa, em ordem linear.</li>
+<li><strong>Importância da Ordem</strong>: Como a ordem das instruções afeta o resultado do programa.</li>
+<li><strong>Técnicas de Depuração</strong>:</li>
+<li>Usando <code>fmt.Println</code> para verificar valores de variáveis.</li>
+<li>Usando <code>fmt.Printf</code> para depuração formatada.</li>
+<li>Verificando valores intermediários.</li>
+<li>Testando expressões isoladamente.</li>
+<li>Usando comentários para documentar testes e desativar código.</li>
+<li><strong>Identificação de Erros Comuns</strong>:</li>
+<li>Divisão por zero.</li>
+<li>Índice fora dos limites.</li>
+<li><strong>Exemplos Práticos</strong>:</li>
+<li>Cálculo de área e perímetro.</li>
+<li>Conversão de temperatura.</li>
+<li>Cálculo de troco.</li>
+<li>Cálculo de IMC.</li>
+</ul>
+<p>A estrutura sequencial é a base para todos os programas, e entender como testar e depurar seu código é essencial para se tornar um bom programador.</p>
+<hr />
+<h2 id="9-ficha-de-referência-rápida">9. Ficha de Referência Rápida</h2>
+<h3 id="estrutura-sequencial">Estrutura Sequencial</h3>
+<ul>
+<li>As instruções são executadas uma após a outra, em ordem.</li>
+<li>A ordem das instruções é crucial para o resultado.</li>
+<li>Cada instrução só é executada após a conclusão da anterior.</li>
+</ul>
+<h3 id="técnicas-de-depuração">Técnicas de Depuração</h3>
+<table>
+<thead>
+<tr>
+<th>Técnica</th>
+<th>Descrição</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fmt.Println</code></td>
+<td>Exibe valores de variáveis</td>
+<td><code>fmt.Println("x =", x)</code></td>
+</tr>
+<tr>
+<td><code>fmt.Printf</code></td>
+<td>Exibe valores formatados</td>
+<td><code>fmt.Printf("x = %.2f\n", x)</code></td>
+</tr>
+<tr>
+<td>Verificação de valores intermediários</td>
+<td>Exibe resultados parciais</td>
+<td><code>fmt.Println("Soma =", a + b)</code></td>
+</tr>
+<tr>
+<td>Teste de expressões isoladas</td>
+<td>Testa partes específicas do código</td>
+<td><code>fmt.Println("5 + 3 * 2 =", 5 + 3 * 2)</code></td>
+</tr>
+<tr>
+<td>Comentários</td>
+<td>Documenta testes ou desativa código</td>
+<td><code>// Teste: 0°C deve ser 32°F</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="verbos-de-formatação-úteis-para-depuração">Verbos de Formatação Úteis para Depuração</h3>
+<table>
+<thead>
+<tr>
+<th>Verbo</th>
+<th>Descrição</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>%v</code></td>
+<td>Valor no formato padrão</td>
+<td><code>fmt.Printf("%v", valor)</code></td>
+</tr>
+<tr>
+<td><code>%T</code></td>
+<td>Tipo da variável</td>
+<td><code>fmt.Printf("%T", valor)</code></td>
+</tr>
+<tr>
+<td><code>%#v</code></td>
+<td>Representação Go do valor</td>
+<td><code>fmt.Printf("%#v", valor)</code></td>
+</tr>
+<tr>
+<td><code>%.2f</code></td>
+<td>Número de ponto flutuante com 2 casas decimais</td>
+<td><code>fmt.Printf("%.2f", valor)</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="erros-comuns-e-como-evitá-los">Erros Comuns e Como Evitá-los</h3>
+<table>
+<thead>
+<tr>
+<th>Erro</th>
+<th>Como Evitar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Divisão por zero</td>
+<td>Verificar se o divisor é zero antes de fazer a divisão</td>
+</tr>
+<tr>
+<td>Índice fora dos limites</td>
+<td>Verificar se o índice está dentro dos limites do slice/array</td>
+</tr>
+<tr>
+<td>Ordem incorreta de instruções</td>
+<td>Garantir que as variáveis sejam inicializadas antes de serem usadas</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-modelos-de-código">10. Modelos de Código</h2>
+<h3 id="modelo-1-estrutura-básica-de-um-programa-go">Modelo 1: Estrutura Básica de um Programa Go</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // 1. Declaração de variáveis
+    var a, b int
+    var resultado float64
+
+    // 2. Atribuição de valores
+    a = 10
+    b = 3
+
+    // 3. Processamento
+    resultado = float64(a) / float64(b)
+
+    // 4. Saída
+    fmt.Println(&quot;Variáveis:&quot;)
+    fmt.Println(&quot;a =&quot;, a)
+    fmt.Println(&quot;b =&quot;, b)
+    fmt.Println(&quot;Resultado (a / b):&quot;, resultado)
+}
+</code></pre>
+<h3 id="modelo-2-depuração-com-code-fmt-printf-code">Modelo 2: Depuração com <code>fmt.Printf</code></h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Variáveis para depuração
+    nome := &quot;João&quot;
+    idade := 25
+    altura := 1.75
+
+    // Depuração básica
+    fmt.Printf(&quot;Nome: %s (tipo: %T)\n&quot;, nome, nome)
+    fmt.Printf(&quot;Idade: %d (tipo: %T)\n&quot;, idade, idade)
+    fmt.Printf(&quot;Altura: %.2f (tipo: %T)\n&quot;, altura, altura)
+
+    // Cálculo com depuração
+    imc := altura * altura
+    fmt.Printf(&quot;Altura ao quadrado: %.4f\n&quot;, imc)
+
+    imc = idade / imc
+    fmt.Printf(&quot;IMC (idade / altura²): %.2f\n&quot;, imc)
+}
+</code></pre>
+<h3 id="modelo-3-verificação-de-erros">Modelo 3: Verificação de Erros</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Dados de entrada
+    dividendo := 10
+    divisor := 0
+
+    // Verificação de erro antes da operação
+    fmt.Printf(&quot;Tentando dividir %d por %d\n&quot;, dividendo, divisor)
+
+    if divisor == 0 {
+        fmt.Println(&quot;Erro: Divisão por zero não é permitida&quot;)
+    } else {
+        resultado := dividendo / divisor
+        fmt.Printf(&quot;Resultado: %d\n&quot;, resultado)
+    }
+
+    // Verificação de índice
+    numeros := []int{10, 20, 30}
+    indice := 5
+
+    fmt.Printf(&quot;Tentando acessar o índice %d do slice %v\n&quot;, indice, numeros)
+
+    if indice &gt;= 0 &amp;&amp; indice &lt; len(numeros) {
+        valor := numeros[indice]
+        fmt.Printf(&quot;Valor: %d\n&quot;, valor)
+    } else {
+        fmt.Printf(&quot;Erro: Índice %d está fora dos limites [0-%d]\n&quot;, indice, len(numeros)-1)
+    }
+}
+</code></pre>
+<h3 id="modelo-4-cálculos-com-depuração-passo-a-passo">Modelo 4: Cálculos com Depuração Passo a Passo</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Cálculo do volume de um cilindro
+    raio := 5.0
+    altura := 10.0
+    pi := 3.14159
+
+    fmt.Println(&quot;Cálculo do Volume de um Cilindro&quot;)
+    fmt.Println(&quot;--------------------------------&quot;)
+    fmt.Printf(&quot;Raio: %.2f\n&quot;, raio)
+    fmt.Printf(&quot;Altura: %.2f\n&quot;, altura)
+
+    // Passo 1: Calcular a área da base (π * r²)
+    areaBase := pi * raio * raio
+    fmt.Printf(&quot;\nPasso 1: Calcular a área da base (π * r²)\n&quot;)
+    fmt.Printf(&quot;π * %.2f² = %.4f\n&quot;, raio, areaBase)
+
+    // Passo 2: Multiplicar pela altura
+    volume := areaBase * altura
+    fmt.Printf(&quot;\nPasso 2: Multiplicar pela altura\n&quot;)
+    fmt.Printf(&quot;%.4f * %.2f = %.4f\n&quot;, areaBase, altura, volume)
+
+    // Resultado final
+    fmt.Printf(&quot;\nVolume do cilindro: %.2f unidades cúbicas\n&quot;, volume)
+}
+</code></pre>
+<hr />
+<p><strong>Gabarito do Quiz:</strong>
+1. b) Uma estrutura onde as instruções são executadas uma após a outra, em ordem
+2. c) <code>fmt.Println</code>
+3. c) O programa pode produzir resultados diferentes ou até mesmo gerar erros
+4. a) Usar a função <code>fmt.Println</code> para exibir os valores
+5. b) O programa gera um erro em tempo de execução (panic)</p>
+  </article>
+</main>
+
+</body>
+</html>

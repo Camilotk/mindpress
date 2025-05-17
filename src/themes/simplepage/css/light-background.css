@@ -1,0 +1,94 @@
+/**
+ * light-background.css - Estilos específicos para o tema claro
+ * Adiciona fundos mais visíveis em elementos interativos
+ */
+
+/* Fundo em áreas clicáveis para quizzes e matches */
+
+/* Opções de múltipla escolha */
+.quiz[data-type="single"] ul.options li {
+  background-color: #f0f0f0 !important;
+  border: 1px solid #ddd !important;
+  transition: all 0.2s ease !important;
+}
+
+.quiz[data-type="single"] ul.options li:hover {
+  background-color: #e5e5e5 !important;
+}
+
+.quiz[data-type="single"] ul.options li.selected {
+  background-color: #d8e8f8 !important;
+  border-color: #99c2ff !important;
+}
+
+.quiz[data-type="single"] ul.options li.right {
+  background-color: #d8f8e0 !important;
+  border-color: #99e099 !important;
+}
+
+.quiz[data-type="single"] ul.options li.wrong {
+  background-color: #f8d8d8 !important;
+  border-color: #e09999 !important;
+}
+
+/* Botão de envio com cores mais suaves para tema claro */
+.quiz-submit {
+  background-color: #3498db !important;
+  border: none !important;
+  color: white !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.quiz-submit:hover {
+  background-color: #2980b9 !important;
+}
+
+/* Explicação com cores mais suaves */
+.quiz .explanation {
+  background-color: #fff9e6 !important;
+  border-left: 3px solid #f1c40f !important;
+}
+
+/* Itens de match com fundos visíveis */
+.pair-quiz li {
+  background-color: #f0f0f0 !important;
+  border: 1px solid #ddd !important;
+}
+
+.pair-quiz li:hover {
+  background-color: #e5e5e5 !important;
+}
+
+.pair-quiz li.selected {
+  background-color: #d8e8f8 !important;
+  border-color: #99c2ff !important;
+  outline: 2px solid #3498db !important;
+}
+
+.pair-quiz li.right {
+  background-color: #d8f8e0 !important;
+  border-color: #99e099 !important;
+}
+
+.pair-quiz li.wrong {
+  background-color: #f8d8d8 !important;
+  border-color: #e09999 !important;
+}
+
+/* Área de código */
+.quiz.code-quiz .answer-area {
+  background-color: #f0f0f0 !important;
+  border: 1px solid #ddd !important;
+}
+
+.quiz.code-quiz .solution {
+  background-color: #f9f9f9 !important;
+}
+
+.quiz.code-quiz .check-answer {
+  background-color: #2ecc71 !important;
+}
+
+.quiz.code-quiz .check-answer:hover {
+  background-color: #27ae60 !important;
+}

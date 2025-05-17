@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2025_05_02_conteudo</title>
+  <link rel="stylesheet" href="themes/rustbook/css/water-dark.css">
+  <link rel="stylesheet" href="themes/rustbook/css/theme.css">
+  <script src="themes/rustbook/js/theme.js" defer></script>
+</head>
+<body>
+
+<aside>
+  <header><h1>Curso de Algoritmos com Go</h1></header>
+  <nav aria-label="Conteúdo do curso">
+    <ul>
+      <li><a href="index.html">📚 Índice Geral</a></li>
+      <li><a href="2025_05_01_conteudo.html">2025_05_01_conteudo</a></li>
+      <li><a href="2025_05_02_conteudo.html">2025_05_02_conteudo</a></li>
+      <li><a href="2025_05_03_conteudo.html">2025_05_03_conteudo</a></li>
+      <li><a href="introducao-go.html">Aula 1 – Introdução ao Go</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<main>
+  <article>
+    <h2>2025_05_02_conteudo</h2>
+    <nav class="minimap"><ul><li class="lvl2"><a href="#objetivos-da-aula">Objetivos da Aula</a></li><li class="lvl2"><a href="#1-o-que-são-variáveis">1. O que são Variáveis?</a></li><li class="lvl2"><a href="#2-declarando-variáveis-em-go">2. Declarando Variáveis em Go</a></li><li class="lvl3"><a href="#2-1-declarando-e-inicializando-variáveis">2.1. Declarando e Inicializando Variáveis</a></li><li class="lvl3"><a href="#2-2-inferência-de-tipo-declaração-curta">2.2. Inferência de Tipo (Declaração Curta)</a></li><li class="lvl3"><a href="#2-3-declarando-múltiplas-variáveis">2.3. Declarando Múltiplas Variáveis</a></li><li class="lvl2"><a href="#3-tipos-de-dados-básicos-em-go">3. Tipos de Dados Básicos em Go</a></li><li class="lvl3"><a href="#3-1-tipos-inteiros-code-int-code-code-int8-code-code-int16-code-code-int32-code-code-int64-code-etc">3.1. Tipos Inteiros (<code>int</code>, <code>int8</code>, <code>int16</code>, <code>int32</code>, <code>int64</code>, etc.)</a></li><li class="lvl3"><a href="#3-2-tipos-de-ponto-flutuante-code-float32-code-code-float64-code">3.2. Tipos de Ponto Flutuante (<code>float32</code>, <code>float64</code>)</a></li><li class="lvl3"><a href="#3-3-tipo-texto-code-string-code">3.3. Tipo Texto (<code>string</code>)</a></li><li class="lvl3"><a href="#3-4-tipo-booleano-code-bool-code">3.4. Tipo Booleano (<code>bool</code>)</a></li><li class="lvl2"><a href="#4-atribuindo-e-usando-variáveis">4. Atribuindo e Usando Variáveis</a></li><li class="lvl2"><a href="#5-exibindo-variáveis-com-code-fmt-println-code">5. Exibindo Variáveis com <code>fmt.Println</code></a></li><li class="lvl2"><a href="#6-exercícios-offline-lápis-e-papel-editor-de-texto-simples">6. Exercícios Offline (Lápis e Papel / Editor de Texto Simples)</a></li><li class="lvl2"><a href="#7-quiz-rápido">7. Quiz Rápido</a></li><li class="lvl2"><a href="#8-desafio-prático-mini-cadastro">8. Desafio Prático: Mini Cadastro</a></li><li class="lvl2"><a href="#9-resumo-da-aula-e-ficha-imprimível">9. Resumo da Aula e Ficha Imprimível</a></li><li class="lvl2"><a href="#10-modelos-de-código-go-para-reutilização">10. Modelos de Código Go para Reutilização</a></li></ul></nav><h1>Aula 2: Variáveis e Tipos de Dados em Go – Guardando Informações</h1>
+<h2 id="objetivos-da-aula">Objetivos da Aula</h2>
+<p>Ao final desta aula, você será capaz de:</p>
+<ul>
+<li>Entender o que são variáveis e por que são essenciais na programação.</li>
+<li>Declarar variáveis na linguagem Go usando a palavra-chave <code>var</code>.</li>
+<li>Conhecer e utilizar os tipos de dados básicos em Go: inteiros (<code>int</code>, <code>int8</code>, etc.), de ponto flutuante (<code>float32</code>, <code>float64</code>), texto (<code>string</code>) e booleanos (<code>bool</code>).</li>
+<li>Atribuir valores a variáveis e exibir seus conteúdos usando <code>fmt.Println</code>.</li>
+<li>Compreender a importância da tipagem estática em Go.</li>
+<li>Escrever pequenos programas em Go que utilizam variáveis e diferentes tipos de dados.</li>
+</ul>
+<hr />
+<h2 id="1-o-que-são-variáveis">1. O que são Variáveis?</h2>
+<p>Imagine que você está cozinhando e precisa guardar temporariamente alguns ingredientes em potes antes de usá-los na receita. Você pegaria um pote, talvez colocasse uma etiqueta nele (como "Açúcar" ou "Farinha") e guardaria o ingrediente ali dentro. Quando precisasse do açúcar, você iria até o pote etiquetado "Açúcar" e pegaria a quantidade necessária.</p>
+<p>Na programação, as <strong>variáveis</strong> funcionam de maneira muito semelhante. Elas são como "potes" ou "caixas" na memória do computador onde podemos armazenar informações (dados) que nosso programa precisará usar ou manipular. Cada variável tem um <strong>nome</strong> (a etiqueta do pote) que usamos para nos referir a ela e ao dado que ela contém. Além disso, em linguagens como Go, cada variável também tem um <strong>tipo</strong>, que define que tipo de informação ela pode guardar (por exemplo, um número inteiro, um texto, um valor verdadeiro/falso).</p>
+<p>Por que precisamos de variáveis?</p>
+<ul>
+<li><strong>Armazenar Dados:</strong> Para guardar valores que serão usados em cálculos, comparações ou que serão exibidos para o usuário. Por exemplo, se você está fazendo um programa para calcular a média de notas, precisará de variáveis para guardar cada nota individualmente e também o resultado da média.</li>
+<li><strong>Reutilizar Informações:</strong> Uma vez que um valor está armazenado em uma variável, podemos usá-lo várias vezes em diferentes partes do nosso programa sem ter que digitá-lo novamente.</li>
+<li><strong>Tornar o Código Legível:</strong> Usar nomes de variáveis significativos (como <code>idadeAluno</code> em vez de <code>x</code>) torna o código muito mais fácil de entender.</li>
+<li><strong>Manipular Dados Dinâmicos:</strong> Muitas vezes, os dados que um programa manipula não são conhecidos de antemão. Eles podem vir de uma entrada do usuário, de um arquivo ou de outra fonte. As variáveis nos permitem trabalhar com esses dados que podem mudar (variar) durante a execução do programa.</li>
+</ul>
+<p>Em Go, quando você declara uma variável, você está reservando um espaço na memória do computador para ela. O tipo da variável informa ao compilador Go quanto espaço alocar e como interpretar os bits armazenados nesse espaço.</p>
+<hr />
+<h2 id="2-declarando-variáveis-em-go">2. Declarando Variáveis em Go</h2>
+<p>A linguagem Go é uma linguagem de tipagem estática, o que significa que o tipo de uma variável é conhecido em tempo de compilação (antes do programa rodar) e não pode ser alterado. Para usar uma variável em Go, você primeiro precisa <strong>declarar</strong> essa variável.</p>
+<p>A forma mais básica de declarar uma variável em Go é usando a palavra-chave <code>var</code>, seguida pelo nome da variável e depois pelo seu tipo.</p>
+<p><strong>Sintaxe básica:</strong></p>
+<pre><code class="language-go">var nomeDaVariavel tipoDeDados
+</code></pre>
+<p>Vamos ver alguns exemplos:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Declarando uma variável chamada 'idade' do tipo 'int' (inteiro)
+    var idade int
+
+    // Declarando uma variável chamada 'nome' do tipo 'string' (texto)
+    var nome string
+
+    // Declarando uma variável chamada 'altura' do tipo 'float64' (número com casas decimais)
+    var altura float64
+
+    // Declarando uma variável chamada 'estudando' do tipo 'bool' (booleano - verdadeiro ou falso)
+    var estudando bool
+
+    // Por padrão, variáveis declaradas sem um valor inicial recebem um &quot;valor zero&quot; do seu tipo:
+    // 0 para tipos numéricos (int, float)
+    // &quot;&quot; (string vazia) para strings
+    // false para booleanos
+
+    fmt.Println(&quot;Valor padrão de idade (int):&quot;, idade)         // Saída: 0
+    fmt.Println(&quot;Valor padrão de nome (string):&quot;, nome)         // Saída: &quot;&quot; (string vazia)
+    fmt.Println(&quot;Valor padrão de altura (float64):&quot;, altura)     // Saída: 0
+    fmt.Println(&quot;Valor padrão de estudando (bool):&quot;, estudando) // Saída: false
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a> - <em>Substitua <code>your-code-id-here</code> pelo ID após salvar seu código no Playground</em>)</p>
+<h3 id="2-1-declarando-e-inicializando-variáveis">2.1. Declarando e Inicializando Variáveis</h3>
+<p>Você também pode declarar uma variável e atribuir um valor inicial a ela na mesma linha. Isso é chamado de <strong>inicialização</strong>.</p>
+<pre><code class="language-go">var nomeDaVariavel tipoDeDados = valorInicial
+</code></pre>
+<p>Exemplos:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var idade int = 30
+    var nome string = &quot;Alice&quot;
+    var salario float64 = 2500.75
+    var ativo bool = true
+
+    fmt.Println(&quot;Nome:&quot;, nome)         // Saída: Alice
+    fmt.Println(&quot;Idade:&quot;, idade)         // Saída: 30
+    fmt.Println(&quot;Salário:&quot;, salario)     // Saída: 2500.75
+    fmt.Println(&quot;Ativo:&quot;, ativo)         // Saída: true
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a>)</p>
+<h3 id="2-2-inferência-de-tipo-declaração-curta">2.2. Inferência de Tipo (Declaração Curta)</h3>
+<p>Go também oferece uma forma mais concisa de declarar e inicializar variáveis, chamada de <strong>declaração curta de variável</strong>, usando o operador <code>:=</code>. Com esta forma, Go <strong>infere</strong> (deduz) o tipo da variável com base no valor que está sendo atribuído.</p>
+<p>A declaração curta <code>:=</code> só pode ser usada dentro de funções. Para variáveis em nível de pacote (fora de funções), você deve usar a declaração <code>var</code>.</p>
+<p><strong>Sintaxe:</strong></p>
+<pre><code class="language-go">nomeDaVariavel := valorInicial
+</code></pre>
+<p>Exemplos:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Go infere que 'cidade' é do tipo string
+    cidade := &quot;Porto Alegre&quot;
+
+    // Go infere que 'populacao' é do tipo int
+    populacao := 1488252
+
+    // Go infere que 'temperatura' é do tipo float64 (padrão para literais de ponto flutuante)
+    temperatura := 23.5
+
+    // Go infere que 'chovendo' é do tipo bool
+    chovendo := false
+
+    fmt.Println(&quot;Cidade:&quot;, cidade)
+    fmt.Println(&quot;População:&quot;, populacao)
+    fmt.Println(&quot;Temperatura:&quot;, temperatura)
+    fmt.Println(&quot;Está chovendo?&quot;, chovendo)
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a>)</p>
+<p><strong>Importante sobre <code>:=</code> vs <code>=</code>:</strong>
+*   <code>:=</code> é usado para <strong>declarar e inicializar</strong> uma nova variável. Pelo menos uma das variáveis do lado esquerdo do <code>:=</code> deve ser nova.
+*   <code>=</code> é usado para <strong>atribuir</strong> um novo valor a uma variável que já foi declarada.</p>
+<pre><code class="language-go">func main() {
+    // Declara e inicializa 'pontos'
+    pontos := 100
+    fmt.Println(&quot;Pontos iniciais:&quot;, pontos)
+
+    // Atribui um novo valor a 'pontos' (variável já existe)
+    pontos = 150
+    fmt.Println(&quot;Pontos atualizados:&quot;, pontos)
+
+    // Isso daria erro, pois 'pontos' já foi declarada neste escopo:
+    // pontos := 200 // Erro: no new variables on left side of :=
+}
+</code></pre>
+<h3 id="2-3-declarando-múltiplas-variáveis">2.3. Declarando Múltiplas Variáveis</h3>
+<p>Você pode declarar múltiplas variáveis de uma vez, tanto com <code>var</code> quanto com <code>:=</code>.</p>
+<p>Com <code>var</code>:</p>
+<pre><code class="language-go">// Mesmo tipo
+var x, y, z int
+var nome1, nome2 string = &quot;Ana&quot;, &quot;Beto&quot;
+
+// Tipos diferentes (usando um bloco var)
+var (
+    aluno string = &quot;Carlos&quot;
+    nota float64 = 8.5
+    presente bool = true
+)
+</code></pre>
+<p>Com <code>:=</code> (declaração curta):</p>
+<pre><code class="language-go">func main() {
+    nome, idade := &quot;Diana&quot;, 28
+    fmt.Println(nome, &quot;tem&quot;, idade, &quot;anos.&quot;)
+}
+</code></pre>
+<hr />
+<h2 id="3-tipos-de-dados-básicos-em-go">3. Tipos de Dados Básicos em Go</h2>
+<p>Go possui vários tipos de dados embutidos. Vamos focar nos mais básicos e comuns para iniciantes:</p>
+<h3 id="3-1-tipos-inteiros-code-int-code-code-int8-code-code-int16-code-code-int32-code-code-int64-code-etc">3.1. Tipos Inteiros (<code>int</code>, <code>int8</code>, <code>int16</code>, <code>int32</code>, <code>int64</code>, etc.)</h3>
+<p>Tipos inteiros são usados para armazenar números inteiros (sem casas decimais), como -1, 0, 5, 1000.</p>
+<p>Go oferece diferentes tamanhos de inteiros:
+*   <code>int8</code>: Inteiros de 8 bits (-128 a 127)
+*   <code>int16</code>: Inteiros de 16 bits (-32768 a 32767)
+*   <code>int32</code>: Inteiros de 32 bits (aproximadamente -2 bilhões a 2 bilhões)
+*   <code>int64</code>: Inteiros de 64 bits (um número muito grande!)
+*   <code>int</code>: O tamanho depende da arquitetura do sistema (32 ou 64 bits). É o tipo inteiro mais comum de se usar, a menos que você tenha um motivo específico para usar um tamanho fixo.</p>
+<p>Existem também versões sem sinal (unsigned), que só armazenam números positivos e o zero: <code>uint8</code>, <code>uint16</code>, <code>uint32</code>, <code>uint64</code>, <code>uint</code>.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var quantidadeItens int = 10
+    var temperaturaCongelador int8 = -18 // int8 é suficiente para este intervalo
+    var populacaoMundial int64 = 7800000000 // int64 para números muito grandes
+
+    fmt.Println(&quot;Quantidade:&quot;, quantidadeItens)
+    fmt.Println(&quot;Temperatura do Congelador:&quot;, temperaturaCongelador, &quot;°C&quot;)
+    fmt.Println(&quot;População Mundial (aprox.):&quot;, populacaoMundial)
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a>)</p>
+<h3 id="3-2-tipos-de-ponto-flutuante-code-float32-code-code-float64-code">3.2. Tipos de Ponto Flutuante (<code>float32</code>, <code>float64</code>)</h3>
+<p>Tipos de ponto flutuante são usados para armazenar números que podem ter casas decimais, como 3.14, -0.5, 99.99.</p>
+<ul>
+<li><code>float32</code>: Precisão simples (cerca de 7 dígitos decimais).</li>
+<li><code>float64</code>: Precisão dupla (cerca de 15 dígitos decimais). É o tipo padrão para literais de ponto flutuante (ex: <code>3.14</code> é inferido como <code>float64</code>). É geralmente o mais recomendado, a menos que haja restrições de memória.</li>
+</ul>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var precoProduto float64 = 19.99
+    var pi float32 = 3.1415926535 // Será truncado para a precisão de float32
+    taxa := 0.05 // Inferido como float64
+
+    fmt.Println(&quot;Preço:&quot;, precoProduto)
+    fmt.Println(&quot;Valor de Pi (float32):&quot;, pi)
+    fmt.Println(&quot;Taxa:&quot;, taxa)
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a>)</p>
+<h3 id="3-3-tipo-texto-code-string-code">3.3. Tipo Texto (<code>string</code>)</h3>
+<p>O tipo <code>string</code> é usado para armazenar sequências de caracteres (texto). Strings em Go são imutáveis, o que significa que uma vez criadas, seu conteúdo não pode ser alterado diretamente (embora você possa criar novas strings baseadas nas antigas).</p>
+<p>Strings são definidas usando aspas duplas <code>""</code>.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var saudacao string = &quot;Olá, mundo!&quot;
+    nomeCurso := &quot;Algoritmos e Lógica com Go&quot;
+    mensagemVazia := &quot;&quot;
+
+    fmt.Println(saudacao)
+    fmt.Println(&quot;Bem-vindo ao curso de&quot;, nomeCurso)
+    fmt.Println(&quot;String vazia:&quot;, mensagemVazia)
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a>)</p>
+<h3 id="3-4-tipo-booleano-code-bool-code">3.4. Tipo Booleano (<code>bool</code>)</h3>
+<p>O tipo <code>bool</code> (booleano) pode ter apenas dois valores: <code>true</code> (verdadeiro) ou <code>false</code> (falso). Eles são fundamentais para tomar decisões em programas (veremos isso nas aulas sobre estruturas condicionais).</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var usuarioLogado bool = true
+    temPermissao := false
+    maiorDeIdade := (25 &gt;= 18) // Expressões de comparação resultam em booleanos
+
+    fmt.Println(&quot;Usuário está logado?&quot;, usuarioLogado)
+    fmt.Println(&quot;Tem permissão?&quot;, temPermissao)
+    fmt.Println(&quot;É maior de idade?&quot;, maiorDeIdade) // Saída: true
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a>)</p>
+<hr />
+<h2 id="4-atribuindo-e-usando-variáveis">4. Atribuindo e Usando Variáveis</h2>
+<p>Depois de declarar uma variável, você pode <strong>atribuir</strong> um valor a ela usando o operador de atribuição <code>=</code>.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var contador int // Declarada, valor padrão é 0
+    fmt.Println(&quot;Contador inicial:&quot;, contador)
+
+    contador = 10 // Atribuindo o valor 10
+    fmt.Println(&quot;Contador após primeira atribuição:&quot;, contador)
+
+    contador = contador + 5 // Atribuindo o resultado de uma expressão
+    fmt.Println(&quot;Contador após somar 5:&quot;, contador) // Saída: 15
+
+    var nome string
+    nome = &quot;João&quot;
+    fmt.Println(&quot;Nome:&quot;, nome)
+
+    nome = &quot;Maria&quot; // Pode atribuir um novo valor do mesmo tipo
+    fmt.Println(&quot;Novo nome:&quot;, nome)
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a>)</p>
+<p><strong>Importante:</strong> Em Go, você não pode atribuir um valor de um tipo a uma variável de outro tipo diretamente sem uma conversão explícita (veremos conversões mais tarde). Por exemplo, o código abaixo daria erro:</p>
+<pre><code class="language-go">// var numero int = &quot;texto&quot; // Erro: cannot use &quot;texto&quot; (type string) as type int in assignment
+</code></pre>
+<p>Isso reforça a natureza de tipagem estática do Go, ajudando a pegar erros em tempo de compilação.</p>
+<hr />
+<h2 id="5-exibindo-variáveis-com-code-fmt-println-code">5. Exibindo Variáveis com <code>fmt.Println</code></h2>
+<p>Já vimos em vários exemplos, mas vale reforçar: a função <code>fmt.Println</code> (do pacote <code>fmt</code>, que significa "format") é comumente usada para exibir os valores de variáveis (ou qualquer outra expressão) no console.</p>
+<p><code>Println</code> significa "print line" (imprimir linha), então ela adiciona uma quebra de linha ao final da saída.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    produto := &quot;Notebook&quot;
+    preco := 3500.90
+    quantidade := 2
+
+    fmt.Println(&quot;Detalhes da Compra:&quot;)
+    fmt.Println(&quot;Produto:&quot;, produto)
+    fmt.Println(&quot;Preço unitário: R$&quot;, preco)
+    fmt.Println(&quot;Quantidade:&quot;, quantidade)
+    fmt.Println(&quot;Total: R$&quot;, preco * float64(quantidade)) // Note a conversão de 'quantidade' para float64 para a multiplicação
+}
+</code></pre>
+<p>(<a href="https://go.dev/play/p/your-code-id-here">Experimente no Go Playground</a>)</p>
+<p>Existem outras funções no pacote <code>fmt</code> para formatação de saída, como <code>fmt.Print</code> (não adiciona quebra de linha) e <code>fmt.Printf</code> (permite formatação mais detalhada com especificadores de formato), que exploraremos mais adiante.</p>
+<hr />
+<h2 id="6-exercícios-offline-lápis-e-papel-editor-de-texto-simples">6. Exercícios Offline (Lápis e Papel / Editor de Texto Simples)</h2>
+<ol>
+<li>
+<p><strong>Identificando Tipos:</strong> Para cada um dos seguintes valores, qual seria o tipo de dado mais apropriado em Go para armazená-lo?</p>
+<ul>
+<li>Sua idade.</li>
+<li>O preço de um pão.</li>
+<li>Seu nome completo.</li>
+<li>Se está chovendo agora (verdadeiro ou falso).</li>
+<li>O número de habitantes da sua cidade.</li>
+<li>A letra inicial do seu primeiro nome.</li>
+<li>A temperatura média do verão na sua região.</li>
+</ul>
+</li>
+<li>
+<p><strong>Declarando Variáveis:</strong> Escreva no papel (ou em um editor de texto simples, sem se preocupar em compilar ainda) as declarações em Go para as variáveis do exercício anterior, atribuindo valores de exemplo.</p>
+<ul>
+<li>Use a forma <code>var nome tipo = valor</code>.</li>
+<li>Depois, reescreva usando a forma curta <code>nome := valor</code> (lembre-se que esta só funciona dentro de funções).</li>
+</ul>
+</li>
+<li>
+<p><strong>Analisando Código:</strong> O que será impresso pelo seguinte trecho de código Go? Tente prever antes de imaginar rodando.</p>
+<p><code>go
+package main
+import "fmt"
+func main() {
+    var a int = 10
+    var b string = "Go"
+    fmt.Println("Valor de a:", a)
+    fmt.Println("Valor de b:", b)
+    a = 20
+    b = "Golang"
+    fmt.Println("Novo valor de a:", a)
+    fmt.Println("Novo valor de b:", b)
+    c := a + 5
+    fmt.Println("Valor de c:", c)
+}</code></p>
+</li>
+</ol>
+<hr />
+<h2 id="7-quiz-rápido">7. Quiz Rápido</h2>
+<p>Escolha a melhor resposta para cada pergunta.</p>
+<p><strong>1. O que é uma variável em programação?</strong>
+    a) Um tipo de dado específico.
+    b) Um nome que se refere a um local na memória onde um valor é armazenado.
+    c) Uma função que realiza cálculos.
+    d) Uma palavra-chave da linguagem Go.</p>
+<p><strong>2. Qual é a sintaxe correta para declarar uma variável <code>idade</code> do tipo <code>int</code> e inicializá-la com <code>25</code> em Go, usando a forma longa?</strong>
+    a) <code>int idade = 25</code>
+    b) <code>var idade int = 25</code>
+    c) <code>idade := 25</code>
+    d) <code>declare idade int = 25</code></p>
+<p><strong>3. Qual operador é usado para a declaração curta de variáveis em Go (inferência de tipo)?</strong>
+    a) <code>=</code>
+    b) <code>==</code>
+    c) <code>:=</code>
+    d) <code>-&gt;</code></p>
+<p><strong>4. Se uma variável <code>string</code> é declarada em Go sem um valor inicial, qual será seu valor padrão?</strong>
+    a) <code>nil</code>
+    b) <code>0</code>
+    c) <code>""</code> (string vazia)
+    d) <code>false</code></p>
+<p><strong>5. Qual dos seguintes NÃO é um tipo de dado básico em Go?</strong>
+    a) <code>int</code>
+    b) <code>string</code>
+    c) <code>boolean</code> (Cuidado com a grafia!)
+    d) <code>float64</code></p>
+<p><em>(Respostas do Quiz no final da página da aula ou em uma seção de gabarito)</em></p>
+<hr />
+<h2 id="8-desafio-prático-mini-cadastro">8. Desafio Prático: Mini Cadastro</h2>
+<p>Escreva um programa completo em Go que:</p>
+<ol>
+<li>Declare variáveis para armazenar as seguintes informações sobre um estudante:<ul>
+<li>Nome (string)</li>
+<li>Idade (int)</li>
+<li>Nota média (float64)</li>
+<li>Se está matriculado (bool)</li>
+</ul>
+</li>
+<li>Atribua valores de exemplo a cada uma dessas variáveis.</li>
+<li>Use <code>fmt.Println</code> para exibir cada uma dessas informações no console, com uma mensagem descritiva para cada uma.</li>
+</ol>
+<p><strong>Exemplo de Saída Esperada:</strong></p>
+<pre><code>--- Ficha do Estudante ---
+Nome: Ana Silva
+Idade: 22 anos
+Nota Média: 8.7
+Matriculado: true
+</code></pre>
+<p><strong>Dica:</strong> Crie um arquivo chamado <code>minicadastro.go</code>, escreva o código nele e tente compilar e rodar (<code>go run minicadastro.go</code>) no seu terminal se tiver Go instalado, ou use o <a href="https://go.dev/play/">Go Playground</a>.</p>
+<hr />
+<h2 id="9-resumo-da-aula-e-ficha-imprimível">9. Resumo da Aula e Ficha Imprimível</h2>
+<p><strong>Resumo dos Conceitos Chave:</strong></p>
+<ul>
+<li><strong>Variáveis:</strong> Nomes que referenciam locais na memória para armazenar dados. Essenciais para guardar, reutilizar e manipular informações.</li>
+<li><strong>Declaração em Go:</strong><ul>
+<li>Forma longa: <code>var nomeVariavel tipoDeDados</code></li>
+<li>Forma longa com inicialização: <code>var nomeVariavel tipoDeDados = valor</code></li>
+<li>Forma curta (inferência, dentro de funções): <code>nomeVariavel := valor</code></li>
+</ul>
+</li>
+<li><strong>Valor Zero:</strong> Variáveis declaradas sem valor inicial recebem um valor zero (0 para números, <code>""</code> para strings, <code>false</code> para booleanos).</li>
+<li><strong>Tipos de Dados Básicos:</strong><ul>
+<li><strong>Inteiros:</strong> <code>int</code>, <code>int8</code>, <code>int32</code>, <code>int64</code> (para números inteiros).</li>
+<li><strong>Ponto Flutuante:</strong> <code>float32</code>, <code>float64</code> (para números com casas decimais).</li>
+<li><strong>Texto:</strong> <code>string</code> (para sequências de caracteres).</li>
+<li><strong>Booleano:</strong> <code>bool</code> (para valores <code>true</code> ou <code>false</code>).</li>
+</ul>
+</li>
+<li><strong>Atribuição:</strong> Usa-se <code>=</code> para dar um novo valor a uma variável já declarada.</li>
+<li><strong><code>fmt.Println</code>:</strong> Função para exibir valores no console.</li>
+<li><strong>Tipagem Estática:</strong> O tipo de uma variável é fixo e verificado em tempo de compilação.</li>
+</ul>
+<p><strong>Ficha Imprimível (Principais Termos e Sintaxe):</strong></p>
+<ul>
+<li><strong>Variável:</strong> Espaço nomeado na memória.</li>
+<li><strong><code>var</code>:</strong> Palavra-chave para declaração longa.<ul>
+<li><code>var idade int</code></li>
+<li><code>var nome string = "Leo"</code></li>
+</ul>
+</li>
+<li><strong><code>:=</code>:</strong> Operador para declaração curta (inferência).<ul>
+<li><code>ativo := true</code></li>
+</ul>
+</li>
+<li><strong>Tipos:</strong> <code>int</code>, <code>float64</code>, <code>string</code>, <code>bool</code>.</li>
+<li><strong>Valor Zero:</strong> Padrão para variáveis não inicializadas.</li>
+<li><strong><code>=</code>:</strong> Operador de atribuição.</li>
+<li><strong><code>fmt.Println()</code>:</strong> Exibe dados com nova linha.</li>
+</ul>
+<p><em>(Esta seção pode ser formatada para impressão em um PDF separado posteriormente)</em></p>
+<hr />
+<h2 id="10-modelos-de-código-go-para-reutilização">10. Modelos de Código Go para Reutilização</h2>
+<p><strong>Estrutura Básica de um Programa Go:</strong></p>
+<pre><code class="language-go">package main // Todo programa Go executável pertence ao pacote main
+
+import &quot;fmt&quot; // Importa o pacote fmt para funções de entrada/saída formatada
+
+// A função main é onde a execução do programa começa
+func main() {
+    // Seu código vai aqui!
+    fmt.Println(&quot;Olá da Aula 2!&quot;)
+}
+</code></pre>
+<p><strong>Declaração e Uso de Variáveis (Vários Tipos):</strong></p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Usando var com tipo explícito
+    var nomeCompleto string = &quot;Maria Souza&quot;
+    var idadeUsuario int = 29
+
+    // Usando declaração curta (inferência de tipo)
+    alturaMetros := 1.65
+    possuiCNH := true
+
+    fmt.Println(&quot;Nome:&quot;, nomeCompleto)
+    fmt.Println(&quot;Idade:&quot;, idadeUsuario, &quot;anos&quot;)
+    fmt.Println(&quot;Altura:&quot;, alturaMetros, &quot;m&quot;)
+    fmt.Println(&quot;Possui CNH?&quot;, possuiCNH)
+}
+</code></pre>
+<hr />
+<p><strong>Gabarito do Quiz:</strong>
+1.  b) Um nome que se refere a um local na memória onde um valor é armazenado.
+2.  b) <code>var idade int = 25</code>
+3.  c) <code>:=</code>
+4.  c) <code>""</code> (string vazia)
+5.  c) <code>boolean</code> (Em Go, o tipo é <code>bool</code>)</p>
+  </article>
+</main>
+
+</body>
+</html>

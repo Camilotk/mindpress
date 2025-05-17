@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 9: While com For</title>
+  <link rel="stylesheet" href="themes/rustbook/css/water-dark.css">
+  <link rel="stylesheet" href="themes/rustbook/css/theme.css">
+  <script src="themes/rustbook/js/theme.js" defer></script>
+</head>
+<body>
+
+<aside>
+  <header><h1>Curso de Algoritmos com Go</h1></header>
+  <nav aria-label="Conteúdo do curso">
+    <ul>
+      <li><a href="index.html">📚 Índice Geral</a></li>
+      <li><a href="algoritmos-base.html">Aula 1: Algoritmos – A Base de Tudo!</a></li>
+      <li><a href="break-e-continue.html">Aula 10: Break e Continue</a></li>
+      <li><a href="condicional-if-else.html">Aula 6: Condicional If/Else</a></li>
+      <li><a href="condicional-switch.html">Aula 7: Condicional Switch</a></li>
+      <li><a href="entrada-e-saida.html">Aula 4: Entrada e Saída com Go</a></li>
+      <li><a href="estrutura-sequencial.html">Aula 5: Estrutura Sequencial</a></li>
+      <li><a href="identificadores-operadores.html">Aula 3: Identificadores e Operadores</a></li>
+      <li><a href="nova_aula.html">Nova aula</a></li>
+      <li><a href="repeticao-for.html">Aula 8: Repetição com For</a></li>
+      <li><a href="variaveis-e-tipos.html">Aula 2: Variáveis e Tipos de Dados em Go</a></li>
+      <li><a href="while-com-for.html">Aula 9: While com For</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<main>
+  <article>
+    <h2>Aula 9: While com For</h2>
+    <nav class="minimap"><ul><li class="lvl2"><a href="#objetivos-da-aula">Objetivos da Aula</a></li><li class="lvl2"><a href="#1-introdução-aos-laços-com-condição">1. Introdução aos Laços com Condição</a></li><li class="lvl3"><a href="#1-1-o-que-são-laços-com-condição">1.1. O que são Laços com Condição?</a></li><li class="lvl3"><a href="#1-2-laços-com-condição-vs-laços-com-contador">1.2. Laços com Condição vs. Laços com Contador</a></li><li class="lvl3"><a href="#1-3-quando-usar-laços-com-condição">1.3. Quando Usar Laços com Condição?</a></li><li class="lvl2"><a href="#2-implementando-laços-condicionais-em-go">2. Implementando Laços Condicionais em Go</a></li><li class="lvl3"><a href="#2-1-sintaxe-do-code-for-code-como-code-while-code">2.1. Sintaxe do <code>for</code> como <code>while</code></a></li><li class="lvl3"><a href="#2-2-fluxo-de-execução-do-laço-condicional">2.2. Fluxo de Execução do Laço Condicional</a></li><li class="lvl3"><a href="#2-3-diferenças-importantes-em-relação-ao-code-for-code-clássico">2.3. Diferenças Importantes em Relação ao <code>for</code> Clássico</a></li><li class="lvl3"><a href="#2-4-simulando-o-code-do-while-code">2.4. Simulando o <code>do-while</code></a></li><li class="lvl2"><a href="#3-laços-infinitos-e-controle-de-fluxo">3. Laços Infinitos e Controle de Fluxo</a></li><li class="lvl3"><a href="#3-1-laços-infinitos">3.1. Laços Infinitos</a></li><li class="lvl3"><a href="#3-2-usando-code-break-code-para-sair-do-loop">3.2. Usando <code>break</code> para Sair do Loop</a></li><li class="lvl3"><a href="#3-3-usando-code-continue-code-para-pular-iterações">3.3. Usando <code>continue</code> para Pular Iterações</a></li><li class="lvl3"><a href="#3-4-laços-com-condição-de-saída-no-meio">3.4. Laços com Condição de Saída no Meio</a></li><li class="lvl2"><a href="#4-aplicações-práticas-de-laços-condicionais">4. Aplicações Práticas de Laços Condicionais</a></li><li class="lvl3"><a href="#4-1-validação-de-entrada">4.1. Validação de Entrada</a></li><li class="lvl3"><a href="#4-2-processamento-de-dados-até-uma-condição">4.2. Processamento de Dados até uma Condição</a></li><li class="lvl3"><a href="#4-3-algoritmo-de-busca">4.3. Algoritmo de Busca</a></li><li class="lvl3"><a href="#4-4-algoritmo-de-adivinhação">4.4. Algoritmo de Adivinhação</a></li><li class="lvl2"><a href="#5-boas-práticas-com-laços-condicionais">5. Boas Práticas com Laços Condicionais</a></li><li class="lvl3"><a href="#5-1-evite-loops-infinitos-acidentais">5.1. Evite Loops Infinitos Acidentais</a></li><li class="lvl3"><a href="#5-2-prefira-condições-simples">5.2. Prefira Condições Simples</a></li><li class="lvl3"><a href="#5-3-inicialize-variáveis-antes-do-loop">5.3. Inicialize Variáveis Antes do Loop</a></li><li class="lvl3"><a href="#5-4-atualize-as-variáveis-de-controle-dentro-do-loop">5.4. Atualize as Variáveis de Controle Dentro do Loop</a></li><li class="lvl3"><a href="#5-5-use-code-break-code-e-code-continue-code-com-moderação">5.5. Use <code>break</code> e <code>continue</code> com Moderação</a></li><li class="lvl2"><a href="#6-exemplos-práticos">6. Exemplos Práticos</a></li><li class="lvl3"><a href="#6-1-calculadora-simples-com-loop">6.1. Calculadora Simples com Loop</a></li><li class="lvl3"><a href="#6-2-encontrando-o-máximo-divisor-comum-mdc">6.2. Encontrando o Máximo Divisor Comum (MDC)</a></li><li class="lvl3"><a href="#6-3-verificação-de-número-perfeito">6.3. Verificação de Número Perfeito</a></li><li class="lvl3"><a href="#6-4-conversão-de-decimal-para-binário">6.4. Conversão de Decimal para Binário</a></li><li class="lvl2"><a href="#7-exercícios-offline">7. Exercícios Offline</a></li><li class="lvl2"><a href="#8-quiz-rápido">8. Quiz Rápido</a></li><li class="lvl2"><a href="#9-desafio-prático-sistema-de-menu-interativo">9. Desafio Prático: Sistema de Menu Interativo</a></li><li class="lvl2"><a href="#10-resumo-da-aula">10. Resumo da Aula</a></li><li class="lvl2"><a href="#11-ficha-de-referência-rápida">11. Ficha de Referência Rápida</a></li><li class="lvl3"><a href="#laços-condicionais-em-go">Laços Condicionais em Go</a></li><li class="lvl3"><a href="#instruções-de-controle-de-fluxo">Instruções de Controle de Fluxo</a></li><li class="lvl3"><a href="#padrões-comuns">Padrões Comuns</a></li><li class="lvl3"><a href="#comparação-laços-com-contador-vs-laços-com-condição">Comparação: Laços com Contador vs. Laços com Condição</a></li><li class="lvl2"><a href="#12-modelos-de-código">12. Modelos de Código</a></li><li class="lvl3"><a href="#modelo-1-laço-condicional-básico">Modelo 1: Laço Condicional Básico</a></li><li class="lvl3"><a href="#modelo-2-validação-de-entrada">Modelo 2: Validação de Entrada</a></li><li class="lvl3"><a href="#modelo-3-processamento-até-condição">Modelo 3: Processamento até Condição</a></li><li class="lvl3"><a href="#modelo-4-simulação-de-do-while">Modelo 4: Simulação de Do-While</a></li></ul></nav><h1>Aula 9: Laços com Condição em Go (Simulação de <code>while</code>)</h1>
+<h2 id="objetivos-da-aula">Objetivos da Aula</h2>
+<p>Ao final desta aula, você será capaz de:</p>
+<ul>
+<li>Compreender como implementar laços baseados em condição em Go</li>
+<li>Utilizar a estrutura <code>for</code> com apenas condição para simular o comportamento de <code>while</code></li>
+<li>Implementar diferentes padrões de laços condicionais para resolver problemas</li>
+<li>Entender as diferenças entre laços com contador e laços com condição</li>
+<li>Criar programas em Go que utilizam laços condicionais para processar dados de forma dinâmica</li>
+</ul>
+<hr />
+<h2 id="1-introdução-aos-laços-com-condição">1. Introdução aos Laços com Condição</h2>
+<h3 id="1-1-o-que-são-laços-com-condição">1.1. O que são Laços com Condição?</h3>
+<p>Os <strong>laços com condição</strong> são estruturas de repetição que executam um bloco de código enquanto uma determinada condição for verdadeira. Diferentemente dos laços com contador, que executam um número predefinido de vezes, os laços com condição podem executar zero, uma ou várias vezes, dependendo da condição avaliada.</p>
+<p>Em muitas linguagens de programação, existem estruturas específicas para laços condicionais, como <code>while</code> e <code>do-while</code>. Em Go, no entanto, todas as estruturas de repetição são implementadas usando a palavra-chave <code>for</code>, com diferentes sintaxes para cada caso.</p>
+<h3 id="1-2-laços-com-condição-vs-laços-com-contador">1.2. Laços com Condição vs. Laços com Contador</h3>
+<p>Vamos comparar os dois tipos de laços:</p>
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th>Laço com Contador</th>
+<th>Laço com Condição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Número de iterações</td>
+<td>Conhecido previamente</td>
+<td>Pode variar dependendo da condição</td>
+</tr>
+<tr>
+<td>Uso típico</td>
+<td>Processar sequências de tamanho conhecido</td>
+<td>Processar dados até que uma condição seja atendida</td>
+</tr>
+<tr>
+<td>Implementação em Go</td>
+<td><code>for i := 0; i &lt; n; i++ { ... }</code></td>
+<td><code>for condição { ... }</code></td>
+</tr>
+<tr>
+<td>Exemplo de uso</td>
+<td>Percorrer um array</td>
+<td>Ler dados até encontrar um valor específico</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-3-quando-usar-laços-com-condição">1.3. Quando Usar Laços com Condição?</h3>
+<p>Os laços com condição são ideais para situações em que:</p>
+<ol>
+<li>O número de iterações não é conhecido antecipadamente.</li>
+<li>O loop deve continuar até que uma condição específica seja atendida.</li>
+<li>O loop pode precisar ser executado zero vezes (se a condição for falsa desde o início).</li>
+<li>Você está processando dados de entrada até encontrar um marcador de fim.</li>
+</ol>
+<p>Exemplos do cotidiano que se assemelham a laços condicionais:
+- Lavar pratos até que todos estejam limpos
+- Estudar até compreender o assunto
+- Procurar um item até encontrá-lo
+- Jogar um jogo até perder ou ganhar</p>
+<hr />
+<h2 id="2-implementando-laços-condicionais-em-go">2. Implementando Laços Condicionais em Go</h2>
+<h3 id="2-1-sintaxe-do-code-for-code-como-code-while-code">2.1. Sintaxe do <code>for</code> como <code>while</code></h3>
+<p>Em Go, o laço condicional é implementado usando a estrutura <code>for</code> com apenas a condição:</p>
+<pre><code class="language-go">for condição {
+    // Código a ser repetido enquanto a condição for verdadeira
+}
+</code></pre>
+<p>Esta sintaxe é equivalente ao <code>while</code> em outras linguagens:</p>
+<pre><code>// Pseudocódigo em outras linguagens
+while (condição) {
+    // Código a ser repetido
+}
+</code></pre>
+<p>Exemplo simples:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    contador := 1
+
+    for contador &lt;= 5 {
+        fmt.Println(contador)
+        contador++
+    }
+
+    fmt.Println(&quot;Fim do loop&quot;)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>1
+2
+3
+4
+5
+Fim do loop
+</code></pre>
+<p>Neste exemplo:
+- A condição <code>contador &lt;= 5</code> é verificada antes de cada iteração.
+- O bloco de código é executado enquanto a condição for verdadeira.
+- O contador é incrementado dentro do bloco.
+- Quando o contador se torna 6, a condição se torna falsa e o loop termina.</p>
+<h3 id="2-2-fluxo-de-execução-do-laço-condicional">2.2. Fluxo de Execução do Laço Condicional</h3>
+<p>Vamos analisar o fluxo de execução passo a passo:</p>
+<ol>
+<li>A <strong>condição</strong> é verificada.</li>
+<li>Se for verdadeira, o bloco de código é executado.</li>
+<li>Se for falsa, o loop termina e o programa continua após o bloco <code>for</code>.</li>
+<li>Após a execução do bloco, volta ao passo 1 (verificação da condição).</li>
+</ol>
+<p>Vamos visualizar o fluxo para o exemplo anterior:</p>
+<pre><code>Condição: 1 &lt;= 5? Sim, então:
+  Executa: fmt.Println(1)
+  Executa: contador++ (contador = 2)
+Condição: 2 &lt;= 5? Sim, então:
+  Executa: fmt.Println(2)
+  Executa: contador++ (contador = 3)
+Condição: 3 &lt;= 5? Sim, então:
+  Executa: fmt.Println(3)
+  Executa: contador++ (contador = 4)
+Condição: 4 &lt;= 5? Sim, então:
+  Executa: fmt.Println(4)
+  Executa: contador++ (contador = 5)
+Condição: 5 &lt;= 5? Sim, então:
+  Executa: fmt.Println(5)
+  Executa: contador++ (contador = 6)
+Condição: 6 &lt;= 5? Não, então sai do loop
+Executa: fmt.Println(&quot;Fim do loop&quot;)
+</code></pre>
+<h3 id="2-3-diferenças-importantes-em-relação-ao-code-for-code-clássico">2.3. Diferenças Importantes em Relação ao <code>for</code> Clássico</h3>
+<p>Ao usar o <code>for</code> como um laço condicional, existem algumas diferenças importantes em relação ao <code>for</code> clássico:</p>
+<ol>
+<li><strong>Inicialização</strong>: Não há uma seção de inicialização. As variáveis devem ser inicializadas antes do loop.</li>
+<li><strong>Incremento</strong>: Não há uma seção de pós-execução. O incremento ou atualização das variáveis deve ser feito explicitamente dentro do bloco.</li>
+<li><strong>Condição</strong>: A condição é verificada antes de cada iteração, assim como no <code>for</code> clássico.</li>
+</ol>
+<pre><code class="language-go">// for clássico
+for i := 1; i &lt;= 5; i++ {
+    fmt.Println(i)
+}
+
+// for como while
+i := 1
+for i &lt;= 5 {
+    fmt.Println(i)
+    i++
+}
+</code></pre>
+<p>Ambos os códigos produzem o mesmo resultado, mas a estrutura é diferente.</p>
+<h3 id="2-4-simulando-o-code-do-while-code">2.4. Simulando o <code>do-while</code></h3>
+<p>Muitas linguagens têm uma estrutura chamada <code>do-while</code>, que executa o bloco pelo menos uma vez e depois verifica a condição. Go não tem uma sintaxe específica para isso, mas podemos simular esse comportamento:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    contador := 1
+
+    // Simulando do-while
+    for {
+        fmt.Println(contador)
+        contador++
+
+        if contador &gt; 5 {
+            break
+        }
+    }
+
+    fmt.Println(&quot;Fim do loop&quot;)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>1
+2
+3
+4
+5
+Fim do loop
+</code></pre>
+<p>Neste exemplo:
+- Usamos um loop infinito (<code>for { ... }</code>) para garantir que o bloco seja executado pelo menos uma vez.
+- Verificamos a condição após a execução do bloco.
+- Usamos <code>break</code> para sair do loop quando a condição não for mais atendida.</p>
+<hr />
+<h2 id="3-laços-infinitos-e-controle-de-fluxo">3. Laços Infinitos e Controle de Fluxo</h2>
+<h3 id="3-1-laços-infinitos">3.1. Laços Infinitos</h3>
+<p>Um laço infinito é um loop que, teoricamente, nunca termina. Em Go, podemos criar um laço infinito de duas maneiras:</p>
+<pre><code class="language-go">// Método 1: Usando for sem condição
+for {
+    // Código a ser repetido indefinidamente
+}
+
+// Método 2: Usando uma condição que é sempre verdadeira
+for true {
+    // Código a ser repetido indefinidamente
+}
+</code></pre>
+<p>Laços infinitos são úteis quando queremos que o programa continue executando até que uma condição específica seja atendida, momento em que usamos <code>break</code> para sair do loop.</p>
+<h3 id="3-2-usando-code-break-code-para-sair-do-loop">3.2. Usando <code>break</code> para Sair do Loop</h3>
+<p>A instrução <code>break</code> permite sair imediatamente de um loop, independentemente da condição:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    contador := 1
+
+    for {
+        fmt.Println(contador)
+        contador++
+
+        if contador &gt; 5 {
+            fmt.Println(&quot;Saindo do loop com break&quot;)
+            break
+        }
+    }
+
+    fmt.Println(&quot;Fim do programa&quot;)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>1
+2
+3
+4
+5
+Saindo do loop com break
+Fim do programa
+</code></pre>
+<h3 id="3-3-usando-code-continue-code-para-pular-iterações">3.3. Usando <code>continue</code> para Pular Iterações</h3>
+<p>A instrução <code>continue</code> permite pular o restante do bloco e ir para a próxima iteração:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    for i := 1; i &lt;= 10; i++ {
+        // Pula os números pares
+        if i%2 == 0 {
+            continue
+        }
+
+        fmt.Println(i)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>1
+3
+5
+7
+9
+</code></pre>
+<p>Neste exemplo, quando <code>i</code> é par, a instrução <code>continue</code> faz com que o loop pule para a próxima iteração sem executar o <code>fmt.Println(i)</code>.</p>
+<h3 id="3-4-laços-com-condição-de-saída-no-meio">3.4. Laços com Condição de Saída no Meio</h3>
+<p>Em alguns casos, queremos verificar uma condição no meio do loop. Podemos fazer isso combinando um laço infinito com <code>break</code>:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    soma := 0
+
+    for {
+        soma += 10
+        fmt.Println(&quot;Soma atual:&quot;, soma)
+
+        // Condição de saída no meio do loop
+        if soma &gt;= 50 {
+            fmt.Println(&quot;Soma atingiu ou ultrapassou 50&quot;)
+            break
+        }
+
+        fmt.Println(&quot;Continuando o loop...&quot;)
+    }
+
+    fmt.Println(&quot;Fim do programa&quot;)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Soma atual: 10
+Continuando o loop...
+Soma atual: 20
+Continuando o loop...
+Soma atual: 30
+Continuando o loop...
+Soma atual: 40
+Continuando o loop...
+Soma atual: 50
+Soma atingiu ou ultrapassou 50
+Fim do programa
+</code></pre>
+<hr />
+<h2 id="4-aplicações-práticas-de-laços-condicionais">4. Aplicações Práticas de Laços Condicionais</h2>
+<h3 id="4-1-validação-de-entrada">4.1. Validação de Entrada</h3>
+<p>Os laços condicionais são frequentemente usados para validar entradas do usuário:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var idade int
+
+    // Loop até que o usuário forneça uma idade válida
+    for {
+        fmt.Print(&quot;Digite sua idade (entre 0 e 120): &quot;)
+        fmt.Scanln(&amp;idade)
+
+        if idade &gt;= 0 &amp;&amp; idade &lt;= 120 {
+            break
+        }
+
+        fmt.Println(&quot;Idade inválida! Por favor, tente novamente.&quot;)
+    }
+
+    fmt.Printf(&quot;Idade válida: %d anos\n&quot;, idade)
+}
+</code></pre>
+<p>Este programa continua pedindo a idade até que o usuário forneça um valor entre 0 e 120.</p>
+<h3 id="4-2-processamento-de-dados-até-uma-condição">4.2. Processamento de Dados até uma Condição</h3>
+<p>Laços condicionais são úteis para processar dados até que uma condição específica seja atendida:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    soma := 0
+    contador := 0
+
+    fmt.Println(&quot;Digite números para calcular a média (digite -1 para encerrar):&quot;)
+
+    for {
+        var numero int
+        fmt.Print(&quot;Número: &quot;)
+        fmt.Scanln(&amp;numero)
+
+        if numero == -1 {
+            break
+        }
+
+        soma += numero
+        contador++
+    }
+
+    if contador &gt; 0 {
+        media := float64(soma) / float64(contador)
+        fmt.Printf(&quot;Média dos %d números: %.2f\n&quot;, contador, media)
+    } else {
+        fmt.Println(&quot;Nenhum número foi inserido.&quot;)
+    }
+}
+</code></pre>
+<p>Este programa calcula a média de números inseridos pelo usuário até que ele digite -1.</p>
+<h3 id="4-3-algoritmo-de-busca">4.3. Algoritmo de Busca</h3>
+<p>Laços condicionais são ideais para algoritmos de busca:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Array de números
+    numeros := []int{15, 7, 42, 23, 56, 8, 91, 30}
+
+    // Número a ser procurado
+    alvo := 23
+
+    // Inicializa o índice e um flag para indicar se o número foi encontrado
+    indice := 0
+    encontrado := false
+
+    // Busca o número no array
+    for indice &lt; len(numeros) {
+        if numeros[indice] == alvo {
+            encontrado = true
+            break
+        }
+        indice++
+    }
+
+    // Exibe o resultado
+    if encontrado {
+        fmt.Printf(&quot;O número %d foi encontrado na posição %d\n&quot;, alvo, indice)
+    } else {
+        fmt.Printf(&quot;O número %d não foi encontrado no array\n&quot;, alvo)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>O número 23 foi encontrado na posição 3
+</code></pre>
+<h3 id="4-4-algoritmo-de-adivinhação">4.4. Algoritmo de Adivinhação</h3>
+<p>Laços condicionais são perfeitos para jogos de adivinhação:</p>
+<pre><code class="language-go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;math/rand&quot;
+    &quot;time&quot;
+)
+
+func main() {
+    // Inicializa o gerador de números aleatórios
+    rand.Seed(time.Now().UnixNano())
+
+    // Gera um número aleatório entre 1 e 100
+    numeroSecreto := rand.Intn(100) + 1
+
+    fmt.Println(&quot;Jogo de Adivinhação&quot;)
+    fmt.Println(&quot;Estou pensando em um número entre 1 e 100.&quot;)
+
+    tentativas := 0
+    acertou := false
+
+    for !acertou {
+        tentativas++
+
+        var palpite int
+        fmt.Printf(&quot;\nTentativa %d: Digite seu palpite: &quot;, tentativas)
+        fmt.Scanln(&amp;palpite)
+
+        if palpite &lt; numeroSecreto {
+            fmt.Println(&quot;Muito baixo! Tente um número maior.&quot;)
+        } else if palpite &gt; numeroSecreto {
+            fmt.Println(&quot;Muito alto! Tente um número menor.&quot;)
+        } else {
+            acertou = true
+            fmt.Printf(&quot;Parabéns! Você acertou em %d tentativas.\n&quot;, tentativas)
+        }
+
+        // Limite de tentativas (opcional)
+        if tentativas == 10 &amp;&amp; !acertou {
+            fmt.Printf(&quot;Você atingiu o limite de tentativas. O número secreto era %d.\n&quot;, numeroSecreto)
+            break
+        }
+    }
+}
+</code></pre>
+<p>Este jogo gera um número aleatório e dá ao jogador várias tentativas para adivinhar, fornecendo dicas após cada palpite.</p>
+<hr />
+<h2 id="5-boas-práticas-com-laços-condicionais">5. Boas Práticas com Laços Condicionais</h2>
+<h3 id="5-1-evite-loops-infinitos-acidentais">5.1. Evite Loops Infinitos Acidentais</h3>
+<p>Certifique-se de que a condição eventualmente se tornará falsa ou que haja um <code>break</code> para sair do loop:</p>
+<pre><code class="language-go">// Potencialmente perigoso: se a condição nunca se tornar falsa
+for x &gt; 0 {
+    // Se não houver nada aqui que altere x, este será um loop infinito
+}
+
+// Seguro: garante que o loop terminará
+for x &gt; 0 {
+    x--
+    // Ou alguma outra lógica que eventualmente torne x &lt;= 0
+}
+</code></pre>
+<h3 id="5-2-prefira-condições-simples">5.2. Prefira Condições Simples</h3>
+<p>Mantenha as condições do loop simples e claras:</p>
+<pre><code class="language-go">// Menos claro
+for i &lt; 10 &amp;&amp; j &gt; 0 &amp;&amp; !done {
+    // Código
+}
+
+// Mais claro
+for !done {
+    if i &gt;= 10 || j &lt;= 0 {
+        done = true
+        continue
+    }
+    // Código
+}
+</code></pre>
+<h3 id="5-3-inicialize-variáveis-antes-do-loop">5.3. Inicialize Variáveis Antes do Loop</h3>
+<p>Sempre inicialize as variáveis que serão usadas na condição do loop antes de entrar nele:</p>
+<pre><code class="language-go">// Bom: variável inicializada antes do loop
+contador := 1
+for contador &lt;= 5 {
+    // Código
+    contador++
+}
+
+// Ruim: variável não inicializada (causaria erro de compilação)
+// var contador int
+// for contador &lt;= 5 { // contador não foi inicializado
+//     // Código
+//     contador++
+// }
+</code></pre>
+<h3 id="5-4-atualize-as-variáveis-de-controle-dentro-do-loop">5.4. Atualize as Variáveis de Controle Dentro do Loop</h3>
+<p>Certifique-se de atualizar as variáveis usadas na condição dentro do loop para evitar loops infinitos:</p>
+<pre><code class="language-go">// Bom: a variável de controle é atualizada dentro do loop
+i := 0
+for i &lt; 10 {
+    fmt.Println(i)
+    i++ // Atualização importante
+}
+
+// Ruim: a variável de controle não é atualizada (loop infinito)
+// i := 0
+// for i &lt; 10 {
+//     fmt.Println(i)
+//     // Faltou i++
+// }
+</code></pre>
+<h3 id="5-5-use-code-break-code-e-code-continue-code-com-moderação">5.5. Use <code>break</code> e <code>continue</code> com Moderação</h3>
+<p>Embora <code>break</code> e <code>continue</code> sejam úteis, o uso excessivo pode tornar o código difícil de entender:</p>
+<pre><code class="language-go">// Menos legível: muitos break e continue
+for i := 0; i &lt; 100; i++ {
+    if i &lt; 10 {
+        continue
+    }
+    if i % 2 == 0 {
+        continue
+    }
+    if i &gt; 50 {
+        break
+    }
+    fmt.Println(i)
+}
+
+// Mais legível: condição clara
+for i := 11; i &lt;= 50; i += 2 {
+    fmt.Println(i)
+}
+</code></pre>
+<hr />
+<h2 id="6-exemplos-práticos">6. Exemplos Práticos</h2>
+<h3 id="6-1-calculadora-simples-com-loop">6.1. Calculadora Simples com Loop</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var continuar string
+
+    for {
+        var num1, num2 float64
+        var operador string
+
+        fmt.Print(&quot;Digite o primeiro número: &quot;)
+        fmt.Scanln(&amp;num1)
+
+        fmt.Print(&quot;Digite o segundo número: &quot;)
+        fmt.Scanln(&amp;num2)
+
+        fmt.Print(&quot;Digite o operador (+, -, *, /): &quot;)
+        fmt.Scanln(&amp;operador)
+
+        switch operador {
+        case &quot;+&quot;:
+            fmt.Printf(&quot;%.2f + %.2f = %.2f\n&quot;, num1, num2, num1+num2)
+        case &quot;-&quot;:
+            fmt.Printf(&quot;%.2f - %.2f = %.2f\n&quot;, num1, num2, num1-num2)
+        case &quot;*&quot;:
+            fmt.Printf(&quot;%.2f * %.2f = %.2f\n&quot;, num1, num2, num1*num2)
+        case &quot;/&quot;:
+            if num2 == 0 {
+                fmt.Println(&quot;Erro: Divisão por zero!&quot;)
+            } else {
+                fmt.Printf(&quot;%.2f / %.2f = %.2f\n&quot;, num1, num2, num1/num2)
+            }
+        default:
+            fmt.Println(&quot;Operador inválido!&quot;)
+        }
+
+        fmt.Print(&quot;Deseja continuar? (s/n): &quot;)
+        fmt.Scanln(&amp;continuar)
+
+        if continuar != &quot;s&quot; &amp;&amp; continuar != &quot;S&quot; {
+            break
+        }
+    }
+
+    fmt.Println(&quot;Calculadora encerrada.&quot;)
+}
+</code></pre>
+<p>Esta calculadora permite ao usuário realizar várias operações até decidir parar.</p>
+<h3 id="6-2-encontrando-o-máximo-divisor-comum-mdc">6.2. Encontrando o Máximo Divisor Comum (MDC)</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    a := 48
+    b := 18
+
+    fmt.Printf(&quot;Calculando o MDC de %d e %d\n&quot;, a, b)
+
+    // Algoritmo de Euclides para MDC
+    for b != 0 {
+        a, b = b, a%b
+    }
+
+    fmt.Printf(&quot;MDC = %d\n&quot;, a)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Calculando o MDC de 48 e 18
+MDC = 6
+</code></pre>
+<p>Este exemplo usa o algoritmo de Euclides para encontrar o máximo divisor comum (MDC) de dois números.</p>
+<h3 id="6-3-verificação-de-número-perfeito">6.3. Verificação de Número Perfeito</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    numero := 28
+    soma := 0
+
+    fmt.Printf(&quot;Verificando se %d é um número perfeito...\n&quot;, numero)
+
+    // Um número perfeito é igual à soma de seus divisores próprios
+    for i := 1; i &lt; numero; i++ {
+        if numero%i == 0 {
+            soma += i
+        }
+    }
+
+    if soma == numero {
+        fmt.Printf(&quot;%d é um número perfeito!\n&quot;, numero)
+    } else {
+        fmt.Printf(&quot;%d não é um número perfeito. A soma dos divisores é %d.\n&quot;, numero, soma)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Verificando se 28 é um número perfeito...
+28 é um número perfeito!
+</code></pre>
+<p>Um número perfeito é aquele que é igual à soma de seus divisores próprios (excluindo o próprio número). Por exemplo, 28 = 1 + 2 + 4 + 7 + 14.</p>
+<h3 id="6-4-conversão-de-decimal-para-binário">6.4. Conversão de Decimal para Binário</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    decimal := 42
+    binario := &quot;&quot;
+
+    fmt.Printf(&quot;Convertendo %d para binário...\n&quot;, decimal)
+
+    // Caso especial para 0
+    if decimal == 0 {
+        binario = &quot;0&quot;
+    }
+
+    // Conversão para binário
+    temp := decimal
+    for temp &gt; 0 {
+        resto := temp % 2
+        binario = fmt.Sprintf(&quot;%d%s&quot;, resto, binario)
+        temp = temp / 2
+    }
+
+    fmt.Printf(&quot;%d em binário é %s\n&quot;, decimal, binario)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Convertendo 42 para binário...
+42 em binário é 101010
+</code></pre>
+<p>Este exemplo converte um número decimal para sua representação binária.</p>
+<hr />
+<h2 id="7-exercícios-offline">7. Exercícios Offline</h2>
+<ol>
+<li>
+<p><strong>Soma até Limite</strong>: Escreva um algoritmo que some números inteiros consecutivos (1, 2, 3, ...) até que a soma ultrapasse um valor limite fornecido.</p>
+</li>
+<li>
+<p><strong>Validação de Senha</strong>: Crie um algoritmo que peça ao usuário para digitar uma senha e continue pedindo até que a senha correta seja fornecida.</p>
+</li>
+<li>
+<p><strong>Contagem de Dígitos</strong>: Desenvolva um algoritmo que conte quantos dígitos tem um número inteiro positivo usando um laço condicional.</p>
+</li>
+<li>
+<p><strong>Jogo de Dados</strong>: Crie um algoritmo que simule lançamentos de um dado até que o número 6 apareça.</p>
+</li>
+<li>
+<p><strong>Sequência de Collatz</strong>: Implemente o algoritmo da Conjectura de Collatz: comece com um número n; se n for par, divida-o por 2; se for ímpar, multiplique por 3 e adicione 1. Repita o processo até que n se torne 1.</p>
+</li>
+</ol>
+<hr />
+<h2 id="8-quiz-rápido">8. Quiz Rápido</h2>
+<ol>
+<li>
+<p>Qual é a sintaxe correta para um laço condicional em Go?
+   a) <code>while condição { código }</code>
+   b) <code>for (condição) { código }</code>
+   c) <code>for condição { código }</code>
+   d) <code>do { código } while (condição)</code></p>
+</li>
+<li>
+<p>O que acontece se a condição em um laço condicional for falsa logo no início?
+   a) O loop executa pelo menos uma vez
+   b) O loop não executa nenhuma vez
+   c) O programa gera um erro
+   d) O loop executa infinitamente</p>
+</li>
+<li>
+<p>Como podemos simular um <code>do-while</code> em Go?
+   a) <code>do { código } while (condição)</code>
+   b) <code>for { código; if (!condição) break; }</code>
+   c) <code>for condição { código }</code>
+   d) Não é possível simular <code>do-while</code> em Go</p>
+</li>
+<li>
+<p>O que faz a instrução <code>continue</code> em um loop?
+   a) Termina o loop completamente
+   b) Pula para a próxima iteração do loop
+   c) Pausa o loop temporariamente
+   d) Reinicia o loop do início</p>
+</li>
+<li>
+<p>Qual é a principal diferença entre um laço com contador e um laço com condição?
+   a) Laços com contador são mais rápidos
+   b) Laços com condição não podem usar a instrução <code>break</code>
+   c) Laços com contador executam um número predefinido de vezes
+   d) Laços com condição só podem ser usados com números</p>
+</li>
+</ol>
+<hr />
+<h2 id="9-desafio-prático-sistema-de-menu-interativo">9. Desafio Prático: Sistema de Menu Interativo</h2>
+<p>Crie um programa em Go que simule um sistema de menu interativo para um caixa eletrônico. O programa deve:</p>
+<ol>
+<li>Exibir um menu com opções: 1. Ver Saldo, 2. Depositar, 3. Sacar, 4. Sair</li>
+<li>Pedir ao usuário para escolher uma opção</li>
+<li>Executar a operação correspondente</li>
+<li>Voltar ao menu principal após cada operação</li>
+<li>Encerrar o programa apenas quando o usuário escolher a opção "Sair"</li>
+</ol>
+<p><strong>Exemplo de Saída Esperada:</strong></p>
+<pre><code>=== CAIXA ELETRÔNICO ===
+
+Saldo atual: R$ 1000.00
+
+1. Ver Saldo
+2. Depositar
+3. Sacar
+4. Sair
+
+Escolha uma opção: 2
+
+Digite o valor do depósito: 500
+Depósito de R$ 500.00 realizado com sucesso!
+
+=== CAIXA ELETRÔNICO ===
+
+Saldo atual: R$ 1500.00
+
+1. Ver Saldo
+2. Depositar
+3. Sacar
+4. Sair
+
+Escolha uma opção: 3
+
+Digite o valor do saque: 200
+Saque de R$ 200.00 realizado com sucesso!
+
+=== CAIXA ELETRÔNICO ===
+
+Saldo atual: R$ 1300.00
+
+1. Ver Saldo
+2. Depositar
+3. Sacar
+4. Sair
+
+Escolha uma opção: 4
+
+Obrigado por utilizar nosso caixa eletrônico!
+</code></pre>
+<p><strong>Dica:</strong> Use um laço infinito (<code>for { ... }</code>) e saia dele apenas quando o usuário escolher a opção de sair.</p>
+<hr />
+<h2 id="10-resumo-da-aula">10. Resumo da Aula</h2>
+<p>Nesta aula, aprendemos sobre:</p>
+<ul>
+<li><strong>Laços com Condição</strong>: Estruturas de repetição que executam um bloco de código enquanto uma condição for verdadeira.</li>
+<li><strong>Implementação em Go</strong>: Em Go, usamos <code>for condição { ... }</code> para simular o comportamento de <code>while</code> em outras linguagens.</li>
+<li><strong>Laços Infinitos</strong>: Criados com <code>for { ... }</code> e geralmente combinados com <code>break</code> para sair quando uma condição específica for atendida.</li>
+<li><strong>Controle de Fluxo</strong>: Uso de <code>break</code> para sair do loop e <code>continue</code> para pular para a próxima iteração.</li>
+<li><strong>Simulação de <code>do-while</code></strong>: Usando um laço infinito com uma condição de saída no final do bloco.</li>
+<li><strong>Aplicações Práticas</strong>: Validação de entrada, processamento de dados, algoritmos de busca e jogos de adivinhação.</li>
+<li><strong>Boas Práticas</strong>: Evitar loops infinitos acidentais, preferir condições simples, inicializar variáveis antes do loop e atualizar variáveis de controle dentro do loop.</li>
+</ul>
+<p>Os laços condicionais são fundamentais para criar programas dinâmicos que podem responder a diferentes situações e processar dados de forma flexível.</p>
+<hr />
+<h2 id="11-ficha-de-referência-rápida">11. Ficha de Referência Rápida</h2>
+<h3 id="laços-condicionais-em-go">Laços Condicionais em Go</h3>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Sintaxe</th>
+<th>Equivalente em outras linguagens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>While</td>
+<td><code>for condição { código }</code></td>
+<td><code>while (condição) { código }</code></td>
+</tr>
+<tr>
+<td>Do-While (simulação)</td>
+<td><code>for { código; if (!condição) break; }</code></td>
+<td><code>do { código } while (condição);</code></td>
+</tr>
+<tr>
+<td>Loop infinito</td>
+<td><code>for { código }</code></td>
+<td><code>while (true) { código }</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="instruções-de-controle-de-fluxo">Instruções de Controle de Fluxo</h3>
+<table>
+<thead>
+<tr>
+<th>Instrução</th>
+<th>Descrição</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>break</code></td>
+<td>Sai do loop imediatamente</td>
+<td><code>if condição { break }</code></td>
+</tr>
+<tr>
+<td><code>continue</code></td>
+<td>Pula para a próxima iteração</td>
+<td><code>if condição { continue }</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="padrões-comuns">Padrões Comuns</h3>
+<table>
+<thead>
+<tr>
+<th>Padrão</th>
+<th>Código</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Processamento até condição</td>
+<td><code>for !condição { ... }</code></td>
+<td>Continuar até que algo aconteça</td>
+</tr>
+<tr>
+<td>Validação de entrada</td>
+<td><code>for { input; if válido { break } }</code></td>
+<td>Repetir até entrada válida</td>
+</tr>
+<tr>
+<td>Busca em coleção</td>
+<td><code>for i &lt; len(coleção) { if encontrado { break }; i++ }</code></td>
+<td>Procurar um item</td>
+</tr>
+</tbody>
+</table>
+<h3 id="comparação-laços-com-contador-vs-laços-com-condição">Comparação: Laços com Contador vs. Laços com Condição</h3>
+<table>
+<thead>
+<tr>
+<th>Laço com Contador</th>
+<th>Laço com Condição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>for i := 0; i &lt; n; i++ { ... }</code></td>
+<td><code>for condição { ... }</code></td>
+</tr>
+<tr>
+<td>Número fixo de iterações</td>
+<td>Número variável de iterações</td>
+</tr>
+<tr>
+<td>Ideal para arrays e slices</td>
+<td>Ideal para processamento condicional</td>
+</tr>
+<tr>
+<td>Variável de controle automática</td>
+<td>Variável de controle manual</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12-modelos-de-código">12. Modelos de Código</h2>
+<h3 id="modelo-1-laço-condicional-básico">Modelo 1: Laço Condicional Básico</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Laço condicional básico
+    contador := 1
+
+    for contador &lt;= 5 {
+        fmt.Println(contador)
+        contador++
+    }
+}
+</code></pre>
+<h3 id="modelo-2-validação-de-entrada">Modelo 2: Validação de Entrada</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var entrada int
+
+    // Loop até receber entrada válida
+    for {
+        fmt.Print(&quot;Digite um número positivo: &quot;)
+        fmt.Scanln(&amp;entrada)
+
+        if entrada &gt; 0 {
+            break
+        }
+
+        fmt.Println(&quot;Entrada inválida! O número deve ser positivo.&quot;)
+    }
+
+    fmt.Printf(&quot;Você digitou: %d\n&quot;, entrada)
+}
+</code></pre>
+<h3 id="modelo-3-processamento-até-condição">Modelo 3: Processamento até Condição</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    soma := 0
+    numero := 1
+
+    // Somar números até ultrapassar 100
+    for soma &lt;= 100 {
+        soma += numero
+        fmt.Printf(&quot;Adicionando %d: soma = %d\n&quot;, numero, soma)
+        numero++
+    }
+
+    fmt.Printf(&quot;A soma final é %d\n&quot;, soma)
+}
+</code></pre>
+<h3 id="modelo-4-simulação-de-do-while">Modelo 4: Simulação de Do-While</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    contador := 1
+
+    // Simulando do-while
+    for {
+        fmt.Println(contador)
+        contador++
+
+        // Condição de saída verificada após a execução
+        if contador &gt; 5 {
+            break
+        }
+    }
+}
+</code></pre>
+<hr />
+<p><strong>Gabarito do Quiz:</strong>
+1. c) <code>for condição { código }</code>
+2. b) O loop não executa nenhuma vez
+3. b) <code>for { código; if (!condição) break; }</code>
+4. b) Pula para a próxima iteração do loop
+5. c) Laços com contador executam um número predefinido de vezes</p>
+  </article>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "theme": "simplepage",
+  "site_title": "Title",
+  "base_url": "/",
+  "language": "en-en",
+  "output_dir": "public",
+  "content_dir": "content/classes",
+  "template_file": "template.html",
+  "contents": 2
+}

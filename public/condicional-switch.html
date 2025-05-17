@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 7: Condicional Switch</title>
+  <link rel="stylesheet" href="themes/rustbook/css/water-dark.css">
+  <link rel="stylesheet" href="themes/rustbook/css/theme.css">
+  <script src="themes/rustbook/js/theme.js" defer></script>
+</head>
+<body>
+
+<aside>
+  <header><h1>Curso de Algoritmos com Go</h1></header>
+  <nav aria-label="Conteúdo do curso">
+    <ul>
+      <li><a href="index.html">📚 Índice Geral</a></li>
+      <li><a href="algoritmos-base.html">Aula 1: Algoritmos – A Base de Tudo!</a></li>
+      <li><a href="break-e-continue.html">Aula 10: Break e Continue</a></li>
+      <li><a href="condicional-if-else.html">Aula 6: Condicional If/Else</a></li>
+      <li><a href="condicional-switch.html">Aula 7: Condicional Switch</a></li>
+      <li><a href="entrada-e-saida.html">Aula 4: Entrada e Saída com Go</a></li>
+      <li><a href="estrutura-sequencial.html">Aula 5: Estrutura Sequencial</a></li>
+      <li><a href="identificadores-operadores.html">Aula 3: Identificadores e Operadores</a></li>
+      <li><a href="nova_aula.html">Nova aula</a></li>
+      <li><a href="repeticao-for.html">Aula 8: Repetição com For</a></li>
+      <li><a href="variaveis-e-tipos.html">Aula 2: Variáveis e Tipos de Dados em Go</a></li>
+      <li><a href="while-com-for.html">Aula 9: While com For</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<main>
+  <article>
+    <h2>Aula 7: Condicional Switch</h2>
+    <nav class="minimap"><ul><li class="lvl2"><a href="#objetivos-da-aula">Objetivos da Aula</a></li><li class="lvl2"><a href="#1-introdução-ao-code-switch-code">1. Introdução ao <code>switch</code></a></li><li class="lvl3"><a href="#1-1-o-que-é-a-estrutura-code-switch-code">1.1. O que é a Estrutura <code>switch</code>?</a></li><li class="lvl3"><a href="#1-2-por-que-usar-code-switch-code-em-vez-de-code-if-code-code-else-if-code-code-else-code">1.2. Por que Usar <code>switch</code> em vez de <code>if</code>-<code>else if</code>-<code>else</code>?</a></li><li class="lvl2"><a href="#2-sintaxe-do-code-switch-code-em-go">2. Sintaxe do <code>switch</code> em Go</a></li><li class="lvl3"><a href="#2-1-estrutura-básica">2.1. Estrutura Básica</a></li><li class="lvl3"><a href="#2-2-características-do-code-switch-code-em-go">2.2. Características do <code>switch</code> em Go</a></li><li class="lvl3"><a href="#2-3-exemplo-básico">2.3. Exemplo Básico</a></li><li class="lvl2"><a href="#3-variações-do-code-switch-code-em-go">3. Variações do <code>switch</code> em Go</a></li><li class="lvl3"><a href="#3-1-code-switch-code-com-múltiplos-valores-por-caso">3.1. <code>switch</code> com Múltiplos Valores por Caso</a></li><li class="lvl3"><a href="#3-2-code-switch-code-sem-expressão">3.2. <code>switch</code> sem Expressão</a></li><li class="lvl3"><a href="#3-3-code-switch-code-com-inicialização">3.3. <code>switch</code> com Inicialização</a></li><li class="lvl3"><a href="#3-4-code-switch-code-com-tipo-type-switch">3.4. <code>switch</code> com Tipo (Type Switch)</a></li><li class="lvl2"><a href="#4-a-instrução-code-fallthrough-code">4. A Instrução <code>fallthrough</code></a></li><li class="lvl3"><a href="#4-1-o-que-é-code-fallthrough-code">4.1. O que é <code>fallthrough</code>?</a></li><li class="lvl3"><a href="#4-2-exemplo-de-code-fallthrough-code">4.2. Exemplo de <code>fallthrough</code></a></li><li class="lvl3"><a href="#4-3-limitações-do-code-fallthrough-code">4.3. Limitações do <code>fallthrough</code></a></li><li class="lvl3"><a href="#4-4-quando-usar-code-fallthrough-code">4.4. Quando Usar <code>fallthrough</code></a></li><li class="lvl2"><a href="#5-exemplos-práticos">5. Exemplos Práticos</a></li><li class="lvl3"><a href="#5-1-menu-de-opções">5.1. Menu de Opções</a></li><li class="lvl3"><a href="#5-2-calculadora-simples">5.2. Calculadora Simples</a></li><li class="lvl3"><a href="#5-3-verificação-de-dia-da-semana">5.3. Verificação de Dia da Semana</a></li><li class="lvl3"><a href="#5-4-classificação-de-notas">5.4. Classificação de Notas</a></li><li class="lvl2"><a href="#6-boas-práticas-com-code-switch-code">6. Boas Práticas com <code>switch</code></a></li><li class="lvl3"><a href="#6-1-quando-usar-code-switch-code-vs-code-if-code-code-else-if-code-code-else-code">6.1. Quando Usar <code>switch</code> vs. <code>if</code>-<code>else if</code>-<code>else</code></a></li><li class="lvl3"><a href="#6-2-ordem-dos-casos">6.2. Ordem dos Casos</a></li><li class="lvl3"><a href="#6-3-use-o-code-default-code-apropriadamente">6.3. Use o <code>default</code> Apropriadamente</a></li><li class="lvl3"><a href="#6-4-evite-code-fallthrough-code-quando-possível">6.4. Evite <code>fallthrough</code> Quando Possível</a></li><li class="lvl3"><a href="#6-5-mantenha-os-casos-simples">6.5. Mantenha os Casos Simples</a></li><li class="lvl2"><a href="#7-exercícios-offline">7. Exercícios Offline</a></li><li class="lvl2"><a href="#8-quiz-rápido">8. Quiz Rápido</a></li><li class="lvl2"><a href="#9-desafio-prático-conversor-de-notas">9. Desafio Prático: Conversor de Notas</a></li><li class="lvl2"><a href="#10-resumo-da-aula">10. Resumo da Aula</a></li><li class="lvl2"><a href="#11-ficha-de-referência-rápida">11. Ficha de Referência Rápida</a></li><li class="lvl3"><a href="#sintaxe-do-code-switch-code-em-go">Sintaxe do <code>switch</code> em Go</a></li><li class="lvl3"><a href="#variações-do-code-switch-code">Variações do <code>switch</code></a></li><li class="lvl3"><a href="#instrução-code-fallthrough-code">Instrução <code>fallthrough</code></a></li><li class="lvl3"><a href="#comparação-com-code-if-code-code-else-if-code-code-else-code">Comparação com <code>if</code>-<code>else if</code>-<code>else</code></a></li><li class="lvl2"><a href="#12-modelos-de-código">12. Modelos de Código</a></li><li class="lvl3"><a href="#modelo-1-code-switch-code-básico">Modelo 1: <code>switch</code> Básico</a></li><li class="lvl3"><a href="#modelo-2-code-switch-code-com-múltiplos-valores">Modelo 2: <code>switch</code> com Múltiplos Valores</a></li><li class="lvl3"><a href="#modelo-3-code-switch-code-sem-expressão">Modelo 3: <code>switch</code> sem Expressão</a></li><li class="lvl3"><a href="#modelo-4-code-switch-code-com-code-fallthrough-code">Modelo 4: <code>switch</code> com <code>fallthrough</code></a></li></ul></nav><h1>Aula 7: Estrutura Condicional <code>switch</code> em Go</h1>
+<h2 id="objetivos-da-aula">Objetivos da Aula</h2>
+<p>Ao final desta aula, você será capaz de:</p>
+<ul>
+<li>Compreender a estrutura condicional <code>switch</code> e suas vantagens em relação ao <code>if</code>-<code>else if</code>-<code>else</code></li>
+<li>Utilizar a sintaxe do <code>switch</code>, <code>case</code> e <code>default</code> em Go</li>
+<li>Aplicar o <code>switch</code> para resolver problemas com múltiplas condições</li>
+<li>Implementar o <code>switch</code> com e sem expressão de controle</li>
+<li>Utilizar a instrução <code>fallthrough</code> para controlar o fluxo de execução</li>
+</ul>
+<hr />
+<h2 id="1-introdução-ao-code-switch-code">1. Introdução ao <code>switch</code></h2>
+<h3 id="1-1-o-que-é-a-estrutura-code-switch-code">1.1. O que é a Estrutura <code>switch</code>?</h3>
+<p>A estrutura <code>switch</code> é uma forma elegante e eficiente de controlar o fluxo de um programa quando precisamos verificar múltiplas condições para uma mesma variável ou expressão. Em vez de usar várias instruções <code>if</code>-<code>else if</code>-<code>else</code> encadeadas, o <code>switch</code> oferece uma sintaxe mais clara e concisa.</p>
+<p>Pense no <code>switch</code> como um "seletor" que direciona o fluxo do programa para diferentes caminhos com base no valor de uma expressão.</p>
+<h3 id="1-2-por-que-usar-code-switch-code-em-vez-de-code-if-code-code-else-if-code-code-else-code">1.2. Por que Usar <code>switch</code> em vez de <code>if</code>-<code>else if</code>-<code>else</code>?</h3>
+<p>Embora seja possível resolver os mesmos problemas usando <code>if</code>-<code>else if</code>-<code>else</code>, o <code>switch</code> oferece várias vantagens:</p>
+<ol>
+<li><strong>Legibilidade</strong>: O código fica mais organizado e fácil de ler, especialmente quando há muitas condições.</li>
+<li><strong>Manutenção</strong>: É mais fácil adicionar ou remover casos sem afetar a estrutura geral.</li>
+<li><strong>Performance</strong>: Em algumas linguagens, o <code>switch</code> pode ser mais eficiente que múltiplos <code>if</code>-<code>else if</code>.</li>
+<li><strong>Clareza de intenção</strong>: O <code>switch</code> deixa claro que estamos verificando diferentes valores de uma mesma variável.</li>
+</ol>
+<p>Vamos comparar as duas abordagens:</p>
+<p><strong>Usando <code>if</code>-<code>else if</code>-<code>else</code>:</strong></p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    diaSemana := 3
+
+    if diaSemana == 1 {
+        fmt.Println(&quot;Domingo&quot;)
+    } else if diaSemana == 2 {
+        fmt.Println(&quot;Segunda-feira&quot;)
+    } else if diaSemana == 3 {
+        fmt.Println(&quot;Terça-feira&quot;)
+    } else if diaSemana == 4 {
+        fmt.Println(&quot;Quarta-feira&quot;)
+    } else if diaSemana == 5 {
+        fmt.Println(&quot;Quinta-feira&quot;)
+    } else if diaSemana == 6 {
+        fmt.Println(&quot;Sexta-feira&quot;)
+    } else if diaSemana == 7 {
+        fmt.Println(&quot;Sábado&quot;)
+    } else {
+        fmt.Println(&quot;Dia inválido&quot;)
+    }
+}
+</code></pre>
+<p><strong>Usando <code>switch</code>:</strong></p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    diaSemana := 3
+
+    switch diaSemana {
+    case 1:
+        fmt.Println(&quot;Domingo&quot;)
+    case 2:
+        fmt.Println(&quot;Segunda-feira&quot;)
+    case 3:
+        fmt.Println(&quot;Terça-feira&quot;)
+    case 4:
+        fmt.Println(&quot;Quarta-feira&quot;)
+    case 5:
+        fmt.Println(&quot;Quinta-feira&quot;)
+    case 6:
+        fmt.Println(&quot;Sexta-feira&quot;)
+    case 7:
+        fmt.Println(&quot;Sábado&quot;)
+    default:
+        fmt.Println(&quot;Dia inválido&quot;)
+    }
+}
+</code></pre>
+<p>Ambos os códigos produzem o mesmo resultado, mas o <code>switch</code> é mais limpo e direto.</p>
+<hr />
+<h2 id="2-sintaxe-do-code-switch-code-em-go">2. Sintaxe do <code>switch</code> em Go</h2>
+<h3 id="2-1-estrutura-básica">2.1. Estrutura Básica</h3>
+<p>A sintaxe básica do <code>switch</code> em Go é:</p>
+<pre><code class="language-go">switch expressão {
+case valor1:
+    // Código a ser executado se expressão == valor1
+case valor2:
+    // Código a ser executado se expressão == valor2
+case valor3, valor4:
+    // Código a ser executado se expressão == valor3 ou expressão == valor4
+default:
+    // Código a ser executado se nenhum dos casos anteriores for verdadeiro
+}
+</code></pre>
+<p>Onde:
+- <code>expressão</code> é avaliada uma única vez
+- <code>case</code> define um valor ou lista de valores a serem comparados com a expressão
+- <code>default</code> é opcional e executa quando nenhum <code>case</code> corresponde à expressão</p>
+<h3 id="2-2-características-do-code-switch-code-em-go">2.2. Características do <code>switch</code> em Go</h3>
+<p>O <code>switch</code> em Go tem algumas características especiais que o diferenciam de outras linguagens:</p>
+<ol>
+<li>
+<p><strong>Não precisa de <code>break</code></strong>: Em Go, apenas o caso correspondente é executado. Não há "queda" (fallthrough) automática para o próximo caso, como em C ou Java.</p>
+</li>
+<li>
+<p><strong>Casos podem ter múltiplos valores</strong>: Você pode listar vários valores em um único <code>case</code>, separados por vírgulas.</p>
+</li>
+<li>
+<p><strong>Expressão é opcional</strong>: O <code>switch</code> pode ser usado sem uma expressão, funcionando como uma alternativa mais limpa para <code>if</code>-<code>else if</code>-<code>else</code>.</p>
+</li>
+<li>
+<p><strong>Casos podem ser expressões</strong>: Os casos não precisam ser constantes; podem ser expressões que são avaliadas durante a execução.</p>
+</li>
+</ol>
+<h3 id="2-3-exemplo-básico">2.3. Exemplo Básico</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    nota := 'B'
+
+    switch nota {
+    case 'A':
+        fmt.Println(&quot;Excelente!&quot;)
+    case 'B':
+        fmt.Println(&quot;Muito bom!&quot;)
+    case 'C':
+        fmt.Println(&quot;Bom, mas pode melhorar.&quot;)
+    case 'D':
+        fmt.Println(&quot;Passou por pouco.&quot;)
+    case 'F':
+        fmt.Println(&quot;Reprovado.&quot;)
+    default:
+        fmt.Println(&quot;Nota inválida.&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Muito bom!
+</code></pre>
+<p>Neste exemplo, o valor de <code>nota</code> é comparado com cada <code>case</code>. Como <code>nota</code> é 'B', o segundo caso é executado.</p>
+<hr />
+<h2 id="3-variações-do-code-switch-code-em-go">3. Variações do <code>switch</code> em Go</h2>
+<h3 id="3-1-code-switch-code-com-múltiplos-valores-por-caso">3.1. <code>switch</code> com Múltiplos Valores por Caso</h3>
+<p>Em Go, você pode listar múltiplos valores em um único <code>case</code>, separados por vírgulas:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    diaSemana := 6
+
+    switch diaSemana {
+    case 1:
+        fmt.Println(&quot;Domingo&quot;)
+    case 2:
+        fmt.Println(&quot;Segunda-feira&quot;)
+    case 3:
+        fmt.Println(&quot;Terça-feira&quot;)
+    case 4:
+        fmt.Println(&quot;Quarta-feira&quot;)
+    case 5:
+        fmt.Println(&quot;Quinta-feira&quot;)
+    case 6, 7:
+        fmt.Println(&quot;Fim de semana!&quot;)
+    default:
+        fmt.Println(&quot;Dia inválido&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Fim de semana!
+</code></pre>
+<p>Neste exemplo, tanto o caso 6 quanto o caso 7 executam o mesmo bloco de código.</p>
+<h3 id="3-2-code-switch-code-sem-expressão">3.2. <code>switch</code> sem Expressão</h3>
+<p>Em Go, você pode usar o <code>switch</code> sem uma expressão, o que o torna uma alternativa mais limpa para <code>if</code>-<code>else if</code>-<code>else</code>:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    idade := 18
+
+    switch {
+    case idade &lt; 0:
+        fmt.Println(&quot;Idade inválida&quot;)
+    case idade &lt; 18:
+        fmt.Println(&quot;Menor de idade&quot;)
+    case idade == 18:
+        fmt.Println(&quot;Acabou de atingir a maioridade&quot;)
+    case idade &lt; 60:
+        fmt.Println(&quot;Adulto&quot;)
+    default:
+        fmt.Println(&quot;Idoso&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Acabou de atingir a maioridade
+</code></pre>
+<p>Neste exemplo, não há expressão após a palavra-chave <code>switch</code>. Cada <code>case</code> é uma expressão booleana completa, e o primeiro caso verdadeiro é executado.</p>
+<h3 id="3-3-code-switch-code-com-inicialização">3.3. <code>switch</code> com Inicialização</h3>
+<p>Assim como no <code>if</code>, você pode inicializar uma variável diretamente na instrução <code>switch</code>:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    switch hora := 14; {
+    case hora &lt; 12:
+        fmt.Println(&quot;Bom dia!&quot;)
+    case hora &lt; 18:
+        fmt.Println(&quot;Boa tarde!&quot;)
+    default:
+        fmt.Println(&quot;Boa noite!&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Boa tarde!
+</code></pre>
+<p>Neste exemplo, a variável <code>hora</code> é inicializada com o valor 14 e só existe dentro do escopo do <code>switch</code>.</p>
+<h3 id="3-4-code-switch-code-com-tipo-type-switch">3.4. <code>switch</code> com Tipo (Type Switch)</h3>
+<p>Go também suporta um tipo especial de <code>switch</code> que verifica o tipo de uma interface:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func descreverTipo(i interface{}) {
+    switch v := i.(type) {
+    case int:
+        fmt.Printf(&quot;O valor %v é um inteiro\n&quot;, v)
+    case string:
+        fmt.Printf(&quot;O valor %v é uma string\n&quot;, v)
+    case bool:
+        fmt.Printf(&quot;O valor %v é um booleano\n&quot;, v)
+    default:
+        fmt.Printf(&quot;O valor %v é de um tipo desconhecido\n&quot;, v)
+    }
+}
+
+func main() {
+    descreverTipo(42)
+    descreverTipo(&quot;Olá&quot;)
+    descreverTipo(true)
+    descreverTipo(3.14)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>O valor 42 é um inteiro
+O valor Olá é uma string
+O valor true é um booleano
+O valor 3.14 é de um tipo desconhecido
+</code></pre>
+<p>Este tipo de <code>switch</code> é útil quando você está trabalhando com interfaces e precisa executar diferentes ações com base no tipo concreto do valor.</p>
+<hr />
+<h2 id="4-a-instrução-code-fallthrough-code">4. A Instrução <code>fallthrough</code></h2>
+<h3 id="4-1-o-que-é-code-fallthrough-code">4.1. O que é <code>fallthrough</code>?</h3>
+<p>Em muitas linguagens de programação (como C, C++, Java), o <code>switch</code> tem um comportamento de "queda" (fallthrough) automático, onde a execução continua para o próximo caso a menos que um <code>break</code> seja encontrado.</p>
+<p>Em Go, o comportamento padrão é o oposto: apenas o caso correspondente é executado, e a execução sai do <code>switch</code> automaticamente. No entanto, Go oferece a instrução <code>fallthrough</code> para forçar a execução a continuar para o próximo caso.</p>
+<h3 id="4-2-exemplo-de-code-fallthrough-code">4.2. Exemplo de <code>fallthrough</code></h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    numero := 2
+
+    fmt.Println(&quot;Contando de&quot;, numero, &quot;até 5:&quot;)
+
+    switch numero {
+    case 1:
+        fmt.Println(&quot;Um&quot;)
+        fallthrough
+    case 2:
+        fmt.Println(&quot;Dois&quot;)
+        fallthrough
+    case 3:
+        fmt.Println(&quot;Três&quot;)
+        fallthrough
+    case 4:
+        fmt.Println(&quot;Quatro&quot;)
+        fallthrough
+    case 5:
+        fmt.Println(&quot;Cinco&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Contando de 2 até 5:
+Dois
+Três
+Quatro
+Cinco
+</code></pre>
+<p>Neste exemplo, a execução começa no caso 2 (porque <code>numero</code> é 2) e continua para os casos seguintes devido à instrução <code>fallthrough</code>.</p>
+<h3 id="4-3-limitações-do-code-fallthrough-code">4.3. Limitações do <code>fallthrough</code></h3>
+<p>É importante notar que o <code>fallthrough</code> em Go tem algumas limitações:</p>
+<ol>
+<li>Ele deve ser a última instrução em um caso.</li>
+<li>Ele não pode ser usado no último caso de um <code>switch</code>.</li>
+<li>Ele não pode ser usado em um <code>switch</code> de tipo (type switch).</li>
+</ol>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    valor := 1
+
+    switch valor {
+    case 1:
+        fmt.Println(&quot;Um&quot;)
+        // Isso funciona porque fallthrough é a última instrução
+        fallthrough
+    case 2:
+        fmt.Println(&quot;Menor ou igual a dois&quot;)
+        // Isso NÃO compilaria:
+        // fmt.Println(&quot;Teste&quot;)
+        // fallthrough
+    case 3:
+        fmt.Println(&quot;Menor ou igual a três&quot;)
+    }
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Um
+Menor ou igual a dois
+</code></pre>
+<h3 id="4-4-quando-usar-code-fallthrough-code">4.4. Quando Usar <code>fallthrough</code></h3>
+<p>O <code>fallthrough</code> deve ser usado com cautela, pois pode tornar o código menos previsível. Alguns casos de uso legítimos incluem:</p>
+<ol>
+<li>Quando você quer executar o mesmo código para vários casos consecutivos.</li>
+<li>Quando você está implementando uma máquina de estados onde cada estado leva ao próximo.</li>
+<li>Quando você está portando código de outras linguagens que dependem desse comportamento.</li>
+</ol>
+<hr />
+<h2 id="5-exemplos-práticos">5. Exemplos Práticos</h2>
+<h3 id="5-1-menu-de-opções">5.1. Menu de Opções</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Println(&quot;Menu:&quot;)
+    fmt.Println(&quot;1. Ver saldo&quot;)
+    fmt.Println(&quot;2. Fazer depósito&quot;)
+    fmt.Println(&quot;3. Fazer saque&quot;)
+    fmt.Println(&quot;4. Sair&quot;)
+
+    var opcao int
+    fmt.Print(&quot;Escolha uma opção: &quot;)
+    fmt.Scanln(&amp;opcao)
+
+    switch opcao {
+    case 1:
+        fmt.Println(&quot;Seu saldo é R$ 1000,00&quot;)
+    case 2:
+        fmt.Println(&quot;Digite o valor do depósito:&quot;)
+        // Código para depósito
+    case 3:
+        fmt.Println(&quot;Digite o valor do saque:&quot;)
+        // Código para saque
+    case 4:
+        fmt.Println(&quot;Saindo do sistema...&quot;)
+    default:
+        fmt.Println(&quot;Opção inválida!&quot;)
+    }
+}
+</code></pre>
+<p>Este exemplo simula um menu de banco simples, onde cada opção executa uma ação diferente.</p>
+<h3 id="5-2-calculadora-simples">5.2. Calculadora Simples</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var num1, num2 float64
+    var operador string
+
+    fmt.Print(&quot;Digite o primeiro número: &quot;)
+    fmt.Scanln(&amp;num1)
+
+    fmt.Print(&quot;Digite o segundo número: &quot;)
+    fmt.Scanln(&amp;num2)
+
+    fmt.Print(&quot;Digite o operador (+, -, *, /): &quot;)
+    fmt.Scanln(&amp;operador)
+
+    switch operador {
+    case &quot;+&quot;:
+        fmt.Printf(&quot;%.2f + %.2f = %.2f\n&quot;, num1, num2, num1+num2)
+    case &quot;-&quot;:
+        fmt.Printf(&quot;%.2f - %.2f = %.2f\n&quot;, num1, num2, num1-num2)
+    case &quot;*&quot;:
+        fmt.Printf(&quot;%.2f * %.2f = %.2f\n&quot;, num1, num2, num1*num2)
+    case &quot;/&quot;:
+        if num2 == 0 {
+            fmt.Println(&quot;Erro: Divisão por zero!&quot;)
+        } else {
+            fmt.Printf(&quot;%.2f / %.2f = %.2f\n&quot;, num1, num2, num1/num2)
+        }
+    default:
+        fmt.Println(&quot;Operador inválido!&quot;)
+    }
+}
+</code></pre>
+<p>Esta calculadora simples usa o <code>switch</code> para executar diferentes operações com base no operador fornecido.</p>
+<h3 id="5-3-verificação-de-dia-da-semana">5.3. Verificação de Dia da Semana</h3>
+<pre><code class="language-go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;time&quot;
+)
+
+func main() {
+    hoje := time.Now()
+    diaDaSemana := hoje.Weekday()
+
+    switch diaDaSemana {
+    case time.Monday:
+        fmt.Println(&quot;Hoje é Segunda-feira&quot;)
+    case time.Tuesday:
+        fmt.Println(&quot;Hoje é Terça-feira&quot;)
+    case time.Wednesday:
+        fmt.Println(&quot;Hoje é Quarta-feira&quot;)
+    case time.Thursday:
+        fmt.Println(&quot;Hoje é Quinta-feira&quot;)
+    case time.Friday:
+        fmt.Println(&quot;Hoje é Sexta-feira&quot;)
+    case time.Saturday, time.Sunday:
+        fmt.Println(&quot;Hoje é fim de semana!&quot;)
+    }
+
+    // Verificando se é dia útil ou fim de semana
+    switch diaDaSemana {
+    case time.Saturday, time.Sunday:
+        fmt.Println(&quot;É fim de semana! Aproveite!&quot;)
+    default:
+        fmt.Println(&quot;É dia útil. Bom trabalho!&quot;)
+    }
+}
+</code></pre>
+<p>Este exemplo usa o pacote <code>time</code> para obter o dia atual da semana e exibe mensagens diferentes com base nesse valor.</p>
+<h3 id="5-4-classificação-de-notas">5.4. Classificação de Notas</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    nota := 85
+
+    switch {
+    case nota &gt;= 90:
+        fmt.Println(&quot;A&quot;)
+    case nota &gt;= 80:
+        fmt.Println(&quot;B&quot;)
+    case nota &gt;= 70:
+        fmt.Println(&quot;C&quot;)
+    case nota &gt;= 60:
+        fmt.Println(&quot;D&quot;)
+    default:
+        fmt.Println(&quot;F&quot;)
+    }
+
+    // Outra forma, usando switch com expressão
+    var conceito string
+
+    switch {
+    case nota &gt;= 90:
+        conceito = &quot;A&quot;
+    case nota &gt;= 80:
+        conceito = &quot;B&quot;
+    case nota &gt;= 70:
+        conceito = &quot;C&quot;
+    case nota &gt;= 60:
+        conceito = &quot;D&quot;
+    default:
+        conceito = &quot;F&quot;
+    }
+
+    switch conceito {
+    case &quot;A&quot;, &quot;B&quot;:
+        fmt.Println(&quot;Aprovado com excelência!&quot;)
+    case &quot;C&quot;:
+        fmt.Println(&quot;Aprovado.&quot;)
+    case &quot;D&quot;:
+        fmt.Println(&quot;Aprovado, mas precisa melhorar.&quot;)
+    case &quot;F&quot;:
+        fmt.Println(&quot;Reprovado.&quot;)
+    }
+}
+</code></pre>
+<p>Este exemplo classifica uma nota numérica em um conceito de letra e, em seguida, fornece feedback com base nesse conceito.</p>
+<hr />
+<h2 id="6-boas-práticas-com-code-switch-code">6. Boas Práticas com <code>switch</code></h2>
+<h3 id="6-1-quando-usar-code-switch-code-vs-code-if-code-code-else-if-code-code-else-code">6.1. Quando Usar <code>switch</code> vs. <code>if</code>-<code>else if</code>-<code>else</code></h3>
+<ul>
+<li>Use <code>switch</code> quando estiver verificando múltiplos valores de uma mesma variável.</li>
+<li>Use <code>switch</code> sem expressão quando tiver múltiplas condições booleanas independentes.</li>
+<li>Use <code>if</code>-<code>else if</code>-<code>else</code> quando as condições forem complexas ou não relacionadas.</li>
+</ul>
+<h3 id="6-2-ordem-dos-casos">6.2. Ordem dos Casos</h3>
+<p>Organize os casos em uma ordem lógica:
+- Para valores numéricos, considere a ordem crescente ou decrescente.
+- Para strings, considere a ordem alfabética ou a frequência de ocorrência.
+- Coloque os casos mais comuns primeiro para melhorar a eficiência.</p>
+<h3 id="6-3-use-o-code-default-code-apropriadamente">6.3. Use o <code>default</code> Apropriadamente</h3>
+<p>O caso <code>default</code> deve ser usado para:
+- Tratar valores inesperados ou inválidos.
+- Fornecer um comportamento padrão quando nenhum caso específico se aplica.
+- Registrar ou relatar situações inesperadas.</p>
+<h3 id="6-4-evite-code-fallthrough-code-quando-possível">6.4. Evite <code>fallthrough</code> Quando Possível</h3>
+<p>Em vez de usar <code>fallthrough</code>, considere:
+- Agrupar casos com a mesma lógica (usando vírgulas).
+- Extrair a lógica comum para uma função separada.
+- Usar variáveis para armazenar resultados intermediários.</p>
+<h3 id="6-5-mantenha-os-casos-simples">6.5. Mantenha os Casos Simples</h3>
+<p>Cada caso deve ser simples e focado:
+- Evite lógica complexa dentro dos casos.
+- Considere extrair a lógica para funções separadas se for muito complexa.
+- Use comentários para explicar casos não óbvios.</p>
+<hr />
+<h2 id="7-exercícios-offline">7. Exercícios Offline</h2>
+<ol>
+<li>
+<p><strong>Conversor de Meses</strong>: Escreva um algoritmo que, dado um número de 1 a 12, retorne o nome do mês correspondente.</p>
+</li>
+<li>
+<p><strong>Calculadora de Estação do Ano</strong>: Crie um algoritmo que, dado um mês (1 a 12) e um dia (1 a 31), determine a estação do ano no hemisfério sul.</p>
+</li>
+<li>
+<p><strong>Menu de Restaurante</strong>: Desenvolva um algoritmo que simule um menu de restaurante, onde o usuário escolhe um prato pelo número e o programa exibe o nome, preço e tempo de preparo.</p>
+</li>
+<li>
+<p><strong>Calculadora de Desconto</strong>: Crie um algoritmo que aplique diferentes percentuais de desconto com base no valor da compra e no dia da semana.</p>
+</li>
+<li>
+<p><strong>Verificador de Caractere</strong>: Desenvolva um algoritmo que classifique um caractere como letra maiúscula, letra minúscula, dígito ou caractere especial.</p>
+</li>
+</ol>
+<hr />
+<h2 id="8-quiz-rápido">8. Quiz Rápido</h2>
+<ol>
+<li>
+<p>Qual é a principal vantagem do <code>switch</code> em relação ao <code>if</code>-<code>else if</code>-<code>else</code>?
+   a) O <code>switch</code> é sempre mais rápido
+   b) O <code>switch</code> permite mais condições
+   c) O <code>switch</code> oferece melhor legibilidade para múltiplas condições relacionadas
+   d) O <code>switch</code> usa menos memória</p>
+</li>
+<li>
+<p>Em Go, o que acontece após a execução de um caso no <code>switch</code>?
+   a) A execução continua para o próximo caso automaticamente
+   b) A execução sai do <code>switch</code> automaticamente
+   c) É necessário usar <code>break</code> para sair do <code>switch</code>
+   d) O programa termina</p>
+</li>
+<li>
+<p>Para que serve a instrução <code>fallthrough</code> em Go?
+   a) Para sair do <code>switch</code>
+   b) Para pular para um caso específico
+   c) Para continuar a execução no próximo caso
+   d) Para retornar ao início do <code>switch</code></p>
+</li>
+<li>
+<p>Qual das seguintes afirmações sobre o <code>switch</code> em Go é FALSA?
+   a) Você pode ter múltiplos valores em um único caso
+   b) Você pode usar o <code>switch</code> sem uma expressão
+   c) Os casos devem ser constantes
+   d) O caso <code>default</code> é opcional</p>
+</li>
+<li>
+<p>Em um <code>switch</code> sem expressão em Go, o que é verificado em cada caso?
+   a) Nada, é um erro de sintaxe
+   b) O valor da última variável declarada
+   c) Uma expressão booleana
+   d) O valor de retorno da função principal</p>
+</li>
+</ol>
+<hr />
+<h2 id="9-desafio-prático-conversor-de-notas">9. Desafio Prático: Conversor de Notas</h2>
+<p>Crie um programa em Go que converta notas numéricas para diferentes sistemas de classificação. O programa deve:</p>
+<ol>
+<li>Declarar uma variável para armazenar uma nota de 0 a 100.</li>
+<li>Usar um <code>switch</code> para converter a nota para o sistema de letras (A, B, C, D, F).</li>
+<li>Usar outro <code>switch</code> para converter a nota para o sistema de conceitos (Excelente, Bom, Satisfatório, Regular, Insuficiente).</li>
+<li>Usar um terceiro <code>switch</code> para determinar se o aluno foi aprovado, está em recuperação ou foi reprovado.</li>
+<li>Exibir todas as classificações.</li>
+</ol>
+<p><strong>Exemplo de Saída Esperada:</strong></p>
+<pre><code>Nota: 85
+
+Classificações:
+- Sistema de Letras: B
+- Sistema de Conceitos: Bom
+- Situação: Aprovado
+</code></pre>
+<p><strong>Dica:</strong> Use o <code>switch</code> sem expressão para verificar faixas de valores.</p>
+<hr />
+<h2 id="10-resumo-da-aula">10. Resumo da Aula</h2>
+<p>Nesta aula, aprendemos sobre:</p>
+<ul>
+<li><strong>Estrutura <code>switch</code></strong>: Uma alternativa mais limpa e legível ao <code>if</code>-<code>else if</code>-<code>else</code> para verificar múltiplas condições.</li>
+<li><strong>Sintaxe Básica</strong>: <code>switch expressão { case valor: código }</code>.</li>
+<li><strong>Características em Go</strong>:</li>
+<li>Não há "queda" (fallthrough) automática para o próximo caso.</li>
+<li>Casos podem ter múltiplos valores separados por vírgulas.</li>
+<li>O <code>switch</code> pode ser usado sem uma expressão.</li>
+<li>Casos podem ser expressões, não apenas constantes.</li>
+<li><strong>Variações</strong>:</li>
+<li><code>switch</code> com múltiplos valores por caso.</li>
+<li><code>switch</code> sem expressão.</li>
+<li><code>switch</code> com inicialização.</li>
+<li><code>switch</code> de tipo (type switch).</li>
+<li><strong>Instrução <code>fallthrough</code></strong>: Força a execução a continuar para o próximo caso.</li>
+<li><strong>Boas Práticas</strong>: Quando usar <code>switch</code> vs. <code>if</code>-<code>else if</code>-<code>else</code>, ordem dos casos, uso apropriado do <code>default</code>, etc.</li>
+</ul>
+<p>O <code>switch</code> é uma ferramenta poderosa que pode tornar seu código mais limpo e mais fácil de entender, especialmente quando você está lidando com múltiplas condições relacionadas.</p>
+<hr />
+<h2 id="11-ficha-de-referência-rápida">11. Ficha de Referência Rápida</h2>
+<h3 id="sintaxe-do-code-switch-code-em-go">Sintaxe do <code>switch</code> em Go</h3>
+<pre><code class="language-go">switch expressão {
+case valor1:
+    // Código para valor1
+case valor2, valor3:
+    // Código para valor2 ou valor3
+default:
+    // Código para outros valores
+}
+</code></pre>
+<h3 id="variações-do-code-switch-code">Variações do <code>switch</code></h3>
+<table>
+<thead>
+<tr>
+<th>Variação</th>
+<th>Sintaxe</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Básico</td>
+<td><code>switch expr { case val: ... }</code></td>
+<td>Comparar uma expressão com múltiplos valores</td>
+</tr>
+<tr>
+<td>Múltiplos valores</td>
+<td><code>case val1, val2, val3:</code></td>
+<td>Executar o mesmo código para vários valores</td>
+</tr>
+<tr>
+<td>Sem expressão</td>
+<td><code>switch { case cond1: ... }</code></td>
+<td>Alternativa ao <code>if</code>-<code>else if</code>-<code>else</code></td>
+</tr>
+<tr>
+<td>Com inicialização</td>
+<td><code>switch var := valor; { ... }</code></td>
+<td>Inicializar uma variável no escopo do <code>switch</code></td>
+</tr>
+<tr>
+<td>De tipo</td>
+<td><code>switch v := i.(type) { ... }</code></td>
+<td>Verificar o tipo de uma interface</td>
+</tr>
+</tbody>
+</table>
+<h3 id="instrução-code-fallthrough-code">Instrução <code>fallthrough</code></h3>
+<ul>
+<li>Uso: <code>fallthrough</code> (deve ser a última instrução em um caso)</li>
+<li>Efeito: Continua a execução no próximo caso, independentemente da condição</li>
+<li>Limitações: Não pode ser usado no último caso ou em um <code>switch</code> de tipo</li>
+</ul>
+<h3 id="comparação-com-code-if-code-code-else-if-code-code-else-code">Comparação com <code>if</code>-<code>else if</code>-<code>else</code></h3>
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th><code>switch</code></th>
+<th><code>if</code>-<code>else if</code>-<code>else</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Legibilidade</td>
+<td>Melhor para múltiplas condições relacionadas</td>
+<td>Melhor para condições complexas</td>
+</tr>
+<tr>
+<td>Expressividade</td>
+<td>Casos podem ter múltiplos valores</td>
+<td>Cada condição é independente</td>
+</tr>
+<tr>
+<td>Comportamento</td>
+<td>Executa apenas o caso correspondente</td>
+<td>Verifica todas as condições em ordem</td>
+</tr>
+<tr>
+<td>Uso comum</td>
+<td>Verificar valores de uma mesma variável</td>
+<td>Verificar condições não relacionadas</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12-modelos-de-código">12. Modelos de Código</h2>
+<h3 id="modelo-1-code-switch-code-básico">Modelo 1: <code>switch</code> Básico</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Variável para teste
+    opcao := 2
+
+    // Switch básico
+    switch opcao {
+    case 1:
+        fmt.Println(&quot;Opção 1 selecionada&quot;)
+    case 2:
+        fmt.Println(&quot;Opção 2 selecionada&quot;)
+    case 3:
+        fmt.Println(&quot;Opção 3 selecionada&quot;)
+    default:
+        fmt.Println(&quot;Opção inválida&quot;)
+    }
+}
+</code></pre>
+<h3 id="modelo-2-code-switch-code-com-múltiplos-valores">Modelo 2: <code>switch</code> com Múltiplos Valores</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Variável para teste
+    diaSemana := &quot;sábado&quot;
+
+    // Switch com múltiplos valores por caso
+    switch diaSemana {
+    case &quot;segunda-feira&quot;, &quot;terça-feira&quot;, &quot;quarta-feira&quot;, &quot;quinta-feira&quot;, &quot;sexta-feira&quot;:
+        fmt.Println(&quot;Dia útil&quot;)
+    case &quot;sábado&quot;, &quot;domingo&quot;:
+        fmt.Println(&quot;Fim de semana&quot;)
+    default:
+        fmt.Println(&quot;Dia inválido&quot;)
+    }
+}
+</code></pre>
+<h3 id="modelo-3-code-switch-code-sem-expressão">Modelo 3: <code>switch</code> sem Expressão</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Variável para teste
+    idade := 25
+
+    // Switch sem expressão
+    switch {
+    case idade &lt; 0:
+        fmt.Println(&quot;Idade inválida&quot;)
+    case idade &lt; 18:
+        fmt.Println(&quot;Menor de idade&quot;)
+    case idade &lt; 60:
+        fmt.Println(&quot;Adulto&quot;)
+    default:
+        fmt.Println(&quot;Idoso&quot;)
+    }
+}
+</code></pre>
+<h3 id="modelo-4-code-switch-code-com-code-fallthrough-code">Modelo 4: <code>switch</code> com <code>fallthrough</code></h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Variável para teste
+    nivel := 2
+
+    fmt.Println(&quot;Níveis de acesso concedidos:&quot;)
+
+    // Switch com fallthrough
+    switch nivel {
+    case 3:
+        fmt.Println(&quot;- Acesso de administrador&quot;)
+        fallthrough
+    case 2:
+        fmt.Println(&quot;- Acesso de editor&quot;)
+        fallthrough
+    case 1:
+        fmt.Println(&quot;- Acesso de leitura&quot;)
+    default:
+        fmt.Println(&quot;- Sem acesso&quot;)
+    }
+}
+</code></pre>
+<hr />
+<p><strong>Gabarito do Quiz:</strong>
+1. c) O <code>switch</code> oferece melhor legibilidade para múltiplas condições relacionadas
+2. b) A execução sai do <code>switch</code> automaticamente
+3. c) Para continuar a execução no próximo caso
+4. c) Os casos devem ser constantes
+5. c) Uma expressão booleana</p>
+  </article>
+</main>
+
+</body>
+</html>

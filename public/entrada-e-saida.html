@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 4: Entrada e Saída com Go</title>
+  <link rel="stylesheet" href="themes/rustbook/css/water-dark.css">
+  <link rel="stylesheet" href="themes/rustbook/css/theme.css">
+  <script src="themes/rustbook/js/theme.js" defer></script>
+</head>
+<body>
+
+<aside>
+  <header><h1>Curso de Algoritmos com Go</h1></header>
+  <nav aria-label="Conteúdo do curso">
+    <ul>
+      <li><a href="index.html">📚 Índice Geral</a></li>
+      <li><a href="algoritmos-base.html">Aula 1: Algoritmos – A Base de Tudo!</a></li>
+      <li><a href="break-e-continue.html">Aula 10: Break e Continue</a></li>
+      <li><a href="condicional-if-else.html">Aula 6: Condicional If/Else</a></li>
+      <li><a href="condicional-switch.html">Aula 7: Condicional Switch</a></li>
+      <li><a href="entrada-e-saida.html">Aula 4: Entrada e Saída com Go</a></li>
+      <li><a href="estrutura-sequencial.html">Aula 5: Estrutura Sequencial</a></li>
+      <li><a href="identificadores-operadores.html">Aula 3: Identificadores e Operadores</a></li>
+      <li><a href="nova_aula.html">Nova aula</a></li>
+      <li><a href="repeticao-for.html">Aula 8: Repetição com For</a></li>
+      <li><a href="variaveis-e-tipos.html">Aula 2: Variáveis e Tipos de Dados em Go</a></li>
+      <li><a href="while-com-for.html">Aula 9: While com For</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<main>
+  <article>
+    <h2>Aula 4: Entrada e Saída com Go</h2>
+    <nav class="minimap"><ul><li class="lvl2"><a href="#objetivos-da-aula">Objetivos da Aula</a></li><li class="lvl2"><a href="#1-introdução-ao-pacote-code-fmt-code">1. Introdução ao Pacote <code>fmt</code></a></li><li class="lvl2"><a href="#2-funções-de-saída-output">2. Funções de Saída (Output)</a></li><li class="lvl3"><a href="#2-1-code-fmt-print-code">2.1. <code>fmt.Print</code></a></li><li class="lvl3"><a href="#2-2-code-fmt-println-code">2.2. <code>fmt.Println</code></a></li><li class="lvl3"><a href="#2-3-code-fmt-printf-code">2.3. <code>fmt.Printf</code></a></li><li class="lvl3"><a href="#2-4-code-fmt-sprintf-code">2.4. <code>fmt.Sprintf</code></a></li><li class="lvl2"><a href="#3-funções-de-entrada-input">3. Funções de Entrada (Input)</a></li><li class="lvl3"><a href="#3-1-code-fmt-scanln-code">3.1. <code>fmt.Scanln</code></a></li><li class="lvl3"><a href="#3-2-lendo-múltiplos-valores">3.2. Lendo Múltiplos Valores</a></li><li class="lvl3"><a href="#3-3-tratando-erros-de-entrada">3.3. Tratando Erros de Entrada</a></li><li class="lvl3"><a href="#3-4-outras-funções-de-entrada">3.4. Outras Funções de Entrada</a></li><li class="lvl2"><a href="#4-exemplos-práticos">4. Exemplos Práticos</a></li><li class="lvl3"><a href="#4-1-calculadora-simples">4.1. Calculadora Simples</a></li><li class="lvl3"><a href="#4-2-conversor-de-temperatura">4.2. Conversor de Temperatura</a></li><li class="lvl3"><a href="#4-3-gerador-de-saudação-personalizada">4.3. Gerador de Saudação Personalizada</a></li><li class="lvl3"><a href="#4-4-calculadora-de-imc">4.4. Calculadora de IMC</a></li><li class="lvl2"><a href="#5-boas-práticas-para-entrada-e-saída">5. Boas Práticas para Entrada e Saída</a></li><li class="lvl3"><a href="#5-1-validação-de-entrada">5.1. Validação de Entrada</a></li><li class="lvl3"><a href="#5-2-mensagens-claras">5.2. Mensagens Claras</a></li><li class="lvl3"><a href="#5-3-formatação-consistente">5.3. Formatação Consistente</a></li><li class="lvl3"><a href="#5-4-tratamento-de-erros">5.4. Tratamento de Erros</a></li><li class="lvl3"><a href="#5-5-feedback-ao-usuário">5.5. Feedback ao Usuário</a></li><li class="lvl2"><a href="#6-exercícios-offline">6. Exercícios Offline</a></li><li class="lvl2"><a href="#7-quiz-rápido">7. Quiz Rápido</a></li><li class="lvl2"><a href="#8-desafio-prático-formulário-de-cadastro">8. Desafio Prático: Formulário de Cadastro</a></li><li class="lvl2"><a href="#9-resumo-da-aula">9. Resumo da Aula</a></li><li class="lvl2"><a href="#10-ficha-de-referência-rápida">10. Ficha de Referência Rápida</a></li><li class="lvl3"><a href="#funções-de-saída">Funções de Saída</a></li><li class="lvl3"><a href="#funções-de-entrada">Funções de Entrada</a></li><li class="lvl3"><a href="#verbos-de-formatação-comuns">Verbos de Formatação Comuns</a></li><li class="lvl3"><a href="#dicas-para-depuração">Dicas para Depuração</a></li><li class="lvl2"><a href="#11-modelos-de-código">11. Modelos de Código</a></li><li class="lvl3"><a href="#modelo-1-leitura-básica-de-entrada">Modelo 1: Leitura Básica de Entrada</a></li><li class="lvl3"><a href="#modelo-2-validação-de-entrada">Modelo 2: Validação de Entrada</a></li><li class="lvl3"><a href="#modelo-3-menu-interativo">Modelo 3: Menu Interativo</a></li><li class="lvl3"><a href="#modelo-4-formatação-de-tabela">Modelo 4: Formatação de Tabela</a></li></ul></nav><h1>Aula 4: Entrada e Saída com Go – Interagindo com o Usuário</h1>
+<h2 id="objetivos-da-aula">Objetivos da Aula</h2>
+<p>Ao final desta aula, você será capaz de:</p>
+<ul>
+<li>Compreender o funcionamento do pacote <code>fmt</code> para entrada e saída de dados.</li>
+<li>Utilizar as funções <code>fmt.Print</code>, <code>fmt.Println</code> e <code>fmt.Printf</code> para exibir informações.</li>
+<li>Aplicar a função <code>fmt.Scanln</code> para receber dados do usuário.</li>
+<li>Criar programas interativos que solicitam e processam entrada do usuário.</li>
+<li>Formatar a saída de dados de maneira clara e organizada.</li>
+</ul>
+<hr />
+<h2 id="1-introdução-ao-pacote-code-fmt-code">1. Introdução ao Pacote <code>fmt</code></h2>
+<p>O pacote <code>fmt</code> (abreviação de "format") é um dos pacotes mais importantes e utilizados em Go. Ele fornece funções para formatação e impressão de texto, bem como para leitura de entrada do usuário. Este pacote implementa formatação de E/S (entrada/saída) similar à função <code>printf</code> da linguagem C.</p>
+<p>Para utilizar o pacote <code>fmt</code>, você precisa importá-lo no início do seu programa:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Agora você pode usar as funções do pacote fmt
+}
+</code></pre>
+<p>O pacote <code>fmt</code> é parte da biblioteca padrão de Go, então não é necessário instalar nada adicional para utilizá-lo.</p>
+<hr />
+<h2 id="2-funções-de-saída-output">2. Funções de Saída (Output)</h2>
+<p>As funções de saída permitem que seu programa exiba informações para o usuário. O pacote <code>fmt</code> oferece várias funções para isso, cada uma com características específicas.</p>
+<h3 id="2-1-code-fmt-print-code">2.1. <code>fmt.Print</code></h3>
+<p>A função <code>fmt.Print</code> exibe os argumentos fornecidos na saída padrão (geralmente a tela). Ela não adiciona espaços entre os argumentos nem uma nova linha ao final.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Print(&quot;Olá, &quot;)
+    fmt.Print(&quot;mundo!&quot;)
+    fmt.Print(&quot; Estou aprendendo Go.&quot;)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Olá, mundo! Estou aprendendo Go.
+</code></pre>
+<p>Observe que <code>fmt.Print</code> não adiciona automaticamente espaços entre os argumentos nem quebras de linha ao final. Se você quiser espaços ou quebras de linha, precisa adicioná-los explicitamente.</p>
+<h3 id="2-2-code-fmt-println-code">2.2. <code>fmt.Println</code></h3>
+<p>A função <code>fmt.Println</code> é similar à <code>fmt.Print</code>, mas adiciona automaticamente espaços entre os argumentos e uma quebra de linha ao final.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Println(&quot;Olá,&quot;, &quot;mundo!&quot;)
+    fmt.Println(&quot;Estou aprendendo Go.&quot;)
+    fmt.Println(&quot;Esta é a linha 3.&quot;)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Olá, mundo!
+Estou aprendendo Go.
+Esta é a linha 3.
+</code></pre>
+<p>Observe que <code>fmt.Println</code> adiciona automaticamente um espaço entre "Olá," e "mundo!", e cada chamada à função começa em uma nova linha.</p>
+<h3 id="2-3-code-fmt-printf-code">2.3. <code>fmt.Printf</code></h3>
+<p>A função <code>fmt.Printf</code> permite formatação mais avançada usando verbos de formatação (similar ao <code>printf</code> em C). Isso dá mais controle sobre como os valores são exibidos.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    nome := &quot;Maria&quot;
+    idade := 30
+    altura := 1.65
+
+    fmt.Printf(&quot;Nome: %s\n&quot;, nome)
+    fmt.Printf(&quot;Idade: %d anos\n&quot;, idade)
+    fmt.Printf(&quot;Altura: %.2f metros\n&quot;, altura)
+
+    // Múltiplos valores em uma única chamada
+    fmt.Printf(&quot;%s tem %d anos e %.2f metros de altura.\n&quot;, nome, idade, altura)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Nome: Maria
+Idade: 30 anos
+Altura: 1.65 metros
+Maria tem 30 anos e 1.65 metros de altura.
+</code></pre>
+<p>Observe o uso de <code>\n</code> para adicionar quebras de linha, já que <code>fmt.Printf</code> não adiciona automaticamente.</p>
+<h4>Verbos de Formatação Comuns</h4>
+<p>Os verbos de formatação são precedidos pelo símbolo <code>%</code> e indicam como o valor deve ser formatado:</p>
+<table>
+<thead>
+<tr>
+<th>Verbo</th>
+<th>Descrição</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>%v</code></td>
+<td>Valor no formato padrão</td>
+<td><code>fmt.Printf("%v", 123)</code> → <code>123</code></td>
+</tr>
+<tr>
+<td><code>%T</code></td>
+<td>Tipo do valor</td>
+<td><code>fmt.Printf("%T", 123)</code> → <code>int</code></td>
+</tr>
+<tr>
+<td><code>%t</code></td>
+<td>Booleano (true/false)</td>
+<td><code>fmt.Printf("%t", true)</code> → <code>true</code></td>
+</tr>
+<tr>
+<td><code>%d</code></td>
+<td>Inteiro decimal</td>
+<td><code>fmt.Printf("%d", 123)</code> → <code>123</code></td>
+</tr>
+<tr>
+<td><code>%b</code></td>
+<td>Inteiro binário</td>
+<td><code>fmt.Printf("%b", 5)</code> → <code>101</code></td>
+</tr>
+<tr>
+<td><code>%o</code></td>
+<td>Inteiro octal</td>
+<td><code>fmt.Printf("%o", 8)</code> → <code>10</code></td>
+</tr>
+<tr>
+<td><code>%x</code></td>
+<td>Inteiro hexadecimal (minúsculas)</td>
+<td><code>fmt.Printf("%x", 15)</code> → <code>f</code></td>
+</tr>
+<tr>
+<td><code>%X</code></td>
+<td>Inteiro hexadecimal (maiúsculas)</td>
+<td><code>fmt.Printf("%X", 15)</code> → <code>F</code></td>
+</tr>
+<tr>
+<td><code>%f</code></td>
+<td>Ponto flutuante</td>
+<td><code>fmt.Printf("%f", 123.456)</code> → <code>123.456000</code></td>
+</tr>
+<tr>
+<td><code>%.2f</code></td>
+<td>Ponto flutuante com 2 casas decimais</td>
+<td><code>fmt.Printf("%.2f", 123.456)</code> → <code>123.46</code></td>
+</tr>
+<tr>
+<td><code>%e</code></td>
+<td>Notação científica (minúsculas)</td>
+<td><code>fmt.Printf("%e", 123456.0)</code> → <code>1.234560e+05</code></td>
+</tr>
+<tr>
+<td><code>%E</code></td>
+<td>Notação científica (maiúsculas)</td>
+<td><code>fmt.Printf("%E", 123456.0)</code> → <code>1.234560E+05</code></td>
+</tr>
+<tr>
+<td><code>%s</code></td>
+<td>String</td>
+<td><code>fmt.Printf("%s", "texto")</code> → <code>texto</code></td>
+</tr>
+<tr>
+<td><code>%q</code></td>
+<td>String com aspas</td>
+<td><code>fmt.Printf("%q", "texto")</code> → <code>"texto"</code></td>
+</tr>
+<tr>
+<td><code>%p</code></td>
+<td>Endereço de ponteiro</td>
+<td><code>fmt.Printf("%p", &amp;x)</code> → <code>0xc000010240</code></td>
+</tr>
+</tbody>
+</table>
+<h4>Exemplo com Diferentes Verbos de Formatação</h4>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Valores para demonstração
+    inteiro := 42
+    flutuante := 3.14159
+    texto := &quot;Go&quot;
+    booleano := true
+
+    // Demonstração de diferentes verbos de formatação
+    fmt.Printf(&quot;Valor padrão: %v\n&quot;, inteiro)
+    fmt.Printf(&quot;Tipo: %T\n&quot;, inteiro)
+    fmt.Printf(&quot;Binário: %b\n&quot;, inteiro)
+    fmt.Printf(&quot;Hexadecimal: %x\n&quot;, inteiro)
+
+    fmt.Printf(&quot;Flutuante (padrão): %f\n&quot;, flutuante)
+    fmt.Printf(&quot;Flutuante (2 casas): %.2f\n&quot;, flutuante)
+    fmt.Printf(&quot;Científico: %e\n&quot;, flutuante)
+
+    fmt.Printf(&quot;String: %s\n&quot;, texto)
+    fmt.Printf(&quot;String com aspas: %q\n&quot;, texto)
+
+    fmt.Printf(&quot;Booleano: %t\n&quot;, booleano)
+
+    // Formatação com largura e preenchimento
+    fmt.Printf(&quot;Inteiro com 5 espaços: |%5d|\n&quot;, inteiro)
+    fmt.Printf(&quot;Flutuante com 8 espaços e 2 decimais: |%8.2f|\n&quot;, flutuante)
+    fmt.Printf(&quot;String com 10 espaços: |%10s|\n&quot;, texto)
+
+    // Alinhamento à esquerda
+    fmt.Printf(&quot;String alinhada à esquerda: |%-10s|\n&quot;, texto)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>Valor padrão: 42
+Tipo: int
+Binário: 101010
+Hexadecimal: 2a
+Flutuante (padrão): 3.141590
+Flutuante (2 casas): 3.14
+Científico: 3.141590e+00
+String: Go
+String com aspas: &quot;Go&quot;
+Booleano: true
+Inteiro com 5 espaços: |   42|
+Flutuante com 8 espaços e 2 decimais: |    3.14|
+String com 10 espaços: |        Go|
+String alinhada à esquerda: |Go        |
+</code></pre>
+<h3 id="2-4-code-fmt-sprintf-code">2.4. <code>fmt.Sprintf</code></h3>
+<p>A função <code>fmt.Sprintf</code> funciona como <code>fmt.Printf</code>, mas em vez de exibir o resultado, ela retorna a string formatada.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    nome := &quot;João&quot;
+    idade := 25
+
+    // Formata a string e armazena em uma variável
+    mensagem := fmt.Sprintf(&quot;%s tem %d anos.&quot;, nome, idade)
+
+    // Exibe a string formatada
+    fmt.Println(mensagem)
+
+    // Pode ser usada em outras operações
+    saudacao := &quot;Olá! &quot; + mensagem
+    fmt.Println(saudacao)
+}
+</code></pre>
+<p>Saída:</p>
+<pre><code>João tem 25 anos.
+Olá! João tem 25 anos.
+</code></pre>
+<p>Esta função é útil quando você precisa formatar uma string para uso posterior, como armazenar em uma variável, enviar em uma resposta HTTP, escrever em um arquivo, etc.</p>
+<hr />
+<h2 id="3-funções-de-entrada-input">3. Funções de Entrada (Input)</h2>
+<p>As funções de entrada permitem que seu programa receba dados do usuário. O pacote <code>fmt</code> oferece várias funções para isso, sendo <code>fmt.Scanln</code> uma das mais simples e comuns.</p>
+<h3 id="3-1-code-fmt-scanln-code">3.1. <code>fmt.Scanln</code></h3>
+<p>A função <code>fmt.Scanln</code> lê a entrada do usuário até encontrar uma nova linha (<code>\n</code>), e armazena os valores nas variáveis fornecidas como argumentos.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var nome string
+
+    fmt.Print(&quot;Digite seu nome: &quot;)
+    fmt.Scanln(&amp;nome)
+
+    fmt.Printf(&quot;Olá, %s! Bem-vindo ao curso de Go!\n&quot;, nome)
+}
+</code></pre>
+<p>Neste exemplo:
+1. Declaramos uma variável <code>nome</code> do tipo <code>string</code>.
+2. Solicitamos que o usuário digite seu nome.
+3. Usamos <code>fmt.Scanln(&amp;nome)</code> para ler a entrada do usuário e armazenar na variável <code>nome</code>.
+4. Exibimos uma mensagem de boas-vindas personalizada.</p>
+<p>Observe o uso do operador <code>&amp;</code> antes da variável <code>nome</code>. Isso é chamado de "operador de endereço" e é necessário porque <code>fmt.Scanln</code> precisa do endereço de memória da variável para poder modificar seu valor.</p>
+<h3 id="3-2-lendo-múltiplos-valores">3.2. Lendo Múltiplos Valores</h3>
+<p>Você pode ler múltiplos valores em uma única chamada a <code>fmt.Scanln</code>:</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var nome string
+    var idade int
+
+    fmt.Print(&quot;Digite seu nome e idade (separados por espaço): &quot;)
+    fmt.Scanln(&amp;nome, &amp;idade)
+
+    fmt.Printf(&quot;Nome: %s\nIdade: %d anos\n&quot;, nome, idade)
+}
+</code></pre>
+<p>Neste exemplo, o usuário deve digitar o nome e a idade separados por um espaço. Se o usuário digitar "Maria 30", a variável <code>nome</code> receberá "Maria" e a variável <code>idade</code> receberá 30.</p>
+<h3 id="3-3-tratando-erros-de-entrada">3.3. Tratando Erros de Entrada</h3>
+<p>As funções de leitura como <code>fmt.Scanln</code> retornam dois valores: o número de itens lidos com sucesso e um erro (se houver). É uma boa prática verificar esses valores para garantir que a entrada foi lida corretamente.</p>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var idade int
+
+    fmt.Print(&quot;Digite sua idade: &quot;)
+    itens, err := fmt.Scanln(&amp;idade)
+
+    if err != nil {
+        fmt.Println(&quot;Erro ao ler a entrada:&quot;, err)
+        return
+    }
+
+    if itens != 1 {
+        fmt.Println(&quot;Número incorreto de itens lidos.&quot;)
+        return
+    }
+
+    fmt.Printf(&quot;Você tem %d anos.\n&quot;, idade)
+}
+</code></pre>
+<p>Este código verifica se houve algum erro ao ler a entrada e se exatamente um item foi lido, como esperado.</p>
+<h3 id="3-4-outras-funções-de-entrada">3.4. Outras Funções de Entrada</h3>
+<p>Além de <code>fmt.Scanln</code>, o pacote <code>fmt</code> oferece outras funções para leitura de entrada:</p>
+<ul>
+<li><code>fmt.Scan</code>: Similar a <code>fmt.Scanln</code>, mas continua lendo até que todos os argumentos tenham sido preenchidos, mesmo que isso envolva múltiplas linhas.</li>
+<li><code>fmt.Scanf</code>: Permite especificar um formato para a entrada, similar a <code>fmt.Printf</code> para saída.</li>
+</ul>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var dia, mes, ano int
+
+    fmt.Print(&quot;Digite sua data de nascimento (DD/MM/AAAA): &quot;)
+    _, err := fmt.Scanf(&quot;%d/%d/%d&quot;, &amp;dia, &amp;mes, &amp;ano)
+
+    if err != nil {
+        fmt.Println(&quot;Formato inválido. Use DD/MM/AAAA.&quot;)
+        return
+    }
+
+    fmt.Printf(&quot;Você nasceu em %02d/%02d/%04d\n&quot;, dia, mes, ano)
+}
+</code></pre>
+<p>Neste exemplo, usamos <code>fmt.Scanf</code> com o formato <code>"%d/%d/%d"</code> para ler uma data no formato DD/MM/AAAA.</p>
+<hr />
+<h2 id="4-exemplos-práticos">4. Exemplos Práticos</h2>
+<p>Vamos ver alguns exemplos práticos de programas que utilizam entrada e saída em Go.</p>
+<h3 id="4-1-calculadora-simples">4.1. Calculadora Simples</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var num1, num2 float64
+    var operacao string
+
+    fmt.Println(&quot;Calculadora Simples&quot;)
+    fmt.Println(&quot;------------------&quot;)
+
+    fmt.Print(&quot;Digite o primeiro número: &quot;)
+    fmt.Scanln(&amp;num1)
+
+    fmt.Print(&quot;Digite o segundo número: &quot;)
+    fmt.Scanln(&amp;num2)
+
+    fmt.Print(&quot;Digite a operação (+, -, *, /): &quot;)
+    fmt.Scanln(&amp;operacao)
+
+    var resultado float64
+
+    switch operacao {
+    case &quot;+&quot;:
+        resultado = num1 + num2
+        fmt.Printf(&quot;%.2f + %.2f = %.2f\n&quot;, num1, num2, resultado)
+    case &quot;-&quot;:
+        resultado = num1 - num2
+        fmt.Printf(&quot;%.2f - %.2f = %.2f\n&quot;, num1, num2, resultado)
+    case &quot;*&quot;:
+        resultado = num1 * num2
+        fmt.Printf(&quot;%.2f * %.2f = %.2f\n&quot;, num1, num2, resultado)
+    case &quot;/&quot;:
+        if num2 == 0 {
+            fmt.Println(&quot;Erro: Divisão por zero!&quot;)
+            return
+        }
+        resultado = num1 / num2
+        fmt.Printf(&quot;%.2f / %.2f = %.2f\n&quot;, num1, num2, resultado)
+    default:
+        fmt.Println(&quot;Operação inválida!&quot;)
+        return
+    }
+}
+</code></pre>
+<p>Este programa solicita dois números e uma operação ao usuário, realiza o cálculo correspondente e exibe o resultado.</p>
+<h3 id="4-2-conversor-de-temperatura">4.2. Conversor de Temperatura</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var temperatura float64
+    var escala string
+
+    fmt.Println(&quot;Conversor de Temperatura&quot;)
+    fmt.Println(&quot;----------------------&quot;)
+
+    fmt.Print(&quot;Digite a temperatura: &quot;)
+    fmt.Scanln(&amp;temperatura)
+
+    fmt.Print(&quot;Digite a escala (C para Celsius, F para Fahrenheit): &quot;)
+    fmt.Scanln(&amp;escala)
+
+    switch escala {
+    case &quot;C&quot;, &quot;c&quot;:
+        // Converter de Celsius para Fahrenheit
+        fahrenheit := (temperatura * 9/5) + 32
+        fmt.Printf(&quot;%.2f°C = %.2f°F\n&quot;, temperatura, fahrenheit)
+    case &quot;F&quot;, &quot;f&quot;:
+        // Converter de Fahrenheit para Celsius
+        celsius := (temperatura - 32) * 5/9
+        fmt.Printf(&quot;%.2f°F = %.2f°C\n&quot;, temperatura, celsius)
+    default:
+        fmt.Println(&quot;Escala inválida! Use C para Celsius ou F para Fahrenheit.&quot;)
+    }
+}
+</code></pre>
+<p>Este programa converte temperaturas entre Celsius e Fahrenheit, dependendo da escala informada pelo usuário.</p>
+<h3 id="4-3-gerador-de-saudação-personalizada">4.3. Gerador de Saudação Personalizada</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var nome, periodo string
+
+    fmt.Print(&quot;Digite seu nome: &quot;)
+    fmt.Scanln(&amp;nome)
+
+    fmt.Print(&quot;Digite o período do dia (manhã, tarde ou noite): &quot;)
+    fmt.Scanln(&amp;periodo)
+
+    var saudacao string
+
+    switch periodo {
+    case &quot;manhã&quot;, &quot;manha&quot;:
+        saudacao = &quot;Bom dia&quot;
+    case &quot;tarde&quot;:
+        saudacao = &quot;Boa tarde&quot;
+    case &quot;noite&quot;:
+        saudacao = &quot;Boa noite&quot;
+    default:
+        saudacao = &quot;Olá&quot;
+    }
+
+    mensagem := fmt.Sprintf(&quot;%s, %s! Como você está hoje?&quot;, saudacao, nome)
+    fmt.Println(mensagem)
+}
+</code></pre>
+<p>Este programa gera uma saudação personalizada com base no nome e no período do dia informados pelo usuário.</p>
+<h3 id="4-4-calculadora-de-imc">4.4. Calculadora de IMC</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var peso, altura float64
+
+    fmt.Println(&quot;Calculadora de IMC (Índice de Massa Corporal)&quot;)
+    fmt.Println(&quot;--------------------------------------------&quot;)
+
+    fmt.Print(&quot;Digite seu peso (kg): &quot;)
+    fmt.Scanln(&amp;peso)
+
+    fmt.Print(&quot;Digite sua altura (m): &quot;)
+    fmt.Scanln(&amp;altura)
+
+    // Cálculo do IMC: peso / (altura * altura)
+    imc := peso / (altura * altura)
+
+    fmt.Printf(&quot;Seu IMC é: %.2f\n&quot;, imc)
+
+    // Classificação do IMC
+    fmt.Print(&quot;Classificação: &quot;)
+
+    switch {
+    case imc &lt; 18.5:
+        fmt.Println(&quot;Abaixo do peso&quot;)
+    case imc &lt; 25:
+        fmt.Println(&quot;Peso normal&quot;)
+    case imc &lt; 30:
+        fmt.Println(&quot;Sobrepeso&quot;)
+    case imc &lt; 35:
+        fmt.Println(&quot;Obesidade grau 1&quot;)
+    case imc &lt; 40:
+        fmt.Println(&quot;Obesidade grau 2&quot;)
+    default:
+        fmt.Println(&quot;Obesidade grau 3&quot;)
+    }
+}
+</code></pre>
+<p>Este programa calcula o Índice de Massa Corporal (IMC) com base no peso e altura informados pelo usuário, e exibe a classificação correspondente.</p>
+<hr />
+<h2 id="5-boas-práticas-para-entrada-e-saída">5. Boas Práticas para Entrada e Saída</h2>
+<p>Ao trabalhar com entrada e saída em Go, considere as seguintes boas práticas:</p>
+<h3 id="5-1-validação-de-entrada">5.1. Validação de Entrada</h3>
+<p>Sempre valide a entrada do usuário para garantir que ela atende às expectativas do seu programa:</p>
+<pre><code class="language-go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;strconv&quot;
+    &quot;strings&quot;
+)
+
+func main() {
+    var input string
+
+    fmt.Print(&quot;Digite sua idade: &quot;)
+    fmt.Scanln(&amp;input)
+
+    // Remove espaços em branco
+    input = strings.TrimSpace(input)
+
+    // Converte para inteiro
+    idade, err := strconv.Atoi(input)
+
+    // Verifica se houve erro na conversão
+    if err != nil {
+        fmt.Println(&quot;Entrada inválida. Por favor, digite um número inteiro.&quot;)
+        return
+    }
+
+    // Verifica se a idade está em um intervalo razoável
+    if idade &lt; 0 || idade &gt; 120 {
+        fmt.Println(&quot;Idade fora do intervalo válido (0-120).&quot;)
+        return
+    }
+
+    fmt.Printf(&quot;Você tem %d anos.\n&quot;, idade)
+}
+</code></pre>
+<h3 id="5-2-mensagens-claras">5.2. Mensagens Claras</h3>
+<p>Forneça mensagens claras e informativas para o usuário:</p>
+<pre><code class="language-go">// Ruim
+fmt.Print(&quot;Digite: &quot;)
+
+// Bom
+fmt.Print(&quot;Digite seu nome completo: &quot;)
+</code></pre>
+<h3 id="5-3-formatação-consistente">5.3. Formatação Consistente</h3>
+<p>Mantenha uma formatação consistente em toda a saída do seu programa:</p>
+<pre><code class="language-go">// Inconsistente
+fmt.Println(&quot;Nome:&quot;, nome)
+fmt.Printf(&quot;Idade: %d\n&quot;, idade)
+fmt.Print(&quot;Email: &quot; + email + &quot;\n&quot;)
+
+// Consistente
+fmt.Printf(&quot;Nome: %s\n&quot;, nome)
+fmt.Printf(&quot;Idade: %d\n&quot;, idade)
+fmt.Printf(&quot;Email: %s\n&quot;, email)
+</code></pre>
+<h3 id="5-4-tratamento-de-erros">5.4. Tratamento de Erros</h3>
+<p>Sempre verifique e trate os erros retornados pelas funções de entrada:</p>
+<pre><code class="language-go">_, err := fmt.Scanln(&amp;valor)
+if err != nil {
+    fmt.Println(&quot;Erro ao ler a entrada:&quot;, err)
+    // Lidar com o erro apropriadamente
+    return
+}
+</code></pre>
+<h3 id="5-5-feedback-ao-usuário">5.5. Feedback ao Usuário</h3>
+<p>Forneça feedback claro ao usuário sobre o que está acontecendo:</p>
+<pre><code class="language-go">fmt.Print(&quot;Processando dados...&quot;)
+// Operação que pode levar tempo
+fmt.Println(&quot; Concluído!&quot;)
+
+fmt.Println(&quot;Seu arquivo foi salvo com sucesso.&quot;)
+</code></pre>
+<hr />
+<h2 id="6-exercícios-offline">6. Exercícios Offline</h2>
+<ol>
+<li>
+<p><strong>Conversor de Moedas</strong>: Crie um programa que solicite um valor em reais e a taxa de câmbio, e converta para dólares.</p>
+</li>
+<li>
+<p><strong>Calculadora de Gorjeta</strong>: Crie um programa que solicite o valor da conta e a porcentagem da gorjeta, e calcule o valor total a ser pago.</p>
+</li>
+<li>
+<p><strong>Verificador de Palíndromo</strong>: Crie um programa que solicite uma palavra e verifique se ela é um palíndromo (lê-se igual de trás para frente, como "radar" ou "ovo").</p>
+</li>
+<li>
+<p><strong>Calculadora de Média</strong>: Crie um programa que solicite três notas, calcule a média e informe se o aluno foi aprovado (média &gt;= 7) ou reprovado.</p>
+</li>
+<li>
+<p><strong>Conversor de Unidades</strong>: Crie um programa que converta entre diferentes unidades de medida (por exemplo, quilômetros para milhas, ou litros para galões).</p>
+</li>
+</ol>
+<hr />
+<h2 id="7-quiz-rápido">7. Quiz Rápido</h2>
+<ol>
+<li>
+<p>Qual função do pacote <code>fmt</code> adiciona automaticamente uma quebra de linha ao final?
+   a) <code>fmt.Print</code>
+   b) <code>fmt.Printf</code>
+   c) <code>fmt.Println</code>
+   d) <code>fmt.Scanln</code></p>
+</li>
+<li>
+<p>Qual verbo de formatação é usado para exibir um número inteiro em <code>fmt.Printf</code>?
+   a) <code>%s</code>
+   b) <code>%d</code>
+   c) <code>%f</code>
+   d) <code>%t</code></p>
+</li>
+<li>
+<p>Para ler um valor do usuário e armazená-lo em uma variável <code>idade</code>, qual código está correto?
+   a) <code>fmt.Scanln(idade)</code>
+   b) <code>fmt.Scanln(&amp;idade)</code>
+   c) <code>idade = fmt.Scanln()</code>
+   d) <code>fmt.Scanln("%d", idade)</code></p>
+</li>
+<li>
+<p>Qual função retorna uma string formatada em vez de exibi-la?
+   a) <code>fmt.Print</code>
+   b) <code>fmt.Printf</code>
+   c) <code>fmt.Println</code>
+   d) <code>fmt.Sprintf</code></p>
+</li>
+<li>
+<p>Ao usar <code>fmt.Scanln</code>, o que o operador <code>&amp;</code> representa?
+   a) Concatenação de strings
+   b) Operador lógico AND
+   c) Operador de endereço (para obter o endereço de memória da variável)
+   d) Operador de referência (para criar uma referência à variável)</p>
+</li>
+</ol>
+<hr />
+<h2 id="8-desafio-prático-formulário-de-cadastro">8. Desafio Prático: Formulário de Cadastro</h2>
+<p>Crie um programa em Go que simule um formulário de cadastro simples. O programa deve:</p>
+<ol>
+<li>Solicitar ao usuário as seguintes informações:</li>
+<li>Nome completo</li>
+<li>Idade</li>
+<li>Email</li>
+<li>
+<p>Telefone</p>
+</li>
+<li>
+<p>Após receber todas as informações, exibir um resumo formatado dos dados informados.</p>
+</li>
+<li>
+<p>Perguntar ao usuário se os dados estão corretos (S/N).</p>
+</li>
+<li>
+<p>Se o usuário responder "S", exibir uma mensagem de cadastro concluído. Caso contrário, permitir que o usuário informe os dados novamente.</p>
+</li>
+</ol>
+<p><strong>Exemplo de Saída Esperada:</strong></p>
+<pre><code>=== Formulário de Cadastro ===
+
+Digite seu nome completo: João da Silva
+Digite sua idade: 30
+Digite seu email: joao@email.com
+Digite seu telefone: (11) 98765-4321
+
+=== Resumo do Cadastro ===
+Nome: João da Silva
+Idade: 30 anos
+Email: joao@email.com
+Telefone: (11) 98765-4321
+
+Os dados estão corretos? (S/N): S
+
+Cadastro concluído com sucesso!
+</code></pre>
+<p><strong>Dica:</strong> Use <code>fmt.Scanln</code> para ler a entrada do usuário e <code>fmt.Printf</code> para formatar a saída.</p>
+<hr />
+<h2 id="9-resumo-da-aula">9. Resumo da Aula</h2>
+<p>Nesta aula, aprendemos sobre entrada e saída em Go usando o pacote <code>fmt</code>:</p>
+<ul>
+<li><strong>Funções de Saída</strong>:</li>
+<li><code>fmt.Print</code>: Exibe texto sem adicionar quebras de linha.</li>
+<li><code>fmt.Println</code>: Exibe texto e adiciona uma quebra de linha ao final.</li>
+<li><code>fmt.Printf</code>: Permite formatação avançada usando verbos como <code>%s</code>, <code>%d</code>, <code>%f</code>.</li>
+<li>
+<p><code>fmt.Sprintf</code>: Retorna uma string formatada em vez de exibi-la.</p>
+</li>
+<li>
+<p><strong>Funções de Entrada</strong>:</p>
+</li>
+<li><code>fmt.Scanln</code>: Lê a entrada do usuário até encontrar uma quebra de linha.</li>
+<li><code>fmt.Scan</code>: Lê a entrada até preencher todos os argumentos.</li>
+<li>
+<p><code>fmt.Scanf</code>: Permite especificar um formato para a entrada.</p>
+</li>
+<li>
+<p><strong>Verbos de Formatação</strong>:</p>
+</li>
+<li><code>%v</code>: Valor no formato padrão</li>
+<li><code>%T</code>: Tipo do valor</li>
+<li><code>%d</code>: Inteiro decimal</li>
+<li><code>%f</code>: Ponto flutuante</li>
+<li><code>%s</code>: String</li>
+<li><code>%t</code>: Booleano</li>
+<li>
+<p>E muitos outros para casos específicos.</p>
+</li>
+<li>
+<p><strong>Boas Práticas</strong>:</p>
+</li>
+<li>Validar a entrada do usuário</li>
+<li>Fornecer mensagens claras</li>
+<li>Manter formatação consistente</li>
+<li>Tratar erros adequadamente</li>
+<li>Fornecer feedback ao usuário</li>
+</ul>
+<p>A entrada e saída são fundamentais para criar programas interativos que se comunicam com o usuário. Com o pacote <code>fmt</code>, Go oferece ferramentas poderosas e flexíveis para lidar com essas operações.</p>
+<hr />
+<h2 id="10-ficha-de-referência-rápida">10. Ficha de Referência Rápida</h2>
+<h3 id="funções-de-saída">Funções de Saída</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Descrição</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fmt.Print</code></td>
+<td>Exibe texto sem quebra de linha</td>
+<td><code>fmt.Print("Olá")</code></td>
+</tr>
+<tr>
+<td><code>fmt.Println</code></td>
+<td>Exibe texto com quebra de linha</td>
+<td><code>fmt.Println("Olá")</code></td>
+</tr>
+<tr>
+<td><code>fmt.Printf</code></td>
+<td>Exibe texto formatado</td>
+<td><code>fmt.Printf("%s tem %d anos", nome, idade)</code></td>
+</tr>
+<tr>
+<td><code>fmt.Sprintf</code></td>
+<td>Retorna texto formatado</td>
+<td><code>msg := fmt.Sprintf("%s tem %d anos", nome, idade)</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="funções-de-entrada">Funções de Entrada</h3>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>Descrição</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fmt.Scanln</code></td>
+<td>Lê até quebra de linha</td>
+<td><code>fmt.Scanln(&amp;nome)</code></td>
+</tr>
+<tr>
+<td><code>fmt.Scan</code></td>
+<td>Lê até preencher argumentos</td>
+<td><code>fmt.Scan(&amp;x, &amp;y)</code></td>
+</tr>
+<tr>
+<td><code>fmt.Scanf</code></td>
+<td>Lê com formato específico</td>
+<td><code>fmt.Scanf("%d/%d/%d", &amp;dia, &amp;mes, &amp;ano)</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="verbos-de-formatação-comuns">Verbos de Formatação Comuns</h3>
+<table>
+<thead>
+<tr>
+<th>Verbo</th>
+<th>Uso</th>
+<th>Exemplo</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>%v</code></td>
+<td>Valor padrão</td>
+<td><code>fmt.Printf("%v", 123)</code></td>
+<td><code>123</code></td>
+</tr>
+<tr>
+<td><code>%T</code></td>
+<td>Tipo</td>
+<td><code>fmt.Printf("%T", 123)</code></td>
+<td><code>int</code></td>
+</tr>
+<tr>
+<td><code>%d</code></td>
+<td>Inteiro</td>
+<td><code>fmt.Printf("%d", 123)</code></td>
+<td><code>123</code></td>
+</tr>
+<tr>
+<td><code>%f</code></td>
+<td>Float</td>
+<td><code>fmt.Printf("%f", 123.45)</code></td>
+<td><code>123.450000</code></td>
+</tr>
+<tr>
+<td><code>%.2f</code></td>
+<td>Float com 2 decimais</td>
+<td><code>fmt.Printf("%.2f", 123.45)</code></td>
+<td><code>123.45</code></td>
+</tr>
+<tr>
+<td><code>%s</code></td>
+<td>String</td>
+<td><code>fmt.Printf("%s", "texto")</code></td>
+<td><code>texto</code></td>
+</tr>
+<tr>
+<td><code>%t</code></td>
+<td>Booleano</td>
+<td><code>fmt.Printf("%t", true)</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>%q</code></td>
+<td>String com aspas</td>
+<td><code>fmt.Printf("%q", "texto")</code></td>
+<td><code>"texto"</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="dicas-para-depuração">Dicas para Depuração</h3>
+<ul>
+<li>Use <code>fmt.Printf("%#v", variavel)</code> para ver uma representação detalhada da variável, incluindo seu tipo.</li>
+<li>Use <code>fmt.Printf("%+v", struct)</code> para ver os nomes dos campos em uma struct.</li>
+<li>Use <code>fmt.Printf("%T", variavel)</code> para verificar o tipo de uma variável.</li>
+</ul>
+<hr />
+<h2 id="11-modelos-de-código">11. Modelos de Código</h2>
+<h3 id="modelo-1-leitura-básica-de-entrada">Modelo 1: Leitura Básica de Entrada</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var nome string
+    var idade int
+
+    fmt.Print(&quot;Digite seu nome: &quot;)
+    fmt.Scanln(&amp;nome)
+
+    fmt.Print(&quot;Digite sua idade: &quot;)
+    fmt.Scanln(&amp;idade)
+
+    fmt.Printf(&quot;Olá, %s! Você tem %d anos.\n&quot;, nome, idade)
+}
+</code></pre>
+<h3 id="modelo-2-validação-de-entrada">Modelo 2: Validação de Entrada</h3>
+<pre><code class="language-go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;strconv&quot;
+    &quot;strings&quot;
+)
+
+func main() {
+    var input string
+
+    fmt.Print(&quot;Digite um número: &quot;)
+    fmt.Scanln(&amp;input)
+
+    // Remove espaços em branco
+    input = strings.TrimSpace(input)
+
+    // Tenta converter para número
+    numero, err := strconv.ParseFloat(input, 64)
+
+    if err != nil {
+        fmt.Println(&quot;Entrada inválida. Por favor, digite um número válido.&quot;)
+        return
+    }
+
+    fmt.Printf(&quot;O número digitado foi: %.2f\n&quot;, numero)
+}
+</code></pre>
+<h3 id="modelo-3-menu-interativo">Modelo 3: Menu Interativo</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    var opcao int
+
+    for {
+        fmt.Println(&quot;\n=== Menu ===&quot;)
+        fmt.Println(&quot;1. Opção 1&quot;)
+        fmt.Println(&quot;2. Opção 2&quot;)
+        fmt.Println(&quot;3. Opção 3&quot;)
+        fmt.Println(&quot;0. Sair&quot;)
+        fmt.Print(&quot;Escolha uma opção: &quot;)
+
+        fmt.Scanln(&amp;opcao)
+
+        switch opcao {
+        case 1:
+            fmt.Println(&quot;Você escolheu a Opção 1&quot;)
+            // Código para a opção 1
+        case 2:
+            fmt.Println(&quot;Você escolheu a Opção 2&quot;)
+            // Código para a opção 2
+        case 3:
+            fmt.Println(&quot;Você escolheu a Opção 3&quot;)
+            // Código para a opção 3
+        case 0:
+            fmt.Println(&quot;Saindo do programa...&quot;)
+            return
+        default:
+            fmt.Println(&quot;Opção inválida! Por favor, escolha uma opção válida.&quot;)
+        }
+    }
+}
+</code></pre>
+<h3 id="modelo-4-formatação-de-tabela">Modelo 4: Formatação de Tabela</h3>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    // Dados para a tabela
+    nomes := []string{&quot;Ana&quot;, &quot;Bruno&quot;, &quot;Carla&quot;}
+    idades := []int{25, 30, 22}
+    cidades := []string{&quot;São Paulo&quot;, &quot;Rio de Janeiro&quot;, &quot;Belo Horizonte&quot;}
+
+    // Cabeçalho da tabela
+    fmt.Println(&quot;+-----------------+---------+----------------------+&quot;)
+    fmt.Println(&quot;| Nome            | Idade   | Cidade               |&quot;)
+    fmt.Println(&quot;+-----------------+---------+----------------------+&quot;)
+
+    // Linhas da tabela
+    for i := 0; i &lt; len(nomes); i++ {
+        fmt.Printf(&quot;| %-15s | %-7d | %-20s |\n&quot;, nomes[i], idades[i], cidades[i])
+    }
+
+    // Rodapé da tabela
+    fmt.Println(&quot;+-----------------+---------+----------------------+&quot;)
+}
+</code></pre>
+<hr />
+<p><strong>Gabarito do Quiz:</strong>
+1. c) <code>fmt.Println</code>
+2. b) <code>%d</code>
+3. b) <code>fmt.Scanln(&amp;idade)</code>
+4. d) <code>fmt.Sprintf</code>
+5. c) Operador de endereço (para obter o endereço de memória da variável)</p>
+  </article>
+</main>
+
+</body>
+</html>

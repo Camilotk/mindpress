@@ -1,0 +1,169 @@
+/**
+ * quiz.css - Estilos garantidos para quizzes
+ * Versão com seletores muito específicos para evitar conflitos
+ */
+
+/* ESTILOS GERAIS PARA QUIZZES DE MÚLTIPLA ESCOLHA */
+
+/* Lista de opções - remove bullets/marcadores */
+.quiz[data-type="single"] ul.options {
+  list-style-type: none !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+/* Itens individuais da lista de opções */
+.quiz[data-type="single"] ul.options li {
+  cursor: pointer !important;
+  padding: 8px 12px !important;
+  margin: 5px 0 !important;
+  border-radius: 4px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  transition: background-color 0.2s ease !important;
+}
+
+/* Estado hover */
+.quiz[data-type="single"] ul.options li:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Estado selecionado (antes de verificar) */
+.quiz[data-type="single"] ul.options li.selected {
+  background-color: rgba(33, 150, 243, 0.15) !important;
+  border-color: #2196f3 !important;
+}
+
+/* Estado correto */
+.quiz[data-type="single"] ul.options li.right {
+  background-color: rgba(76, 175, 80, 0.2) !important;
+  border-color: #4caf50 !important;
+}
+
+/* Estado incorreto */
+.quiz[data-type="single"] ul.options li.wrong {
+  background-color: rgba(244, 67, 54, 0.2) !important;
+  border-color: #f44336 !important;
+}
+
+/* Botão de enviar - movido dos estilos inline */
+.quiz-submit {
+  display: block !important;
+  margin-top: 10px !important;
+  padding: 8px 15px !important;
+  background-color: #2196f3 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  font-weight: bold !important;
+}
+
+.quiz-submit:hover {
+  background-color: #0d8bf2 !important;
+}
+
+/* Explicação */
+.quiz .explanation {
+  margin-top: 10px !important;
+  padding: 10px !important;
+  border-left: 3px solid #ffc107 !important;
+  background-color: rgba(255, 193, 7, 0.05) !important;
+  border-radius: 0 4px 4px 0 !important;
+}
+
+/* QUIZZES DE PARES (MATCH) */
+
+/* Container das colunas */
+.pair-quiz .pair-columns {
+  display: flex !important;
+  gap: 20px !important;
+  justify-content: space-between !important;
+  margin: 10px 0 !important;
+}
+
+/* Listas (colunas) */
+.pair-quiz .pair-left,
+.pair-quiz .pair-right {
+  flex-basis: 45% !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Itens das listas */
+.pair-quiz li {
+  padding: 8px !important;
+  margin: 5px 0 !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Estado hover */
+.pair-quiz li:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Estado selecionado */
+.pair-quiz li.selected {
+  background-color: rgba(33, 150, 243, 0.15) !important;
+  outline: 2px solid #2196f3 !important;
+}
+
+/* Estado correto */
+.pair-quiz li.right {
+  background-color: rgba(76, 175, 80, 0.2) !important;
+  border-color: #4caf50 !important;
+}
+
+/* Estado incorreto */
+.pair-quiz li.wrong {
+  background-color: rgba(244, 67, 54, 0.2) !important;
+  border-color: #f44336 !important;
+}
+
+/* Estado combinado */
+.pair-quiz li.matched {
+  opacity: 0.7 !important;
+  cursor: default !important;
+}
+
+/* QUIZZES DE CÓDIGO */
+
+/* Área de texto */
+.quiz.code-quiz .answer-area {
+  width: 100% !important;
+  min-height: 120px !important;
+  margin: 10px 0 !important;
+  font-family: monospace !important;
+  padding: 8px !important;
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  color: inherit !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 4px !important;
+}
+
+/* Solução */
+.quiz.code-quiz .solution {
+  padding: 8px !important;
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  border-radius: 4px !important;
+  border-left: 3px solid #4caf50 !important;
+}
+
+/* Botão de verificação */
+.quiz.code-quiz .check-answer {
+  background-color: #4caf50 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 4px !important;
+  padding: 8px 15px !important;
+  cursor: pointer !important;
+  font-weight: bold !important;
+}
+
+.quiz.code-quiz .check-answer:hover {
+  background-color: #3d8b40 !important;
+}
