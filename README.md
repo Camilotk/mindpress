@@ -1,10 +1,10 @@
-# Interactive Course Framework
+# Mindpress
 
 This is a lightweight static site generator designed for educators to create interactive lessons using Markdown. The generated pages are styled in a clean, with support to themes and support rich interactivity like quizzes and matching exercises.
 
 ---
 
-## ✨ Features
+## Features
 
 - Write lessons in Markdown with YAML metadata
 - Interactive **multiple choice quizzes**
@@ -18,7 +18,7 @@ This is a lightweight static site generator designed for educators to create int
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```bash
 .
@@ -39,7 +39,7 @@ This is a lightweight static site generator designed for educators to create int
 
 ---
 
-## 🛠 How to Use
+## How to Use
 
 1. **Write Markdown lesson**
    - Place in `content/classes/`
@@ -88,7 +88,7 @@ This is a lightweight static site generator designed for educators to create int
 
 ---
 
-## ⚙️ Configuration (config.json)
+## Configuration (config.json)
 
 ```json
 {
@@ -119,7 +119,7 @@ pip install -r requirements.txt
 
 ---
 
-## 👥 Contributing Themes
+## Contributing Themes
 
 Create a folder in `src/themes/your_theme` with:
 
@@ -129,7 +129,7 @@ Create a folder in `src/themes/your_theme` with:
 
 ---
 
-## 📄 License
+## License
 
 GPL-3. Free as in freedom.
 
